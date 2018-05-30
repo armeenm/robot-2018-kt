@@ -1,14 +1,17 @@
 package frc.team4096.robot.subsystems
 
 import edu.wpi.first.wpilibj.DoubleSolenoid
+import edu.wpi.first.wpilibj.GenericHID
 import edu.wpi.first.wpilibj.command.Subsystem
-import edu.wpi.first.wpilibj.PIDController
 import edu.wpi.first.wpilibj.SpeedControllerGroup
 import edu.wpi.first.wpilibj.VictorSP
 import edu.wpi.first.wpilibj.drive.DifferentialDrive
+import frc.team4096.robot.OI
+import frc.team4096.robot.commands.CurvatureDrive
 
 import frc.team4096.robot.util.DriveConsts
-import frc.team4096.robot.util.MiscIDs
+import frc.team4096.robot.util.MiscConsts
+import frc.team4096.robot.util.XboxConsts
 
 object DriveSubsystem: Subsystem() {
 	// Hardware
@@ -23,7 +26,7 @@ object DriveSubsystem: Subsystem() {
 	var diffDrive = DifferentialDrive(leftGroup, rightGroup)
 
 	var shifterSolenoid = DoubleSolenoid(
-			MiscIDs.CAN_PCM,
+			MiscConsts.CAN_PCM,
 			DriveConsts.PCM_SHIFTER_1,
 			DriveConsts.PCM_SHIFTER_2
 	)
@@ -34,7 +37,7 @@ object DriveSubsystem: Subsystem() {
 
 	// Software states
 	var state = DriveState.OPEN_LOOP
-	var mode = DriveMode.CURVE
+	var mode = DriveMode.CURVATURE
 	var wasCorrecting = false
 
 	// Values
@@ -46,7 +49,13 @@ object DriveSubsystem: Subsystem() {
 		setGearState(GearState.HIGH)
 	}
 
-	override fun initDefaultCommand() {}
+	override fun initDefaultCommand() {
+		CurvatureDrive(
+				OI.getAxis(OI.XboxController1, XboxConsts.Axis.LEFT_Y),
+				OI.getAxis(OI.XboxController1, XboxConsts.Axis.RIGHT_X),
+				OI.XboxController1.getBumper(GenericHID.Hand.kLeft)
+		)
+	}
 
 	// Used to fix internal gear state in case someone manually shifted
 	private fun updateGearState() {
@@ -62,9 +71,11 @@ object DriveSubsystem: Subsystem() {
 		when (gear) {
 			GearState.HIGH -> setGearState(GearState.LOW)
 			GearState.LOW -> setGearState(GearState.HIGH)
-			else -> throw Exception("Unable to toggle gear state")
+			else -> throw kotlin.Exception("Unable to toggle gear state")
 		}
 	}
+
+	fun stop() = this.diffDrive.tankDrive(0, 0)
 
 	fun curvatureDrive(xSpeed: Double, zRotation: Double, isQuickTurn: Boolean) {
 		this.xSpeed = xSpeed
@@ -78,7 +89,7 @@ object DriveSubsystem: Subsystem() {
 enum class DriveMode {
 	TANK,
 	ARCADE,
-	CURVE
+	CURVATURE
 }
 
 enum class DriveState {
