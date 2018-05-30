@@ -10,8 +10,6 @@ import edu.wpi.first.wpilibj.drive.DifferentialDrive
 import frc.team4096.robot.util.DriveConsts
 import frc.team4096.robot.util.MiscIDs
 
-import kotlin.IllegalArgumentException
-
 object DriveSubsystem: Subsystem() {
 	// Hardware
 	var left1 = VictorSP(DriveConsts.PWM_L1)
@@ -39,6 +37,10 @@ object DriveSubsystem: Subsystem() {
 	var mode = DriveMode.CURVE
 	var wasCorrecting = false
 
+	// Values
+	var xSpeed: Double = 0.0
+	var zRotation: Double = 0.0
+
 	init {
 		// Set high gear
 		setGearState(GearState.HIGH)
@@ -56,7 +58,21 @@ object DriveSubsystem: Subsystem() {
 		gear = state
 	}
 
-	fun drive()
+	fun toggleGearState() {
+		when (gear) {
+			GearState.HIGH -> setGearState(GearState.LOW)
+			GearState.LOW -> setGearState(GearState.HIGH)
+			else -> throw Exception("Unable to toggle gear state")
+		}
+	}
+
+	fun curvatureDrive(xSpeed: Double, zRotation: Double, isQuickTurn: Boolean) {
+		this.xSpeed = xSpeed
+		this.zRotation = zRotation
+		this.isQuickTurn = isQuickTurn
+
+		this.diffDrive.curvatureDrive(xSpeed, zRotation, isQuickTurn)
+	}
 }
 
 enum class DriveMode {
@@ -84,9 +100,6 @@ enum class GearState(val solenoidState: DoubleSolenoid.Value) {
 
 		// Function to return value from map
 		fun fromInt(type: DoubleSolenoid.Value) =
-			map[type] ?: throw kotlin.IllegalArgumentException(
-					// Given value wasn't in the map
-					"Bad solenoid state!"
-			)
+			map[type] ?: throw IllegalArgumentException()
 	}
 }
