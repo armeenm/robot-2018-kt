@@ -10,6 +10,8 @@ import edu.wpi.first.wpilibj.drive.DifferentialDrive
 import frc.team4096.robot.util.DriveConsts
 import frc.team4096.robot.util.MiscIDs
 
+import kotlin.IllegalArgumentException
+
 object DriveSubsystem: Subsystem() {
 	// Hardware
 	var left1 = VictorSP(DriveConsts.PWM_L1)
@@ -29,7 +31,7 @@ object DriveSubsystem: Subsystem() {
 	)
 
 	// Hardware states
-	var gear = updateGearState()
+	var gear = GearState.NEUTRAL
 	var isQuickTurn = false
 
 	// Software states
@@ -44,14 +46,17 @@ object DriveSubsystem: Subsystem() {
 
 	override fun initDefaultCommand() {}
 
-	fun setGearState(state: GearState) {
-		shifterSolenoid.set(state.solenoidState)
-	}
-
 	// Used to fix internal gear state in case someone manually shifted
 	private fun updateGearState() {
-		gear = (GearState)shifterSolenoid.get()
+		gear = GearState.fromInt(shifterSolenoid.get())
 	}
+
+	fun setGearState(state: GearState) {
+		shifterSolenoid.set(state.solenoidState)
+		gear = state
+	}
+
+	fun drive()
 }
 
 enum class DriveMode {
@@ -69,5 +74,19 @@ enum class DriveState {
 enum class GearState(val solenoidState: DoubleSolenoid.Value) {
 	HIGH(DoubleSolenoid.Value.kForward),
 	LOW(DoubleSolenoid.Value.kReverse),
-	NEUTRAL(DoubleSolenoid.Value.kOff)
+	NEUTRAL(DoubleSolenoid.Value.kOff);
+
+	// Reverse lookup companion object
+	companion object {
+		// Create mapping from value (DoubleSolenoid.Value) to GearState
+		private val map =
+				GearState.values().associateBy(GearState::solenoidState)
+
+		// Function to return value from map
+		fun fromInt(type: DoubleSolenoid.Value) =
+			map[type] ?: throw kotlin.IllegalArgumentException(
+					// Given value wasn't in the map
+					"Bad solenoid state!"
+			)
+	}
 }
