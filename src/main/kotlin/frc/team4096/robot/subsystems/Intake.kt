@@ -10,8 +10,8 @@ import frc.team4096.robot.util.*
 object IntakeSubsystem: Subsystem() {
 	// Hardware
 	// TODO: Add second motor controller for wheels
-	private var wheelMotor = VictorSP(IntakeConsts.PWM_WHEELS)
-	private var rotationMotor = VictorSP(IntakeConsts.PWM_ROTATE)
+	private var wheelMotor = VictorSP(IntakeConsts.PWM_WHEELS_MOTOR)
+	private var rotationMotor = VictorSP(IntakeConsts.PWM_ROTATE_MOTOR)
 
 	private var squeezeSolenoid = DoubleSolenoid(
 			MiscConsts.CAN_PCM,
@@ -31,9 +31,9 @@ object IntakeSubsystem: Subsystem() {
 	var isRotateStalling = false
 
 	var rotateHolding = false
-		set(inputBool) {
-			rotateSpeed = if (inputBool) IntakeConsts.ROTATE_HOLD_SPEED else 0.0
-			field = inputBool
+		set(input) {
+			rotateSpeed = if (input) IntakeConsts.ROTATE_HOLD_SPEED else 0.0
+			field = input
 		}
 
 	// Software states

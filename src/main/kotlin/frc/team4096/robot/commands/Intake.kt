@@ -18,13 +18,3 @@ class ManualIntake(var inSpeed: Double, var outSpeed: Double): Command() {
 
 	override fun interrupted() = this.end()
 }
-
-class ManualRotate(var speed: Double): Command() {
-	override fun execute() { IntakeSubsystem.rotateSpeed = speed }
-
-	override fun isFinished(): Boolean = false
-
-	override fun end() { IntakeSubsystem.rotateSpeed = 0.0 }
-
-	override fun interrupted() = this.end()
-}

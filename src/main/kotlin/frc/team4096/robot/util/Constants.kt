@@ -54,8 +54,8 @@ object IntakeConsts {
 	const val ROTATE_DEAD_BAND = 0.05
 
 	// Motors
-	const val PWM_WHEELS = 4
-	const val PWM_ROTATE = 6
+	const val PWM_WHEELS_MOTOR = 4
+	const val PWM_ROTATE_MOTOR = 6
 
 	const val PDP_WHEELS = 7
 
@@ -73,8 +73,8 @@ object IntakeConsts {
 
 object ElevatorConsts {
 	// Motors
-	const val CAN_MASTER = 1
-	const val CAN_SLAVE = 3
+	const val CAN_MASTER_MOTOR = 1
+	const val CAN_SLAVE_MOTOR = 3
 
 	// Pneumatics
 	const val PCM_BRAKE_1 = 1
@@ -93,12 +93,15 @@ object ElevatorConsts {
 
 object ClimberConsts {
 	// Motors
-	const val PWM_1 = 5
-	const val PWM_2 = 7
+	const val PWM_MOTOR = 5
 	const val PWM_SERVO = 9
 
+	// Speeds
+	const val MAX_FORWARD_SPEED = 1.0
+	const val MAX_REVERSE_SPEED = -1.0
+
 	// Software
-	const val SERVO_RELEASE_ANGLE = 90
+	const val SERVO_RELEASE_ANGLE = 90.0
 }
 
 object MiscConsts {
