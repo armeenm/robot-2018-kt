@@ -10,10 +10,6 @@ class CurvatureDrive(var xSpeed: Double, var zRotation: Double, var isQuickTurn:
 		this.isInterruptible = true
 	}
 
-	override fun initialize() {
-		DriveSubsystem.isQuickTurn = isQuickTurn
-	}
-
 	override fun execute() = DriveSubsystem.curvatureDrive(xSpeed, zRotation, isQuickTurn)
 
 	override fun isFinished() = false

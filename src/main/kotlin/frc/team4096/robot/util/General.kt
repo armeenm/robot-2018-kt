@@ -16,3 +16,11 @@ inline fun Commandify(crossinline method: () -> Unit): Command = object: Instant
 }
 
 fun applyDeadband(inputValue: Double, deadBand: Double) = if (abs(inputValue) >= deadBand) inputValue else 0.0
+
+enum class ControlState {
+	OPEN_LOOP,
+	CURRENT_SENSING,
+	VELOCITY_CONTROL,
+	POSITION_CONTROL,
+	PATH_FOLLOWING
+}
