@@ -83,17 +83,6 @@ enum class SqueezeState(val solenoidState: DoubleSolenoid.Value) {
 	IN(DoubleSolenoid.Value.kForward),
 	OUT(DoubleSolenoid.Value.kReverse),
 	NEUTRAL(DoubleSolenoid.Value.kOff);
-
-	// Reverse lookup companion object
-	companion object {
-		// Create mapping from value (DoubleSolenoid.Value) to SqueezeState
-		private val map =
-				SqueezeState.values().associateBy(SqueezeState::solenoidState)
-
-		// Function to return value from map
-		fun fromInt(type: DoubleSolenoid.Value) =
-			map[type] ?: throw IllegalArgumentException("Value not in SqueezeState enum")
-	}
 }
 
 enum class HasCube {

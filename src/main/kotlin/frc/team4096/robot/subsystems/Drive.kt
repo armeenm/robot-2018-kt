@@ -103,15 +103,4 @@ enum class GearState(val solenoidState: DoubleSolenoid.Value) {
 	HIGH(DoubleSolenoid.Value.kForward),
 	LOW(DoubleSolenoid.Value.kReverse),
 	NEUTRAL(DoubleSolenoid.Value.kOff);
-
-	// Reverse lookup companion object
-	companion object {
-		// Create mapping from value (DoubleSolenoid.Value) to GearState
-		private val map =
-				GearState.values().associateBy(GearState::solenoidState)
-
-		// Function to return value from map
-		fun fromInt(type: DoubleSolenoid.Value) =
-			map[type] ?: throw IllegalArgumentException("Value not in GearState enum")
-	}
 }
