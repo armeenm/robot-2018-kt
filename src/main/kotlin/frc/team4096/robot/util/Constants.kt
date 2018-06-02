@@ -12,6 +12,10 @@ object DriveConsts {
 	const val PWM_R2 = 1
 
 	// Sensors
+	const val L_ENC_CHANNEL_A = 0
+	const val L_ENC_CHANNEL_B = 1
+	const val R_ENC_CHANNEL_A = 2
+	const val R_ENC_CHANNEL_B = 3
 
 	// Pneumatics
 	const val PCM_SHIFTER_1 = 0
