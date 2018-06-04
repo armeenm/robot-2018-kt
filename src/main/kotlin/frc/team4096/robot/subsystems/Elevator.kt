@@ -7,12 +7,11 @@ import com.ctre.phoenix.motorcontrol.StatusFrameEnhanced
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX
 import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX
 import edu.wpi.first.wpilibj.DoubleSolenoid
-import edu.wpi.first.wpilibj.command.Subsystem
 import frc.team4096.robot.OI
 import frc.team4096.robot.commands.ManualElevator
 import frc.team4096.robot.util.*
 
-object ElevatorSubsystem: Subsystem() {
+object ElevatorSubsystem: ZSubsystem() {
 	// Hardware
 	private var masterMotor = WPI_TalonSRX(ElevatorConsts.CAN_MASTER_MOTOR)
 	private var slaveMotor = WPI_VictorSPX(ElevatorConsts.CAN_SLAVE_MOTOR)
@@ -38,9 +37,10 @@ object ElevatorSubsystem: Subsystem() {
 	// Software States
 	var controlState = ControlState.OPEN_LOOP
 
+	// Required Methods
 	init { reset() }
 
-	fun reset() {
+	override fun reset() {
 		// Configure Talon SRX (Master)
 		masterMotor.selectProfileSlot(ElevatorConsts.K_SLOT_ID, 0)
 		masterMotor.configPIDF(
@@ -84,17 +84,23 @@ object ElevatorSubsystem: Subsystem() {
 		slaveMotor.follow(masterMotor)
 	}
 
+	override fun log() {
+		TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+	}
+
 	override fun initDefaultCommand() { ManualElevator(OI.XboxController2.getAxis(XboxConsts.Axis.LEFT_Y)) }
 
+	// Methods
 	fun goMotionMagicDistance(distance: Double) {
 		hwState = ElevatorState.FREE
 		masterMotor.set(ControlMode.MotionMagic, distance)
 		hwState = ElevatorState.HOLDING
 	}
-}
 
-enum class ElevatorState(val solenoidState: DoubleSolenoid.Value) {
-	FREE(DoubleSolenoid.Value.kReverse),
-	HOLDING(DoubleSolenoid.Value.kForward),
-	NEUTRAL(DoubleSolenoid.Value.kOff)
+	// Enums
+	enum class ElevatorState(val solenoidState: DoubleSolenoid.Value) {
+		FREE(DoubleSolenoid.Value.kReverse),
+		HOLDING(DoubleSolenoid.Value.kForward),
+		NEUTRAL(DoubleSolenoid.Value.kOff)
+	}
 }

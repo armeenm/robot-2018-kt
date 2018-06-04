@@ -2,12 +2,11 @@ package frc.team4096.robot.subsystems
 
 import edu.wpi.first.wpilibj.DoubleSolenoid
 import edu.wpi.first.wpilibj.VictorSP
-import edu.wpi.first.wpilibj.command.Subsystem
 import frc.team4096.robot.OI
 import frc.team4096.robot.commands.ManualIntake
 import frc.team4096.robot.util.*
 
-object IntakeSubsystem: Subsystem() {
+object IntakeSubsystem: ZSubsystem() {
 	// Hardware
 	// TODO: Add second motor controller for wheels
 	private var wheelMotor = VictorSP(IntakeConsts.PWM_WHEELS_MOTOR)
@@ -36,11 +35,11 @@ object IntakeSubsystem: Subsystem() {
 			field = input
 		}
 
-	// Software states
+	// Software States
 	var wheelControlState = ControlState.OPEN_LOOP
 	var rotationControlState = ControlState.OPEN_LOOP
 
-	// Motor values
+	// Motor Values
 	var intakeSpeed: Double = 0.0
 		set(inputSpeed) {
 			applyDeadband(inputSpeed, IntakeConsts.WHEEL_DEAD_BAND)
@@ -56,37 +55,37 @@ object IntakeSubsystem: Subsystem() {
 			}
 		}
 
-	init {
-		reset()
-	}
+	// Required Methods
+	init { reset() }
 
-	private fun reset() {
-		squeeze = SqueezeState.IN
-	}
+	override fun reset() { squeeze = SqueezeState.IN }
 
-	fun autoReset() {
+	override fun autoReset() {
 		// We have a cube at the start of auto
 		cube = HasCube.TRUE
 		reset()
 	}
 
-	fun teleopReset() {
-		reset()
+	override fun log() {
+		TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
 	}
 
 	override fun initDefaultCommand() {
 		ManualIntake(OI.XboxController2.getAxis(XboxConsts.Axis.LT), OI.XboxController2.getAxis(XboxConsts.Axis.RT))
 	}
+
+	// Enums
+	enum class SqueezeState(val solenoidState: DoubleSolenoid.Value) {
+		IN(DoubleSolenoid.Value.kForward),
+		OUT(DoubleSolenoid.Value.kReverse),
+		NEUTRAL(DoubleSolenoid.Value.kOff);
+	}
+
+	enum class HasCube {
+		TRUE,
+		FALSE,
+		UNKNOWN
+	}
 }
 
-enum class SqueezeState(val solenoidState: DoubleSolenoid.Value) {
-	IN(DoubleSolenoid.Value.kForward),
-	OUT(DoubleSolenoid.Value.kReverse),
-	NEUTRAL(DoubleSolenoid.Value.kOff);
-}
 
-enum class HasCube {
-	TRUE,
-	FALSE,
-	UNKNOWN
-}

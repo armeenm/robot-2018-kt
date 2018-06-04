@@ -2,15 +2,14 @@
 
 package frc.team4096.robot
 
-import edu.wpi.first.wpilibj.command.Command
 import frc.team4096.robot.subsystems.*
 import frc.team4096.robot.util.*
 
 object OI {
 
 	// Setup controllers with custom Ctrl-"Z" XboxController wrapper
-	val XboxController1 =  Z_XboxController(0)
-	val XboxController2 =  Z_XboxController(1)
+	val XboxController1 =  ZXboxController(0)
+	val XboxController2 =  ZXboxController(1)
 
 	init {
 		// Controller 1 (Main Driver)

@@ -2,7 +2,6 @@ package frc.team4096.robot.subsystems
 
 import edu.wpi.first.wpilibj.DoubleSolenoid
 import edu.wpi.first.wpilibj.Encoder
-import edu.wpi.first.wpilibj.command.Subsystem
 import edu.wpi.first.wpilibj.SpeedControllerGroup
 import edu.wpi.first.wpilibj.VictorSP
 import edu.wpi.first.wpilibj.drive.DifferentialDrive
@@ -10,40 +9,37 @@ import edu.wpi.first.wpilibj.drive.DifferentialDrive
 import frc.team4096.robot.OI
 import frc.team4096.robot.Robot
 import frc.team4096.robot.commands.CurvatureDrive
-import frc.team4096.robot.util.ControlState
-import frc.team4096.robot.util.DriveConsts
-import frc.team4096.robot.util.MiscConsts
-import frc.team4096.robot.util.XboxConsts
+import frc.team4096.robot.util.*
 import kotlin.math.cos
 import kotlin.math.sin
 
-object DriveSubsystem: Subsystem() {
+object DriveSubsystem: ZSubsystem() {
 	// Hardware
-	val leftMotor1 = VictorSP(DriveConsts.PWM_L1)
-	val leftMotor2 = VictorSP(DriveConsts.PWM_L2)
-	val leftMotorGroup = SpeedControllerGroup(leftMotor1, leftMotor2)
+	private val leftMotor1 = VictorSP(DriveConsts.PWM_L1)
+	private val leftMotor2 = VictorSP(DriveConsts.PWM_L2)
+	private val leftMotorGroup = SpeedControllerGroup(leftMotor1, leftMotor2)
 
-	val rightMotor1 = VictorSP(DriveConsts.PWM_R1)
-	val rightMotor2 = VictorSP(DriveConsts.PWM_R2)
-	val rightMotorGroup = SpeedControllerGroup(rightMotor1, rightMotor2)
+	private val rightMotor1 = VictorSP(DriveConsts.PWM_R1)
+	private val rightMotor2 = VictorSP(DriveConsts.PWM_R2)
+	private val rightMotorGroup = SpeedControllerGroup(rightMotor1, rightMotor2)
 
-	val diffDrive = DifferentialDrive(leftMotorGroup, rightMotorGroup)
+	private val diffDrive = DifferentialDrive(leftMotorGroup, rightMotorGroup)
 
-	val shifterSolenoid = DoubleSolenoid(
+	private val shifterSolenoid = DoubleSolenoid(
 			MiscConsts.CAN_PCM,
 			DriveConsts.PCM_SHIFTER_1,
 			DriveConsts.PCM_SHIFTER_2
 	)
 
-	val leftEncoder = Encoder(DriveConsts.L_ENC_CHANNEL_A, DriveConsts.L_ENC_CHANNEL_B)
-	val rightEncoder = Encoder(DriveConsts.R_ENC_CHANNEL_A, DriveConsts.R_ENC_CHANNEL_B)
+	private val leftEncoder = Encoder(DriveConsts.L_ENC_CHANNEL_A, DriveConsts.L_ENC_CHANNEL_B)
+	private val rightEncoder = Encoder(DriveConsts.R_ENC_CHANNEL_A, DriveConsts.R_ENC_CHANNEL_B)
 
 	// 254-style drive signal (without brake because Victor SPs :/)
-	val signal = DriveSignal(0.0, 0.0)
+	private val signal = DriveSignal(0.0, 0.0)
 
 	// Assumes starting at the origin facing forward.
 	// TODO: Change this based on robot starting position in auto.
-	val pose = DrivePose(0.0, 0.0, 0.0)
+	private val pose = DrivePose(0.0, 0.0, 0.0)
 
 	var encDistances = EncDistances(leftEncoder.distance, rightEncoder.distance)
 
@@ -55,13 +51,12 @@ object DriveSubsystem: Subsystem() {
 		}
 	var isQuickTurn = false
 
-	// Software states
+	// Software States
 	var controlState = ControlState.OPEN_LOOP
 	var driveMode = DriveMode.CURVATURE
 	var wasCorrecting = false
 
-	// Motor values
-
+	// Required Methods
 	init {
 		leftEncoder.distancePerPulse = 1 / DriveConsts.ENC_TICKS_PER_FOOT
 		rightEncoder.distancePerPulse = 1 / DriveConsts.ENC_TICKS_PER_FOOT
@@ -79,12 +74,16 @@ object DriveSubsystem: Subsystem() {
 
 	}
 
-	fun autoReset() {
+	override fun autoReset() {
 		reset()
 	}
 
-	fun teleopReset() {
+	override fun teleopReset() {
 		reset()
+	}
+
+	override fun log() {
+
 	}
 
 	override fun initDefaultCommand() {
@@ -95,6 +94,7 @@ object DriveSubsystem: Subsystem() {
 		)
 	}
 
+	// Methods
 	fun toggleGearState() {
 		gear = when (gear) {
 			GearState.HIGH -> GearState.LOW
@@ -120,41 +120,44 @@ object DriveSubsystem: Subsystem() {
 	fun updatePose() {
 		// Get the delta by making a new EncDistances object with the latest distances
 		// Makes use of operator overloading in the data class
-		var deltaEncDistances = EncDistances(leftEncoder.distance, rightEncoder.distance) - encDistances
+		val deltaEncDistances = EncDistances(leftEncoder.distance, rightEncoder.distance) - encDistances
 		val avgEncDistance = deltaEncDistances.average()
 
+		// Update pose using basic trigonometry
 		pose.xPos = avgEncDistance * cos(Robot.gyro.angle)
 		pose.yPos = avgEncDistance * sin(Robot.gyro.angle)
 		pose.yawAngle = Robot.gyro.angle
 	}
-}
 
-enum class DriveMode {
-	TANK,
-	ARCADE,
-	CURVATURE
-}
+	// Data Classes
+	data class DriveSignal(var xSpeed: Double, var zRotation: Double)
+	data class DrivePose(var xPos: Double, var yPos: Double, var yawAngle: Double)
+	data class EncDistances(var leftDistance: Double, var rightDistance: Double) {
+		operator fun minus(incEncDistances: EncDistances) =
+				EncDistances(
+						incEncDistances.leftDistance - leftDistance,
+						incEncDistances.rightDistance - rightDistance
+				)
 
-enum class GearState(val solenoidState: DoubleSolenoid.Value) {
-	HIGH(DoubleSolenoid.Value.kForward),
-	LOW(DoubleSolenoid.Value.kReverse),
-	NEUTRAL(DoubleSolenoid.Value.kOff);
-}
+		operator fun plus(incEncDistances: EncDistances) =
+				EncDistances(
+						incEncDistances.leftDistance + leftDistance,
+						incEncDistances.rightDistance + rightDistance
+				)
 
-data class DriveSignal(var xSpeed: Double, var zRotation: Double)
-data class DrivePose(var xPos: Double, var yPos: Double, var yawAngle: Double)
-data class EncDistances(var leftDistance: Double, var rightDistance: Double) {
-	operator fun minus(incEncDistances: EncDistances) =
-		EncDistances(
-				incEncDistances.leftDistance - leftDistance,
-				incEncDistances.rightDistance - rightDistance
-		)
+		fun average() = (leftDistance + rightDistance) / 2
+	}
 
-	operator fun plus(incEncDistances: EncDistances) =
-		EncDistances(
-					incEncDistances.leftDistance + leftDistance,
-					incEncDistances.rightDistance + rightDistance
-		)
+	// Enums
+	enum class DriveMode {
+		TANK,
+		ARCADE,
+		CURVATURE
+	}
 
-	fun average() = (leftDistance + rightDistance) / 2
+	enum class GearState(val solenoidState: DoubleSolenoid.Value) {
+		HIGH(DoubleSolenoid.Value.kForward),
+		LOW(DoubleSolenoid.Value.kReverse),
+		NEUTRAL(DoubleSolenoid.Value.kOff)
+	}
 }

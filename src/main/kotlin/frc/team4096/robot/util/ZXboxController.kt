@@ -1,12 +1,10 @@
 package frc.team4096.robot.util
 
 import edu.wpi.first.wpilibj.GenericHID
-import edu.wpi.first.wpilibj.Joystick
 import edu.wpi.first.wpilibj.XboxController
-import edu.wpi.first.wpilibj.buttons.Button
 import edu.wpi.first.wpilibj.buttons.JoystickButton
 
-class Z_XboxController(port: Int): XboxController(port) {
+class ZXboxController(port: Int): XboxController(port) {
 	// Buttons
 	val aButton = JoystickButton(this, XboxConsts.Button.A.id)
 	val bButton = JoystickButton(this, XboxConsts.Button.B.id)

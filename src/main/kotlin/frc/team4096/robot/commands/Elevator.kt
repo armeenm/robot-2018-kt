@@ -2,9 +2,7 @@ package frc.team4096.robot.commands
 
 import edu.wpi.first.wpilibj.command.Command
 import frc.team4096.robot.subsystems.ElevatorSubsystem
-import frc.team4096.robot.subsystems.IntakeSubsystem
 import frc.team4096.robot.util.ElevatorConsts
-import frc.team4096.robot.util.IntakeConsts
 
 class ManualElevator(var speed: Double): Command() {
 	override fun execute() {
