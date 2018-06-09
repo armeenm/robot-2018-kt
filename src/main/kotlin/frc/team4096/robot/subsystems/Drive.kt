@@ -13,7 +13,7 @@ import frc.team4096.robot.util.*
 import kotlin.math.cos
 import kotlin.math.sin
 
-object DriveSubsystem: ZSubsystem() {
+object DriveSubsystem: ZedSubsystem() {
 	// Hardware
 	private val leftMotor1 = VictorSP(DriveConsts.PWM_L1)
 	private val leftMotor2 = VictorSP(DriveConsts.PWM_L2)

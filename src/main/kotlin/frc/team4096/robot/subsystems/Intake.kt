@@ -6,7 +6,7 @@ import frc.team4096.robot.OI
 import frc.team4096.robot.commands.ManualIntake
 import frc.team4096.robot.util.*
 
-object IntakeSubsystem: ZSubsystem() {
+object IntakeSubsystem: ZedSubsystem() {
 	// Hardware
 	// TODO: Add second motor controller for wheels
 	private var wheelMotor = VictorSP(IntakeConsts.PWM_WHEELS_MOTOR)

@@ -8,16 +8,16 @@ import frc.team4096.robot.util.*
 object OI {
 
 	// Setup controllers with custom Ctrl-"Z" XboxController wrapper
-	val XboxController1 =  ZXboxController(0)
-	val XboxController2 =  ZXboxController(1)
+	val XboxController1 =  ZedXboxController(0)
+	val XboxController2 =  ZedXboxController(1)
 
 	init {
 		// Controller 1 (Main Driver)
 
 		// Drivetrain
 		// Shifting
-		XboxController1.rbButton.whenPressed(Commandify { DriveSubsystem.gear = GearState.LOW })
-		XboxController1.rbButton.whenReleased(Commandify { DriveSubsystem.gear = GearState.HIGH })
+		XboxController1.rbButton.whenPressed(Commandify { DriveSubsystem.gear = DriveSubsystem.GearState.LOW })
+		XboxController1.rbButton.whenReleased(Commandify { DriveSubsystem.gear = DriveSubsystem.GearState.HIGH })
 
 		// Climber
 		XboxController1.upDPad.whenPressed(Commandify {
@@ -49,8 +49,8 @@ object OI {
 		XboxController2.aButton.whenPressed(Commandify { IntakeSubsystem.rotateHolding = false })
 
 		// Intake
-		XboxController2.bButton.whenPressed(Commandify { IntakeSubsystem.squeeze = SqueezeState.OUT })
-		XboxController2.bButton.whenPressed(Commandify { IntakeSubsystem.squeeze = SqueezeState.IN })
+		XboxController2.bButton.whenPressed(Commandify { IntakeSubsystem.squeeze = IntakeSubsystem.SqueezeState.OUT })
+		XboxController2.bButton.whenPressed(Commandify { IntakeSubsystem.squeeze = IntakeSubsystem.SqueezeState.IN })
 
 		// Climber
 		XboxController2.startButton.whenPressed(Commandify { ClimberSubsystem.release() })

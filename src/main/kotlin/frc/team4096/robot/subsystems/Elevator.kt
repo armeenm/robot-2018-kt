@@ -11,7 +11,7 @@ import frc.team4096.robot.OI
 import frc.team4096.robot.commands.ManualElevator
 import frc.team4096.robot.util.*
 
-object ElevatorSubsystem: ZSubsystem() {
+object ElevatorSubsystem: ZedSubsystem() {
 	// Hardware
 	private var masterMotor = WPI_TalonSRX(ElevatorConsts.CAN_MASTER_MOTOR)
 	private var slaveMotor = WPI_VictorSPX(ElevatorConsts.CAN_SLAVE_MOTOR)

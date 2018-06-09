@@ -4,7 +4,7 @@ import edu.wpi.first.wpilibj.GenericHID
 import edu.wpi.first.wpilibj.XboxController
 import edu.wpi.first.wpilibj.buttons.JoystickButton
 
-class ZXboxController(port: Int): XboxController(port) {
+class ZedXboxController(port: Int): XboxController(port) {
 	// Buttons
 	val aButton = JoystickButton(this, XboxConsts.Button.A.id)
 	val bButton = JoystickButton(this, XboxConsts.Button.B.id)
@@ -31,7 +31,9 @@ class ZXboxController(port: Int): XboxController(port) {
 		applyDeadband(this.getRawAxis(axis.id) * if (inverted) -1 else 1, XboxConsts.DEAD_BAND)
 }
 
+// Button class for D-Pad buttons since it's treated like a 360-degree axis.
 class JoystickPOV(private val joystick: GenericHID, private val dPadButton: XboxConsts.DPad):
 		JoystickButton(joystick, dPadButton.id) {
+	// Get method should return whether the D-Pad axis is at the specified angle, effectively making a button.
 	override fun get(): Boolean = joystick.pov == dPadButton.id
 }
