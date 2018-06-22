@@ -9,27 +9,6 @@ import frc.team4096.robot.util.ElevatorConsts
 
 object DriveForward: CommandGroup() {
 	init {
-		// Raise elevator while moving
-		addParallel(Commandify {
-			ElevatorSubsystem.goMotionMagicDistance(ElevatorConsts.Positions.SWITCH.pos)
-		})
-
-		// Follow spline for specific side
-		when (AutoMain.autoData!![0]) {
-			'L' -> {
-				println("Do PF stuff here")
-			}
-			'R' -> {
-				println("Do PF stuff here")
-			}
-
-			else -> println("Bad data!")
-		}
-
-		// Spit cube
-		addSequential(
-			Commandify { IntakeSubsystem.intakeSpeed = -0.75 },
-			0.5
-		)
+		println("Get them trapezoids")
 	}
 }
