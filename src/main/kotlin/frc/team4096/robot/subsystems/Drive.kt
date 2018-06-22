@@ -74,16 +74,12 @@ object DriveSubsystem: ZedSubsystem() {
 
 	}
 
-	override fun autoReset() {
-		reset()
-	}
-
-	override fun teleopReset() {
-		reset()
-	}
-
 	override fun log() {
+		TODO("not implemented")
+	}
 
+	override fun periodic() {
+		updatePose()
 	}
 
 	override fun initDefaultCommand() {
@@ -117,7 +113,7 @@ object DriveSubsystem: ZedSubsystem() {
 		this.diffDrive.curvatureDrive(xSpeed, zRotation, isQuickTurn)
 	}
 
-	fun updatePose() {
+	private fun updatePose() {
 		// Get the delta by making a new EncDistances object with the latest distances
 		// Makes use of operator overloading in the data class
 		val deltaEncDistances = EncDistances(leftEncoder.distance, rightEncoder.distance) - encDistances

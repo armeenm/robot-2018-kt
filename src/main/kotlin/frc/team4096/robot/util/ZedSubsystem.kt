@@ -2,9 +2,9 @@ package frc.team4096.robot.util
 
 import edu.wpi.first.wpilibj.command.Subsystem
 
-// Custom subsystem with useful stuff like resets and logging
+// Custom subsystem with useful stuff
 abstract class ZedSubsystem: Subsystem() {
-	// Resets
+	// Resets (Init)
 	abstract fun reset()
 	open fun autoReset() = reset()
 	open fun teleopReset() = reset()

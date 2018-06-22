@@ -7,7 +7,7 @@ import frc.team4096.robot.util.*
 
 object OI {
 
-	// Setup controllers with custom Ctrl-"Z" XboxController wrapper
+	// Setup controllers with custom Ctrl-Z XboxController wrapper
 	val XboxController1 =  ZedXboxController(0)
 	val XboxController2 =  ZedXboxController(1)
 
@@ -28,16 +28,16 @@ object OI {
 		// Controller 2 (Secondary Driver)
 		// Elevator Setpoints
 		XboxController2.downDPad.whenPressed(Commandify {
-			ElevatorSubsystem.goMotionMagicDistance(ElevatorConsts.PositionList.BOTTOM.position)
+			ElevatorSubsystem.goMotionMagicDistance(ElevatorConsts.Positions.BOTTOM.pos)
 		})
 		XboxController2.rightDPad.whenPressed(Commandify {
-			ElevatorSubsystem.goMotionMagicDistance(ElevatorConsts.PositionList.NO_DRAG.position)
+			ElevatorSubsystem.goMotionMagicDistance(ElevatorConsts.Positions.NO_DRAG.pos)
 		})
 		XboxController2.leftDPad.whenPressed(Commandify {
-			ElevatorSubsystem.goMotionMagicDistance(ElevatorConsts.PositionList.SWITCH.position)
+			ElevatorSubsystem.goMotionMagicDistance(ElevatorConsts.Positions.SWITCH.pos)
 		})
 		XboxController2.upDPad.whenPressed(Commandify {
-			ElevatorSubsystem.goMotionMagicDistance(ElevatorConsts.PositionList.SCALE.position)
+			ElevatorSubsystem.goMotionMagicDistance(ElevatorConsts.Positions.SCALE.pos)
 		})
 
 		// Rotation Motor
@@ -53,6 +53,6 @@ object OI {
 		XboxController2.bButton.whenPressed(Commandify { IntakeSubsystem.squeeze = IntakeSubsystem.SqueezeState.IN })
 
 		// Climber
-		XboxController2.startButton.whenPressed(Commandify { ClimberSubsystem.release() })
+		XboxController2.selectButton.whenPressed(Commandify { ClimberSubsystem.release() })
 	}
 }

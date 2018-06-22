@@ -13,6 +13,7 @@ object Robot: TimedRobot() {
 	private val pressureSensor = AnalogInput(MiscConsts.AIN_PRESSURE)
 
 	private val cameraServer = CameraServer.getInstance()
+	val driverStation = DriverStation.getInstance()
 	private val subsystemList = listOf(DriveSubsystem, IntakeSubsystem, ElevatorSubsystem, ClimberSubsystem)
 
 	override fun robotInit() {
@@ -29,6 +30,7 @@ object Robot: TimedRobot() {
 		cameraServer.startAutomaticCapture()
 	}
 
+	// DISABLED //
 	override fun disabledInit() {
 		// Empty out the scheduler on disable
 		Scheduler.getInstance().removeAll()
@@ -36,20 +38,27 @@ object Robot: TimedRobot() {
 
 	override fun disabledPeriodic() { }
 
+	// AUTONOMOUS //
 	override fun autonomousInit() {
 		// Reset all subsystems for autonomous
 		subsystemList.map{ zSubsystem -> zSubsystem.autoReset() }
+
+
 	}
 
 	override fun autonomousPeriodic() { }
 
+	// TELE-OPERATED //
 	override fun teleopInit() {
+		// Clear out scheduler, potentially from autonomous
+		Scheduler.getInstance().removeAll()
 		// Reset all subsystems for teleop
 		subsystemList.map{ zSubsystem -> zSubsystem.teleopReset() }
 	}
 
 	override fun teleopPeriodic() { }
 
+	// TEST //
 	override fun testInit() { }
 
 	override fun testPeriodic() { }

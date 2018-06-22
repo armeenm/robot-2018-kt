@@ -93,7 +93,7 @@ object ElevatorConsts {
 	const val MAX_OPEN_LOOP_SPEED = 0.6
 
 	// Software
-	enum class PositionList(val position: Double) {
+	enum class Positions(val pos: Double) {
 		BOTTOM(0.0),
 		NO_DRAG(0.25),
 		SWITCH(2.0),
