@@ -91,17 +91,6 @@ object DriveSubsystem: ZedSubsystem() {
 	}
 
 	// Methods
-	fun toggleGearState() {
-		gear = when (gear) {
-			GearState.HIGH -> GearState.LOW
-			GearState.LOW -> GearState.HIGH
-			GearState.NEUTRAL -> {
-				println("Shifting from neutral!")
-				GearState.HIGH
-			}
-		}
-	}
-
 	fun stop() = this.diffDrive.tankDrive(0.0, 0.0)
 
 	fun curvatureDrive(xSpeed: Double, zRotation: Double, isQuickTurn: Boolean) {

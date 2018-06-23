@@ -2,6 +2,7 @@ package frc.team4096.robot.autonomous
 
 import edu.wpi.first.wpilibj.command.CommandGroup
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard
 import frc.team4096.robot.Robot
 import frc.team4096.robot.autonomous.modes.*
 
@@ -13,7 +14,8 @@ object AutoMain {
 
 	init {
 		autoChooser.addDefault(AutoMode.DO_NOTHING.modeStr, AutoMode.DO_NOTHING.cmdGroup)
-		AutoMode.values().map { mode -> autoChooser.addObject(mode.modeStr, mode.cmdGroup) }
+		AutoMode.values().forEach { mode -> autoChooser.addObject(mode.modeStr, mode.cmdGroup) }
+		SmartDashboard.putData(autoChooser)
 	}
 
 	fun fetchData() { autoData = Robot.driverStation.gameSpecificMessage }

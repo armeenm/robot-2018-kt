@@ -1,18 +1,53 @@
 package frc.team4096.robot.commands
 
+import com.ctre.phoenix.motorcontrol.ControlMode
 import edu.wpi.first.wpilibj.command.Command
 import frc.team4096.robot.subsystems.ElevatorSubsystem
 import frc.team4096.robot.util.ElevatorConsts
+import frc.team4096.robot.util.onTarget
 
-class ManualElevator(var speed: Double): Command() {
+class ManualElevator(private var speed: Double): Command() {
+	init {
+		this.requires(ElevatorSubsystem)
+		this.isInterruptible = true
+	}
+
 	override fun execute() {
 		ElevatorSubsystem.speed =
 			speed * ElevatorConsts.MAX_OPEN_LOOP_SPEED
 	}
 
-	override fun isFinished(): Boolean = false
+	override fun isFinished() = false
 
 	override fun end() { ElevatorSubsystem.speed = 0.0 }
+
+	override fun interrupted() = this.end()
+}
+
+class MoveElevatorDistance(private val distance: Double): Command() {
+	init {
+		this.requires(ElevatorSubsystem)
+		// TODO: Maybe this can be interruptible??
+		this.isInterruptible = false
+	}
+
+	override fun initialize() {
+		ElevatorSubsystem.hwState = ElevatorSubsystem.ElevatorState.FREE
+	}
+
+	override fun execute() =
+		ElevatorSubsystem.masterMotor.set(ControlMode.MotionMagic, distance)
+
+	override fun isFinished() =
+		onTarget(
+				ElevatorSubsystem.masterMotor.sensorCollection.quadraturePosition.toDouble(),
+				distance,
+				5000.0
+		)
+
+	override fun end() {
+		ElevatorSubsystem.hwState = ElevatorSubsystem.ElevatorState.HOLDING
+	}
 
 	override fun interrupted() = this.end()
 }

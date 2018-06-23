@@ -2,6 +2,7 @@
 
 package frc.team4096.robot
 
+import frc.team4096.robot.commands.MoveElevatorDistance
 import frc.team4096.robot.subsystems.*
 import frc.team4096.robot.util.*
 
@@ -27,18 +28,18 @@ object OI {
 
 		// Controller 2 (Secondary Driver)
 		// Elevator Setpoints
-		XboxController2.downDPad.whenPressed(Commandify {
-			ElevatorSubsystem.goMotionMagicDistance(ElevatorConsts.Positions.BOTTOM.pos)
-		})
-		XboxController2.rightDPad.whenPressed(Commandify {
-			ElevatorSubsystem.goMotionMagicDistance(ElevatorConsts.Positions.NO_DRAG.pos)
-		})
-		XboxController2.leftDPad.whenPressed(Commandify {
-			ElevatorSubsystem.goMotionMagicDistance(ElevatorConsts.Positions.SWITCH.pos)
-		})
-		XboxController2.upDPad.whenPressed(Commandify {
-			ElevatorSubsystem.goMotionMagicDistance(ElevatorConsts.Positions.SCALE.pos)
-		})
+		XboxController2.downDPad.whenPressed(
+			MoveElevatorDistance(ElevatorConsts.Positions.BOTTOM.pos)
+		)
+		XboxController2.rightDPad.whenPressed(
+			MoveElevatorDistance(ElevatorConsts.Positions.NO_DRAG.pos)
+		)
+		XboxController2.leftDPad.whenPressed(
+			MoveElevatorDistance(ElevatorConsts.Positions.SWITCH.pos)
+		)
+		XboxController2.upDPad.whenPressed(
+			MoveElevatorDistance(ElevatorConsts.Positions.SCALE.pos)
+		)
 
 		// Rotation Motor
 		XboxController2.yButton.whenPressed(Commandify {

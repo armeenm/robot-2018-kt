@@ -16,7 +16,12 @@ inline fun Commandify(crossinline method: () -> Unit): Command = object: Instant
 	override fun execute() = method()
 }
 
+// Applies a deadband to a given value
 fun applyDeadband(inputValue: Double, deadBand: Double) = if (abs(inputValue) >= deadBand) inputValue else 0.0
+
+// Checks if checkVal is within deadBand to cmpVal
+fun onTarget(checkVal: Double, cmpVal: Double, deadBand: Double) =
+	abs(abs(cmpVal) - abs(checkVal)) < deadBand
 
 enum class ControlState {
 	OPEN_LOOP,

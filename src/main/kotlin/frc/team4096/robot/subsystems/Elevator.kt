@@ -13,8 +13,8 @@ import frc.team4096.robot.util.*
 
 object ElevatorSubsystem: ZedSubsystem() {
 	// Hardware
-	private var masterMotor = WPI_TalonSRX(ElevatorConsts.CAN_MASTER_MOTOR)
-	private var slaveMotor = WPI_VictorSPX(ElevatorConsts.CAN_SLAVE_MOTOR)
+	var masterMotor = WPI_TalonSRX(ElevatorConsts.CAN_MASTER_MOTOR)
+	var slaveMotor = WPI_VictorSPX(ElevatorConsts.CAN_SLAVE_MOTOR)
 
 	private var brakeSolenoid = DoubleSolenoid(
 			MiscConsts.CAN_PCM,
@@ -89,13 +89,6 @@ object ElevatorSubsystem: ZedSubsystem() {
 	}
 
 	override fun initDefaultCommand() { ManualElevator(OI.XboxController2.getAxis(XboxConsts.Axis.LEFT_Y)) }
-
-	// Methods
-	fun goMotionMagicDistance(distance: Double) {
-		hwState = ElevatorState.FREE
-		masterMotor.set(ControlMode.MotionMagic, distance)
-		hwState = ElevatorState.HOLDING
-	}
 
 	// Enums
 	enum class ElevatorState(val solenoidState: DoubleSolenoid.Value) {

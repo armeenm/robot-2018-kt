@@ -3,6 +3,7 @@ package frc.team4096.robot
 import edu.wpi.first.wpilibj.*
 import edu.wpi.first.wpilibj.command.Scheduler
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard
+import frc.team4096.robot.autonomous.AutoMain
 import frc.team4096.robot.subsystems.*
 import frc.team4096.robot.util.MiscConsts
 
@@ -20,7 +21,7 @@ object Robot: TimedRobot() {
 		// Will implicitly run init method in each subsystem
 		subsystemList
 		// Put all of the subsystems on SmartDashboard
-		subsystemList.map{ zSubsystem -> SmartDashboard.putData(zSubsystem) }
+		subsystemList.forEach{ zSubsystem -> SmartDashboard.putData(zSubsystem) }
 
 		// Miscellaneous setups
 		gyro.reset()
@@ -41,19 +42,21 @@ object Robot: TimedRobot() {
 	// AUTONOMOUS //
 	override fun autonomousInit() {
 		// Reset all subsystems for autonomous
-		subsystemList.map{ zSubsystem -> zSubsystem.autoReset() }
+		subsystemList.forEach{ zSubsystem -> zSubsystem.autoReset() }
 
-
+		AutoMain.fetchData()
 	}
 
-	override fun autonomousPeriodic() { }
+	override fun autonomousPeriodic() {
+		AutoMain.runAuto()
+	}
 
 	// TELE-OPERATED //
 	override fun teleopInit() {
 		// Clear out scheduler, potentially from autonomous
 		Scheduler.getInstance().removeAll()
 		// Reset all subsystems for teleop
-		subsystemList.map{ zSubsystem -> zSubsystem.teleopReset() }
+		subsystemList.forEach{ zSubsystem -> zSubsystem.teleopReset() }
 	}
 
 	override fun teleopPeriodic() { }
