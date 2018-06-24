@@ -1,6 +1,5 @@
 package frc.team4096.robot.subsystems
 
-import com.ctre.phoenix.motorcontrol.ControlMode
 import com.ctre.phoenix.motorcontrol.FeedbackDevice
 import com.ctre.phoenix.motorcontrol.NeutralMode
 import com.ctre.phoenix.motorcontrol.StatusFrameEnhanced
@@ -8,7 +7,7 @@ import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX
 import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX
 import edu.wpi.first.wpilibj.DoubleSolenoid
 import frc.team4096.robot.OI
-import frc.team4096.robot.commands.ManualElevator
+import frc.team4096.robot.commands.ManualElevatorCmd
 import frc.team4096.robot.util.*
 
 object ElevatorSubsystem: ZedSubsystem() {
@@ -44,11 +43,13 @@ object ElevatorSubsystem: ZedSubsystem() {
 		// Configure Talon SRX (Master)
 		masterMotor.selectProfileSlot(ElevatorConsts.K_SLOT_ID, 0)
 		masterMotor.configPIDF(
+			PIDVals(
 				ElevatorConsts.DISTANCE_kP,
 				ElevatorConsts.DISTANCE_kI,
 				ElevatorConsts.DISTANCE_kD,
-				ElevatorConsts.DISTANCE_kF,
-				ElevatorConsts.K_SLOT_ID
+				ElevatorConsts.DISTANCE_kF
+			),
+			ElevatorConsts.K_SLOT_ID
 		)
 		masterMotor.configSelectedFeedbackSensor(
 				FeedbackDevice.CTRE_MagEncoder_Relative,
@@ -88,7 +89,7 @@ object ElevatorSubsystem: ZedSubsystem() {
 		TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
 	}
 
-	override fun initDefaultCommand() { ManualElevator(OI.XboxController2.getAxis(XboxConsts.Axis.LEFT_Y)) }
+	override fun initDefaultCommand() { ManualElevatorCmd(OI.XboxController2.getAxis(XboxConsts.Axis.LEFT_Y)) }
 
 	// Enums
 	enum class ElevatorState(val solenoidState: DoubleSolenoid.Value) {

@@ -3,7 +3,7 @@ package frc.team4096.robot.subsystems
 import edu.wpi.first.wpilibj.DoubleSolenoid
 import edu.wpi.first.wpilibj.VictorSP
 import frc.team4096.robot.OI
-import frc.team4096.robot.commands.ManualIntake
+import frc.team4096.robot.commands.ManualIntakeCmd
 import frc.team4096.robot.util.*
 
 object IntakeSubsystem: ZedSubsystem() {
@@ -71,7 +71,7 @@ object IntakeSubsystem: ZedSubsystem() {
 	}
 
 	override fun initDefaultCommand() {
-		ManualIntake(OI.XboxController2.getAxis(XboxConsts.Axis.LT), OI.XboxController2.getAxis(XboxConsts.Axis.RT))
+		ManualIntakeCmd(OI.XboxController2.getAxis(XboxConsts.Axis.LT), OI.XboxController2.getAxis(XboxConsts.Axis.RT))
 	}
 
 	// Enums

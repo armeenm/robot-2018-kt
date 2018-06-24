@@ -39,6 +39,11 @@ object Robot: TimedRobot() {
 
 	override fun disabledPeriodic() { }
 
+	// ENABLED //
+	fun initialize() {
+
+	}
+
 	// AUTONOMOUS //
 	override fun autonomousInit() {
 		// Reset all subsystems for autonomous

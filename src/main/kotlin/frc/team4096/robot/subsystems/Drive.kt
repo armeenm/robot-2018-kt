@@ -1,14 +1,11 @@
 package frc.team4096.robot.subsystems
 
-import edu.wpi.first.wpilibj.DoubleSolenoid
-import edu.wpi.first.wpilibj.Encoder
-import edu.wpi.first.wpilibj.SpeedControllerGroup
-import edu.wpi.first.wpilibj.VictorSP
+import edu.wpi.first.wpilibj.*
 import edu.wpi.first.wpilibj.drive.DifferentialDrive
 
 import frc.team4096.robot.OI
 import frc.team4096.robot.Robot
-import frc.team4096.robot.commands.CurvatureDrive
+import frc.team4096.robot.commands.CurvatureDriveCmd
 import frc.team4096.robot.util.*
 import kotlin.math.cos
 import kotlin.math.sin
@@ -83,7 +80,7 @@ object DriveSubsystem: ZedSubsystem() {
 	}
 
 	override fun initDefaultCommand() {
-		CurvatureDrive(
+		CurvatureDriveCmd(
 				OI.XboxController1.getAxis(XboxConsts.Axis.LEFT_Y),
 				OI.XboxController1.getAxis(XboxConsts.Axis.RIGHT_X),
 				OI.XboxController1.lbButton.get()

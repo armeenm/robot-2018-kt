@@ -6,7 +6,7 @@ import frc.team4096.robot.subsystems.ElevatorSubsystem
 import frc.team4096.robot.util.ElevatorConsts
 import frc.team4096.robot.util.onTarget
 
-class ManualElevator(private var speed: Double): Command() {
+class ManualElevatorCmd(private var speed: Double): Command() {
 	init {
 		this.requires(ElevatorSubsystem)
 		this.isInterruptible = true
@@ -24,10 +24,11 @@ class ManualElevator(private var speed: Double): Command() {
 	override fun interrupted() = this.end()
 }
 
-class MoveElevatorDistance(private val distance: Double): Command() {
+class AutoElevatorCmd(private val distance: Double): Command() {
 	init {
 		this.requires(ElevatorSubsystem)
 		// TODO: Maybe this can be interruptible??
+		// Idea: set interruptible _only_ if joystick values are outside deadband.
 		this.isInterruptible = false
 	}
 

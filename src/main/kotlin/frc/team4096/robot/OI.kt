@@ -2,7 +2,7 @@
 
 package frc.team4096.robot
 
-import frc.team4096.robot.commands.MoveElevatorDistance
+import frc.team4096.robot.commands.AutoElevatorCmd
 import frc.team4096.robot.subsystems.*
 import frc.team4096.robot.util.*
 
@@ -17,43 +17,43 @@ object OI {
 
 		// Drivetrain
 		// Shifting
-		XboxController1.rbButton.whenPressed(Commandify { DriveSubsystem.gear = DriveSubsystem.GearState.LOW })
-		XboxController1.rbButton.whenReleased(Commandify { DriveSubsystem.gear = DriveSubsystem.GearState.HIGH })
+		XboxController1.rbButton.whenPressed(commandify { DriveSubsystem.gear = DriveSubsystem.GearState.LOW })
+		XboxController1.rbButton.whenReleased(commandify { DriveSubsystem.gear = DriveSubsystem.GearState.HIGH })
 
 		// Climber
-		XboxController1.upDPad.whenPressed(Commandify {
+		XboxController1.upDPad.whenPressed(commandify {
 			ClimberSubsystem.motor.speed = ClimberConsts.MAX_FORWARD_SPEED
 		})
-		XboxController1.upDPad.whenReleased(Commandify { ClimberSubsystem.motor.speed = 0.0 })
+		XboxController1.upDPad.whenReleased(commandify { ClimberSubsystem.motor.speed = 0.0 })
 
 		// Controller 2 (Secondary Driver)
 		// Elevator Setpoints
 		XboxController2.downDPad.whenPressed(
-			MoveElevatorDistance(ElevatorConsts.Positions.BOTTOM.pos)
+			AutoElevatorCmd(ElevatorConsts.Positions.BOTTOM.pos)
 		)
 		XboxController2.rightDPad.whenPressed(
-			MoveElevatorDistance(ElevatorConsts.Positions.NO_DRAG.pos)
+			AutoElevatorCmd(ElevatorConsts.Positions.NO_DRAG.pos)
 		)
 		XboxController2.leftDPad.whenPressed(
-			MoveElevatorDistance(ElevatorConsts.Positions.SWITCH.pos)
+			AutoElevatorCmd(ElevatorConsts.Positions.SWITCH.pos)
 		)
 		XboxController2.upDPad.whenPressed(
-			MoveElevatorDistance(ElevatorConsts.Positions.SCALE.pos)
+			AutoElevatorCmd(ElevatorConsts.Positions.SCALE.pos)
 		)
 
 		// Rotation Motor
-		XboxController2.yButton.whenPressed(Commandify {
+		XboxController2.yButton.whenPressed(commandify {
 			IntakeSubsystem.rotateHolding = false
 			IntakeSubsystem.rotateSpeed = IntakeConsts.DEFAULT_ROTATE_SPEED
 		})
-		XboxController2.yButton.whenReleased(Commandify { IntakeSubsystem.rotateHolding = true })
-		XboxController2.aButton.whenPressed(Commandify { IntakeSubsystem.rotateHolding = false })
+		XboxController2.yButton.whenReleased(commandify { IntakeSubsystem.rotateHolding = true })
+		XboxController2.aButton.whenPressed(commandify { IntakeSubsystem.rotateHolding = false })
 
 		// Intake
-		XboxController2.bButton.whenPressed(Commandify { IntakeSubsystem.squeeze = IntakeSubsystem.SqueezeState.OUT })
-		XboxController2.bButton.whenPressed(Commandify { IntakeSubsystem.squeeze = IntakeSubsystem.SqueezeState.IN })
+		XboxController2.bButton.whenPressed(commandify { IntakeSubsystem.squeeze = IntakeSubsystem.SqueezeState.OUT })
+		XboxController2.bButton.whenPressed(commandify { IntakeSubsystem.squeeze = IntakeSubsystem.SqueezeState.IN })
 
 		// Climber
-		XboxController2.selectButton.whenPressed(Commandify { ClimberSubsystem.release() })
+		XboxController2.selectButton.whenPressed(commandify { ClimberSubsystem.release() })
 	}
 }
