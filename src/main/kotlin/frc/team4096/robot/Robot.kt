@@ -44,6 +44,10 @@ object Robot: TimedRobot() {
 
 	}
 
+	override fun robotPeriodic() {
+		Scheduler.getInstance().run()
+	}
+
 	// AUTONOMOUS //
 	override fun autonomousInit() {
 		// Reset all subsystems for autonomous

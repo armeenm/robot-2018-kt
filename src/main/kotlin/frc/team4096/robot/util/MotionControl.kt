@@ -1,17 +1,45 @@
 package frc.team4096.robot.util
 
 import edu.wpi.first.wpilibj.PIDSourceType
+import edu.wpi.first.wpilibj.Timer
 import kotlinx.coroutines.experimental.delay
 import kotlinx.coroutines.experimental.launch
 
 // PIDVA trapezoidal motion profile
-class TrapezoidalMP(var pidVals: PIDVals, val distance: Double, val cruiseVel: Double, val accel: Double) {
+class TrapezoidalMP(
+	var pidVals: PIDVals,
+	val targetPos: Double,
+	val cruiseVel: Double,
+	val accel: Double
+) {
+
+	private enum class MotionState { REST, ACCEL, COAST, DECEL }
+
+	val curTime = { Timer.getFPGATimestamp() }
+
+	var curPos = 0.0
+	var curVel = 0.0
+
+	private var curState = MotionState.REST
+
+	private var lastTime = 0.0
+	private var startTime = 0.0
+
+	private var lastPos = 0.0
+	private var lastVel = 0.0
+
+	/*
 	val accelTime = cruiseVel / accel
-	// Distance covered by accel period (integral)
 	val accelDist = cruiseVel * accelTime / 2
 
 	val cruiseDist = distance - 2 * accelDist
 	val cruiseTime = cruiseDist / cruiseVel
+
+	val pidController = PIDController(
+		pidVals,
+
+	)
+	*/
 }
 
 // Custom PID controller class
@@ -27,14 +55,6 @@ class PIDController(
 	var integral = 0.0
 	var derivative = 0.0
 	var enabled = false
-
-class WaitGroup {
-    val joinTime: Long by lazy { measureTimeMillis { runBlocking<Unit> { jobs.forEach { it.join() } } } }
-    val jobs = mutableListOf<Job>()
-    fun add(job: Job): WaitGroup = this.apply { jobs.add(job) }
-    fun add(block: suspend () -> Unit): WaitGroup = this.apply { jobs.add(go { block() }) }
-    fun join() = this.apply { joinTime }
-}
 
 	fun start() {
 		launch {
@@ -53,7 +73,8 @@ class WaitGroup {
 
 					lastError = error
 				}
-				delay(200)
+				// Wait 20ms (50Hz)
+				delay(20)
 			}
 		}
 	}
