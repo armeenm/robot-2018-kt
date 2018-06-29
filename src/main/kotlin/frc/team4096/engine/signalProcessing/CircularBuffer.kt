@@ -1,4 +1,4 @@
-package frc.team4096.robot.util
+package frc.team4096.engine.signalProcessing
 
 class CircularBuffer(val size: Int) {
 	private val buffer = ArrayList<Double>(size)

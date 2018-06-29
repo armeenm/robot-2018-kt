@@ -18,10 +18,8 @@ object Robot: TimedRobot() {
 	private val subsystemList = listOf(DriveSubsystem, IntakeSubsystem, ElevatorSubsystem, ClimberSubsystem)
 
 	override fun robotInit() {
-		// Will implicitly run init method in each subsystem
-		subsystemList
 		// Put all of the subsystems on SmartDashboard
-		subsystemList.forEach{ zSubsystem -> SmartDashboard.putData(zSubsystem) }
+		subsystemList.forEach{ SmartDashboard.putData(it) }
 
 		// Miscellaneous setups
 		gyro.reset()
@@ -51,7 +49,7 @@ object Robot: TimedRobot() {
 	// AUTONOMOUS //
 	override fun autonomousInit() {
 		// Reset all subsystems for autonomous
-		subsystemList.forEach{ zSubsystem -> zSubsystem.autoReset() }
+		subsystemList.forEach{ it.autoReset() }
 
 		AutoMain.fetchData()
 	}
@@ -65,7 +63,7 @@ object Robot: TimedRobot() {
 		// Clear out scheduler, potentially from autonomous
 		Scheduler.getInstance().removeAll()
 		// Reset all subsystems for teleop
-		subsystemList.forEach{ zSubsystem -> zSubsystem.teleopReset() }
+		subsystemList.forEach{ it.teleopReset() }
 	}
 
 	override fun teleopPeriodic() { }

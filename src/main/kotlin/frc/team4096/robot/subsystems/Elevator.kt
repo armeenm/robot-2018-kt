@@ -6,6 +6,10 @@ import com.ctre.phoenix.motorcontrol.StatusFrameEnhanced
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX
 import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX
 import edu.wpi.first.wpilibj.DoubleSolenoid
+import frc.team4096.engine.extensions.configPIDF
+import frc.team4096.engine.motion.util.ControlState
+import frc.team4096.engine.motion.util.PIDFVals
+import frc.team4096.engine.wpi.ZedSubsystem
 import frc.team4096.robot.OI
 import frc.team4096.robot.commands.ManualElevatorCmd
 import frc.team4096.robot.util.*
@@ -43,7 +47,7 @@ object ElevatorSubsystem: ZedSubsystem() {
 		// Configure Talon SRX (Master)
 		masterMotor.selectProfileSlot(ElevatorConsts.K_SLOT_ID, 0)
 		masterMotor.configPIDF(
-			PIDVals(
+			PIDFVals(
 				ElevatorConsts.DISTANCE_kP,
 				ElevatorConsts.DISTANCE_kI,
 				ElevatorConsts.DISTANCE_kD,

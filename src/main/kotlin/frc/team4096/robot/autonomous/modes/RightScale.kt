@@ -3,9 +3,8 @@ package frc.team4096.robot.autonomous.modes
 import edu.wpi.first.wpilibj.command.CommandGroup
 import frc.team4096.robot.autonomous.AutoMain
 import frc.team4096.robot.commands.AutoElevatorCmd
-import frc.team4096.robot.subsystems.ElevatorSubsystem
 import frc.team4096.robot.subsystems.IntakeSubsystem
-import frc.team4096.robot.util.commandify
+import frc.team4096.engine.util.commandify
 import frc.team4096.robot.util.ElevatorConsts
 
 object RightScale: CommandGroup() {

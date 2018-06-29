@@ -3,7 +3,7 @@ package frc.team4096.robot.subsystems
 import edu.wpi.first.wpilibj.Servo
 import edu.wpi.first.wpilibj.VictorSP
 import frc.team4096.robot.util.ClimberConsts
-import frc.team4096.robot.util.ZedSubsystem
+import frc.team4096.engine.wpi.ZedSubsystem
 
 object ClimberSubsystem: ZedSubsystem() {
 	// Hardware

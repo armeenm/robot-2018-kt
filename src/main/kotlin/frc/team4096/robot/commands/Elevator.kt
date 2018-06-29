@@ -4,7 +4,7 @@ import com.ctre.phoenix.motorcontrol.ControlMode
 import edu.wpi.first.wpilibj.command.Command
 import frc.team4096.robot.subsystems.ElevatorSubsystem
 import frc.team4096.robot.util.ElevatorConsts
-import frc.team4096.robot.util.onTarget
+import frc.team4096.engine.util.onTarget
 
 class ManualElevatorCmd(private var speed: Double): Command() {
 	init {
@@ -41,9 +41,9 @@ class AutoElevatorCmd(private val distance: Double): Command() {
 
 	override fun isFinished() =
 		onTarget(
-				ElevatorSubsystem.masterMotor.sensorCollection.quadraturePosition.toDouble(),
-				distance,
-				5000.0
+			ElevatorSubsystem.masterMotor.sensorCollection.quadraturePosition.toDouble(),
+			distance,
+			5000.0
 		)
 
 	override fun end() {

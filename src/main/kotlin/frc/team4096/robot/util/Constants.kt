@@ -132,6 +132,7 @@ object MiscConsts {
 
 	// Software
 	const val K_TIMEOUT_MS = 10
+	const val K_DT = 0.02 // Seconds
 }
 
 object XboxConsts {

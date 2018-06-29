@@ -2,6 +2,8 @@
 
 package frc.team4096.robot
 
+import frc.team4096.engine.OI.ZedXboxController
+import frc.team4096.engine.util.commandify
 import frc.team4096.robot.commands.AutoElevatorCmd
 import frc.team4096.robot.subsystems.*
 import frc.team4096.robot.util.*
@@ -9,8 +11,8 @@ import frc.team4096.robot.util.*
 object OI {
 
 	// Setup controllers with custom Ctrl-Z XboxController wrapper
-	val XboxController1 =  ZedXboxController(0)
-	val XboxController2 =  ZedXboxController(1)
+	val XboxController1 = ZedXboxController(0)
+	val XboxController2 = ZedXboxController(1)
 
 	init {
 		// Controller 1 (Main Driver)
