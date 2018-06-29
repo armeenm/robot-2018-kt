@@ -5,8 +5,8 @@ import frc.team4096.robot.util.MiscConsts
 import kotlinx.coroutines.experimental.delay
 import kotlinx.coroutines.experimental.launch
 
-class PIDFController(
-	val pidfVals: PIDFVals,
+class PIDVAController(
+	val pidvaVals: PIDVAVals,
 	var setpoint: Double,
 	val pidSourceFun: () -> Double,
 	val pidSinkFun: (Double) -> Unit,
@@ -27,10 +27,9 @@ class PIDFController(
 				derivative = (error - lastError) / MiscConsts.K_DT
 
 				pidSinkFun(
-					pidfVals.kP * error +
-						pidfVals.kI * integral +
-						pidfVals.kD * derivative +
-						pidfVals.kF
+					pidvaVals.kP * error +
+					pidvaVals.kI * integral +
+					pidvaVals.kD * derivative
 				)
 
 				lastError = error

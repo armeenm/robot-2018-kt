@@ -1,5 +1,6 @@
 plugins {
     id "org.jetbrains.kotlin.jvm" version "1.2.50"
+    id "org.jetbrains.dokka" version "0.9.17"
     id "java"
     id "eclipse"
     id "idea"
@@ -37,9 +38,11 @@ dependencies {
     compile navx()
     compile pathfinder()
     compile openrio.powerup.matchData()
-    compile 'org.jetbrains.kotlinx:kotlinx-coroutines-core:0.22.5'
 
+    compile "org.jetbrains.kotlinx:kotlinx-coroutines-core:0.22.5"
     compile "org.jetbrains.kotlin:kotlin-stdlib-jdk8"
+
+    compile "org.jetbrains.dokka:dokka-gradle-plugin:0.9.17"
 }
 
 // Setting up my Jar File. In this case, adding all libraries into the main jar ('fat jar')
@@ -69,4 +72,23 @@ kotlin {
     experimental {
         coroutines 'enable'
     }
+}
+
+dokka {
+    outputFormat = 'html'
+    outputDirectory = "$buildDir/javadoc"
+    reportUndocumented = false
+}
+
+// Copy custom CSS to right location
+task cssCopy(type: Copy) {
+	from(file("gradle/style.css"))
+	into("$buildDir/javadoc")
+}
+
+task buildDocs {
+	dependsOn 'dokka'
+	dependsOn 'cssCopy'
+
+	tasks.findByName('cssCopy').mustRunAfter 'dokka'
 }

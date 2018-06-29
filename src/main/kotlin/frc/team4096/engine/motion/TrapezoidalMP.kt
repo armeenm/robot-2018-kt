@@ -4,7 +4,16 @@ import edu.wpi.first.wpilibj.Timer
 import frc.team4096.robot.util.MiscConsts.K_DT
 import frc.team4096.engine.motion.util.PIDFVals
 
-// PIDVA trapezoidal motion profile
+/**
+ * A trapezoidal motion profile.
+ * Consists of vel ramp up, cruise, and vel ramp down periods.
+ * For more information, refer to 254 champs video.
+ *
+ * @param targetPos Target position
+ * @param maxVel Maximum velocity
+ * @param maxAccel Maximum acceleration
+ * @constructor Constructor
+ */
 class TrapezoidalMP(
 	val targetPos: Double,
 	val maxVel: Double,

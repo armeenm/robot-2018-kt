@@ -6,7 +6,16 @@ import frc.team4096.engine.motion.util.PIDFVals
 import kotlinx.coroutines.experimental.delay
 import kotlinx.coroutines.experimental.launch
 
-// Custom PID controller class
+/**
+ * Custom asynchronous PID(F) controller.
+ * Proportional, integral, and derivative gains, as well as fixed feed-forward.
+ *
+ * @param pidfVals P, I, D, and F values
+ * @param setpoint Target setpoint
+ * @param pidSourceFun Source lambda (e.g. encoder get)
+ * @param pidSinkFun Sink lambda (e.g. motor controller set)
+ * @constructor Constructor
+ */
 class PIDFController(
 	val pidfVals: PIDFVals,
 	var setpoint: Double,
@@ -20,6 +29,9 @@ class PIDFController(
 	var derivative = 0.0
 	var isEnabled = false
 
+	/**
+	 * Enables controller and launches coroutine.
+	 */
 	fun enable() {
 		isEnabled = true
 		launch {
@@ -43,5 +55,8 @@ class PIDFController(
 		}
 	}
 
+	/**
+	 * Disables controller.
+	 */
 	fun disable() { isEnabled = false }
 }
