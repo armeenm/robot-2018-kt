@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="a7ee16c1-45c8-4cc8-8859-9c1d6dd8c97c" name="Default" comment=":O v2">
+      <change afterPath="$PROJECT_DIR$/src/main/kotlin/frc/team4096/robot/autonomous/AutoMode.kt" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/src/main/kotlin/frc/team4096/robot/climber/ClimberConsts.kt" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/src/main/kotlin/frc/team4096/robot/drivetrain/CurvatureDriveCmd.kt" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/src/main/kotlin/frc/team4096/robot/drivetrain/DriveConsts.kt" afterDir="false" />
@@ -13,6 +14,75 @@
       <change afterPath="$PROJECT_DIR$/src/main/kotlin/frc/team4096/robot/misc/MiscConsts.kt" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/src/main/kotlin/frc/team4096/robot/misc/XboxConsts.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Robot-2018-KT.iws" beforeDir="false" afterPath="$PROJECT_DIR$/Robot-2018-KT.iws" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/classes/META-INF/Robot-2018-KT_main.kotlin_module" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/classes/META-INF/Robot-2018-KT_main.kotlin_module" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/classes/frc/team4096/engine/OI/ZedXboxController.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/classes/frc/team4096/engine/OI/ZedXboxController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/classes/frc/team4096/engine/OI/util/JoystickPOV.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/classes/frc/team4096/engine/OI/util/JoystickPOV.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/classes/frc/team4096/engine/extensions/PhoenixKt.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/classes/frc/team4096/engine/extensions/PhoenixKt.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/classes/frc/team4096/engine/motion/PIDFController$enable$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/classes/frc/team4096/engine/motion/PIDFController$enable$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/classes/frc/team4096/engine/motion/PIDFController.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/classes/frc/team4096/engine/motion/PIDFController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/classes/frc/team4096/engine/motion/util/ControlState.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/classes/frc/team4096/engine/motion/util/ControlState.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/classes/frc/team4096/engine/motion/util/PIDFVals.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/classes/frc/team4096/engine/motion/util/PIDFVals.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/classes/frc/team4096/engine/motion/util/PIDVAVals.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/classes/frc/team4096/engine/motion/util/PIDVAVals.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/classes/frc/team4096/engine/motion/util/PVAJData.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/classes/frc/team4096/engine/motion/util/PVAJData.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/classes/frc/team4096/engine/signalProcessing/CircularBuffer.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/classes/frc/team4096/engine/signalProcessing/CircularBuffer.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/classes/frc/team4096/engine/util/UtilKt$commandify$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/classes/frc/team4096/engine/util/UtilKt$commandify$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/classes/frc/team4096/engine/util/UtilKt.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/classes/frc/team4096/engine/util/UtilKt.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/classes/frc/team4096/engine/wpi/ZedSubsystem.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/classes/frc/team4096/engine/wpi/ZedSubsystem.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/classes/frc/team4096/robot/OI$$special$$inlined$commandify$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/classes/frc/team4096/robot/OI$$special$$inlined$commandify$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/classes/frc/team4096/robot/OI$$special$$inlined$commandify$10.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/classes/frc/team4096/robot/OI$$special$$inlined$commandify$10.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/classes/frc/team4096/robot/OI$$special$$inlined$commandify$2.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/classes/frc/team4096/robot/OI$$special$$inlined$commandify$2.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/classes/frc/team4096/robot/OI$$special$$inlined$commandify$3.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/classes/frc/team4096/robot/OI$$special$$inlined$commandify$3.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/classes/frc/team4096/robot/OI$$special$$inlined$commandify$4.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/classes/frc/team4096/robot/OI$$special$$inlined$commandify$4.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/classes/frc/team4096/robot/OI$$special$$inlined$commandify$5.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/classes/frc/team4096/robot/OI$$special$$inlined$commandify$5.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/classes/frc/team4096/robot/OI$$special$$inlined$commandify$6.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/classes/frc/team4096/robot/OI$$special$$inlined$commandify$6.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/classes/frc/team4096/robot/OI$$special$$inlined$commandify$7.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/classes/frc/team4096/robot/OI$$special$$inlined$commandify$7.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/classes/frc/team4096/robot/OI$$special$$inlined$commandify$8.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/classes/frc/team4096/robot/OI$$special$$inlined$commandify$8.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/classes/frc/team4096/robot/OI$$special$$inlined$commandify$9.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/classes/frc/team4096/robot/OI$$special$$inlined$commandify$9.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/classes/frc/team4096/robot/OI.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/classes/frc/team4096/robot/OI.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/classes/frc/team4096/robot/Robot.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/classes/frc/team4096/robot/Robot.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/classes/frc/team4096/robot/autonomous/AutoMain.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/classes/frc/team4096/robot/autonomous/AutoMain.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/classes/frc/team4096/robot/autonomous/AutoMode.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/classes/frc/team4096/robot/autonomous/AutoMode.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/classes/frc/team4096/robot/autonomous/modes/CenterSwitch$$special$$inlined$commandify$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/classes/frc/team4096/robot/autonomous/modes/CenterSwitch$$special$$inlined$commandify$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/classes/frc/team4096/robot/autonomous/modes/CenterSwitch.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/classes/frc/team4096/robot/autonomous/modes/CenterSwitch.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/classes/frc/team4096/robot/autonomous/modes/DoNothing.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/classes/frc/team4096/robot/autonomous/modes/DoNothing.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/classes/frc/team4096/robot/autonomous/modes/LeftScale$$special$$inlined$commandify$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/classes/frc/team4096/robot/autonomous/modes/LeftScale$$special$$inlined$commandify$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/classes/frc/team4096/robot/autonomous/modes/LeftScale.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/classes/frc/team4096/robot/autonomous/modes/LeftScale.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/classes/frc/team4096/robot/autonomous/modes/LeftSwitch$$special$$inlined$commandify$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/classes/frc/team4096/robot/autonomous/modes/LeftSwitch$$special$$inlined$commandify$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/classes/frc/team4096/robot/autonomous/modes/LeftSwitch.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/classes/frc/team4096/robot/autonomous/modes/LeftSwitch.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/classes/frc/team4096/robot/autonomous/modes/RightScale$$special$$inlined$commandify$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/classes/frc/team4096/robot/autonomous/modes/RightScale$$special$$inlined$commandify$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/classes/frc/team4096/robot/autonomous/modes/RightScale.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/classes/frc/team4096/robot/autonomous/modes/RightScale.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/classes/frc/team4096/robot/autonomous/modes/RightSwitch$$special$$inlined$commandify$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/classes/frc/team4096/robot/autonomous/modes/RightSwitch$$special$$inlined$commandify$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/classes/frc/team4096/robot/autonomous/modes/RightSwitch.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/classes/frc/team4096/robot/autonomous/modes/RightSwitch.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/classes/frc/team4096/robot/commands/AutoElevatorCmd.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/classes/frc/team4096/robot/commands/CurvatureDriveCmd.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/classes/frc/team4096/robot/commands/DriveDistanceCmd.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/classes/frc/team4096/robot/commands/ManualElevatorCmd.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/classes/frc/team4096/robot/commands/ManualIntakeCmd.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/classes/frc/team4096/robot/commands/ToggleDriveGearCmd$WhenMappings.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/classes/frc/team4096/robot/commands/ToggleDriveGearCmd.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/classes/frc/team4096/robot/subsystems/ClimberSubsystem.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/classes/frc/team4096/robot/subsystems/DriveSubsystem$DriveMode.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/classes/frc/team4096/robot/subsystems/DriveSubsystem$DrivePose.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/classes/frc/team4096/robot/subsystems/DriveSubsystem$DriveSignal.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/classes/frc/team4096/robot/subsystems/DriveSubsystem$EncDistances.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/classes/frc/team4096/robot/subsystems/DriveSubsystem$GearState.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/classes/frc/team4096/robot/subsystems/DriveSubsystem.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/classes/frc/team4096/robot/subsystems/ElevatorSubsystem$ElevatorState.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/classes/frc/team4096/robot/subsystems/ElevatorSubsystem.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/classes/frc/team4096/robot/subsystems/IntakeSubsystem$HasCube.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/classes/frc/team4096/robot/subsystems/IntakeSubsystem$SqueezeState.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/classes/frc/team4096/robot/subsystems/IntakeSubsystem.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/classes/frc/team4096/robot/util/ClimberConsts.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/classes/frc/team4096/robot/util/ConstantsKt.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/classes/frc/team4096/robot/util/DriveConsts.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/classes/frc/team4096/robot/util/ElevatorConsts$Positions.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/classes/frc/team4096/robot/util/ElevatorConsts.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/classes/frc/team4096/robot/util/IntakeConsts.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/classes/frc/team4096/robot/util/MiscConsts.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/classes/frc/team4096/robot/util/XboxConsts$Axis.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/classes/frc/team4096/robot/util/XboxConsts$Button.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/classes/frc/team4096/robot/util/XboxConsts$DPad.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/classes/frc/team4096/robot/util/XboxConsts.class" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/kotlin/frc/team4096/engine/OI/ZedXboxController.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/frc/team4096/engine/OI/ZedXboxController.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/kotlin/frc/team4096/engine/OI/util/JoystickPOV.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/frc/team4096/engine/OI/util/JoystickPOV.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/kotlin/frc/team4096/engine/extensions/Phoenix.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/frc/team4096/engine/extensions/Phoenix.kt" afterDir="false" />
@@ -21,6 +91,7 @@
       <change beforePath="$PROJECT_DIR$/src/main/kotlin/frc/team4096/engine/motion/util/PIDVAController.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/frc/team4096/engine/motion/util/PIDVAController.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/kotlin/frc/team4096/robot/OI.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/frc/team4096/robot/OI.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/kotlin/frc/team4096/robot/Robot.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/frc/team4096/robot/Robot.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/frc/team4096/robot/autonomous/AutoMain.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/frc/team4096/robot/autonomous/AutoMain.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/kotlin/frc/team4096/robot/autonomous/modes/CenterSwitch.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/frc/team4096/robot/autonomous/modes/CenterSwitch.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/kotlin/frc/team4096/robot/autonomous/modes/DoNothing.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/frc/team4096/robot/autonomous/modes/DoNothing.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/kotlin/frc/team4096/robot/autonomous/modes/LeftScale.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/frc/team4096/robot/autonomous/modes/LeftScale.kt" afterDir="false" />
@@ -130,41 +201,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="AutoMain.kt" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/kotlin/frc/team4096/robot/autonomous/AutoMain.kt">
+      <file leaf-file-name="AutoMode.kt" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/main/kotlin/frc/team4096/robot/autonomous/AutoMode.kt">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="672">
-              <caret line="42" column="37" selection-start-line="42" selection-start-column="37" selection-end-line="42" selection-end-column="37" />
-              <folding>
-                <element signature="e#39#284#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="DriveDistanceCmd.kt" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/kotlin/frc/team4096/robot/drivetrain/DriveDistanceCmd.kt">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="176">
-              <caret line="11" column="14" selection-start-line="11" selection-start-column="14" selection-end-line="11" selection-end-column="14" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="MiscConsts.kt" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/main/kotlin/frc/team4096/robot/misc/MiscConsts.kt">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="224">
-              <caret line="14" selection-start-line="14" selection-end-line="14" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="ManualElevatorCmd.kt" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/kotlin/frc/team4096/robot/elevator/ManualElevatorCmd.kt">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="285">
-              <caret line="19" selection-start-line="19" selection-end-line="19" />
+            <state relative-caret-position="64">
+              <caret line="5" column="11" selection-start-line="5" selection-start-column="11" selection-end-line="5" selection-end-column="11" />
             </state>
           </provider>
         </entry>
@@ -761,7 +802,6 @@
         <option value="$PROJECT_DIR$/src/main/kotlin/frc/team4096/robot/util/ZSubsystem.kt" />
         <option value="$PROJECT_DIR$/src/main/kotlin/frc/team4096/robot/util/ZedSubsystem.kt" />
         <option value="$PROJECT_DIR$/src/main/kotlin/frc/team4096/robot/autonomous/modes/DriveForward.kt" />
-        <option value="$PROJECT_DIR$/src/main/kotlin/frc/team4096/robot/autonomous/modes/DoNothing.kt" />
         <option value="$PROJECT_DIR$/README.md" />
         <option value="$PROJECT_DIR$/src/main/kotlin/frc/team4096/robot/util/General.kt" />
         <option value="$PROJECT_DIR$/src/main/kotlin/frc/team4096/robot/autonomous/modes/RightSwitch.kt" />
@@ -796,13 +836,14 @@
         <option value="$PROJECT_DIR$/src/main/kotlin/frc/team4096/robot/subsystems/Drive.kt" />
         <option value="$PROJECT_DIR$/src/main/kotlin/frc/team4096/robot/subsystems/Elevator.kt" />
         <option value="$PROJECT_DIR$/src/main/kotlin/frc/team4096/robot/subsystems/Intake.kt" />
-        <option value="$PROJECT_DIR$/src/main/kotlin/frc/team4096/robot/autonomous/AutoMain.kt" />
         <option value="$PROJECT_DIR$/src/main/kotlin/frc/team4096/robot/autonomous/modes/CenterSwitch.kt" />
         <option value="$PROJECT_DIR$/src/main/kotlin/frc/team4096/robot/drivetrain/DriveCmds.kt" />
         <option value="$PROJECT_DIR$/src/main/kotlin/frc/team4096/robot/elevator/Elevator.kt" />
         <option value="$PROJECT_DIR$/src/main/kotlin/frc/team4096/robot/util/Constants.kt" />
         <option value="$PROJECT_DIR$/src/main/kotlin/frc/team4096/robot/misc/Constants.kt" />
         <option value="$PROJECT_DIR$/src/main/kotlin/frc/team4096/robot/misc/MiscConsts.kt" />
+        <option value="$PROJECT_DIR$/src/main/kotlin/frc/team4096/robot/autonomous/modes/DoNothing.kt" />
+        <option value="$PROJECT_DIR$/src/main/kotlin/frc/team4096/robot/autonomous/AutoMain.kt" />
       </list>
     </option>
   </component>
@@ -887,16 +928,6 @@
               <item name="robot" type="462c0819:PsiDirectoryNode" />
               <item name="autonomous" type="462c0819:PsiDirectoryNode" />
             </path>
-            <path>
-              <item name="Robot-2018-KT" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Robot-2018-KT" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="kotlin" type="462c0819:PsiDirectoryNode" />
-              <item name="team4096" type="462c0819:PsiDirectoryNode" />
-              <item name="robot" type="462c0819:PsiDirectoryNode" />
-              <item name="misc" type="462c0819:PsiDirectoryNode" />
-            </path>
           </expand>
           <select />
         </subPane>
@@ -929,11 +960,11 @@
       <recent name="$PROJECT_DIR$/src/main/kotlin/frc/team4096/robot/subsystems" />
     </key>
     <key name="MoveKotlinTopLevelDeclarationsDialog.RECENTS_KEY">
+      <recent name="frc.team4096.robot.autonomous" />
       <recent name="frc.team4096.robot.misc" />
       <recent name="frc.team4096.robot.climber" />
       <recent name="frc.team4096.robot.elevator" />
       <recent name="frc.team4096.robot.intake" />
-      <recent name="frc.team4096.robot.drivetrain" />
     </key>
     <key name="CopyKotlinDeclarationDialog.RECENTS_KEY">
       <recent name="frc.team4096.robot.autonomous.modes" />
@@ -1123,7 +1154,7 @@
     <layout>
       <window_info anchor="right" id="Palette" order="3" />
       <window_info anchor="bottom" id="TODO" order="6" sideWeight="0.49921507" weight="0.3279483" />
-      <window_info anchor="bottom" id="Messages" order="7" weight="0.18739635" />
+      <window_info anchor="bottom" id="Messages" order="7" weight="0.08858603" />
       <window_info anchor="right" id="Palette&#9;" order="3" />
       <window_info anchor="bottom" id="Event Log" order="7" sideWeight="0.5023548" side_tool="true" weight="0.3263328" />
       <window_info anchor="right" id="Maven Projects" order="3" />
@@ -1170,13 +1201,6 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/main/kotlin/frc/team4096/robot/util/Extensions.kt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="105">
-          <caret line="7" selection-start-line="7" selection-end-line="7" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/kotlin/frc/team4096/robot/OI.kt">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="240">
@@ -1264,16 +1288,6 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/kotlin/frc/team4096/robot/sensors/GrayhillEncoder.kt" />
-    <entry file="file://$PROJECT_DIR$/src/main/kotlin/frc/team4096/robot/autonomous/modes/DoNothing.kt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="105">
-          <caret line="7" selection-start-line="7" selection-end-line="7" />
-          <folding>
-            <element signature="e#45#136#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/openrio.mirror.third.ctre/CTRE-phoenix-java/5.2.2.0/6ef53967acb57f11e0be1e3d825d8a013945bc27/CTRE-phoenix-java-5.2.2.0-sources.jar!/com/ctre/phoenix/motorcontrol/IMotorController.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="193">
@@ -1470,27 +1484,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/kotlin/frc/team4096/robot/autonomous/AutoMain.kt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="672">
-          <caret line="42" column="37" selection-start-line="42" selection-start-column="37" selection-end-line="42" selection-end-column="37" />
-          <folding>
-            <element signature="e#39#284#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/kotlin/frc/team4096/robot/intake/ManualIntakeCmd.kt">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="304">
           <caret line="21" column="31" selection-start-line="21" selection-start-column="31" selection-end-line="21" selection-end-column="31" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/kotlin/frc/team4096/robot/elevator/ManualElevatorCmd.kt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="285">
-          <caret line="19" selection-start-line="19" selection-end-line="19" />
         </state>
       </provider>
     </entry>
@@ -1508,6 +1505,16 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/kotlin/frc/team4096/robot/autonomous/AutoMain.kt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret column="4" selection-start-column="4" selection-end-column="4" />
+          <folding>
+            <element signature="e#39#284#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/kotlin/frc/team4096/robot/drivetrain/DriveDistanceCmd.kt">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="176">
@@ -1519,6 +1526,30 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="224">
           <caret line="14" selection-start-line="14" selection-end-line="14" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/kotlin/frc/team4096/robot/autonomous/modes/DoNothing.kt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="64">
+          <caret line="4" lean-forward="true" selection-start-line="4" selection-end-line="4" />
+          <folding>
+            <element signature="e#45#147#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/kotlin/frc/team4096/robot/elevator/ManualElevatorCmd.kt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="285">
+          <caret line="19" selection-start-line="19" selection-end-line="19" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/kotlin/frc/team4096/robot/autonomous/AutoMode.kt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="64">
+          <caret line="5" column="11" selection-start-line="5" selection-start-column="11" selection-end-line="5" selection-end-column="11" />
         </state>
       </provider>
     </entry>
