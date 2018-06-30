@@ -9,6 +9,10 @@ import frc.team4096.robot.OI
 import frc.team4096.robot.commands.ManualIntakeCmd
 import frc.team4096.robot.util.*
 
+/**
+ * Intake subsystem.
+ * Handles spinning, rotation, and squeezing.
+ */
 object IntakeSubsystem: ZedSubsystem() {
 	// Hardware
 	// TODO: Add second motor controller for wheels

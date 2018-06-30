@@ -8,6 +8,10 @@ import frc.team4096.robot.commands.AutoElevatorCmd
 import frc.team4096.robot.subsystems.*
 import frc.team4096.robot.util.*
 
+/**
+ * Operator input object.
+ * Handles all joystick activity.
+ */
 object OI {
 
 	// Setup controllers with custom Ctrl-Z XboxController wrapper

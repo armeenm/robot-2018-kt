@@ -6,6 +6,13 @@ import frc.team4096.robot.subsystems.ElevatorSubsystem
 import frc.team4096.robot.util.ElevatorConsts
 import frc.team4096.engine.util.onTarget
 
+/**
+ * Manual elevator motion.
+ * Intended for use with a joystick.
+ * Does not finish but is interruptible.
+ *
+ * @param speed Speed to move elevator at
+ */
 class ManualElevatorCmd(private var speed: Double): Command() {
 	init {
 		this.requires(ElevatorSubsystem)
@@ -24,6 +31,12 @@ class ManualElevatorCmd(private var speed: Double): Command() {
 	override fun interrupted() = this.end()
 }
 
+/**
+ * Move elevator a given distance.
+ * Uses Talon SRX Motion Magic (trapezoidal motion profiling).
+ *
+ * @param distance Distance to travel
+ */
 class AutoElevatorCmd(private val distance: Double): Command() {
 	init {
 		this.requires(ElevatorSubsystem)

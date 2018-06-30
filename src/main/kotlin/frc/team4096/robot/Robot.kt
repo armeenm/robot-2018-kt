@@ -7,6 +7,11 @@ import frc.team4096.robot.autonomous.AutoMain
 import frc.team4096.robot.subsystems.*
 import frc.team4096.robot.util.MiscConsts
 
+/**
+ * Main robot object.
+ * Used by robot internals.
+ * Inherits from timed robot for consistent frequency.
+ */
 object Robot: TimedRobot() {
 	// Sensors
 	val gyro = ADXRS450_Gyro()

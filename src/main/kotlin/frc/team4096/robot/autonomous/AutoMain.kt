@@ -6,7 +6,10 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard
 import frc.team4096.robot.Robot
 import frc.team4096.robot.autonomous.modes.*
 
-
+/**
+ * Main autonomous handler.
+ * Handles calling the correct mode, game data, etc.
+ */
 object AutoMain {
 	var autoData: String? = null
 	var autoRun = false

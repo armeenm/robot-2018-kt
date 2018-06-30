@@ -5,6 +5,10 @@ import edu.wpi.first.wpilibj.VictorSP
 import frc.team4096.robot.util.ClimberConsts
 import frc.team4096.engine.wpi.ZedSubsystem
 
+/**
+ * Climber subsystem.
+ * Handles climber motor and release servo.
+ */
 object ClimberSubsystem: ZedSubsystem() {
 	// Hardware
 	var motor = VictorSP(ClimberConsts.PWM_MOTOR)
@@ -27,7 +31,9 @@ object ClimberSubsystem: ZedSubsystem() {
 
 	override fun initDefaultCommand() {}
 
-	// Methods
+	/**
+	 * Release climbing apparatus.
+	 */
 	fun release() {
 		isReleased = true
 		servo.angle = ClimberConsts.SERVO_RELEASE_ANGLE

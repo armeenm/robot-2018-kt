@@ -12,6 +12,10 @@ import frc.team4096.robot.util.*
 import kotlin.math.cos
 import kotlin.math.sin
 
+/**
+ * Drivetrain subsystem.
+ * Handles driving and shifting.
+ */
 object DriveSubsystem: ZedSubsystem() {
 	// Hardware
 	private val leftMotor1 = VictorSP(DriveConsts.PWM_L1)
@@ -33,7 +37,10 @@ object DriveSubsystem: ZedSubsystem() {
 	private val leftEncoder = Encoder(DriveConsts.L_ENC_CHANNEL_A, DriveConsts.L_ENC_CHANNEL_B)
 	private val rightEncoder = Encoder(DriveConsts.R_ENC_CHANNEL_A, DriveConsts.R_ENC_CHANNEL_B)
 
-	// 254-style drive signal (without brake because Victor SPs :/)
+	/**
+	 * 254-style drive signal.
+	 * Lacks brake due to motor controller capabilities.
+	 */
 	private val signal = DriveSignal(0.0, 0.0)
 
 	// Assumes starting at the origin facing forward.

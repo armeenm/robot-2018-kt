@@ -185,17 +185,17 @@ object XboxConsts {
 
 const val RAP_LYRICS = """
 Pressure's weak
-Feeder's heavy
-Scratches on his paint already
+Intake's heavy
+Dirt on his wheels already
 Overload me! (code's spaghetti)
 
-But on the outside he looks fierce, Jaw-Z
-To shoot balls
-But he keeps on missing
+But on the outside he looks fierce, Atla-Z
+To carry cubes
+But he keeps on droppin
 When he broke down, the whole crowd groans so loud
 He closes his valve, but the air just leaks out
 He's broken now, Ctrl-Z is mopin' now
-The power's run out, low bar's pressin down
+The power's run out, scale's pressin down
 
 Snap back to the tragedy, oh there goes the battery
 Oh there goes belt, it broke

@@ -7,6 +7,14 @@ import frc.team4096.robot.subsystems.DriveSubsystem
 import frc.team4096.robot.subsystems.DriveSubsystem.GearState
 import frc.team4096.robot.subsystems.DriveSubsystem.gear
 
+/**
+ * Curvature/Cheesy drive command for tele-op.
+ * Does not finish but is interruptible.
+ *
+ * @param xSpeed Throttle joystick value
+ * @param zRotation Yaw joystick value
+ * @param isQuickTurn Allow for quick turning
+ */
 class CurvatureDriveCmd(var xSpeed: Double, var zRotation: Double, var isQuickTurn: Boolean): Command() {
 	init {
 		this.requires(DriveSubsystem)
@@ -22,6 +30,9 @@ class CurvatureDriveCmd(var xSpeed: Double, var zRotation: Double, var isQuickTu
 	override fun interrupted() = this.end()
 }
 
+/**
+ * Toggle the drive gear state
+ */
 class ToggleDriveGearCmd(): InstantCommand() {
 	init {
 		this.requires(DriveSubsystem)
@@ -42,7 +53,13 @@ class ToggleDriveGearCmd(): InstantCommand() {
 	}
 }
 
-// Uses a trapezoidal profile to drive a given distance
+/**
+ * Drive a given distance with trapezoidal motion profiles.
+ *
+ * @param distance Distance to drive
+ * @param maxAccel Maximum acceleration
+ * @param maxVel Maximum velocity
+ */
 class DriveDistanceCmd(val distance: Double, val maxAccel: Double, val maxVel: Double): Command() {
 	init {
 		this.requires(DriveSubsystem)

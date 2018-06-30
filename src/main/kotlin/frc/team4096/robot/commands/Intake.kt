@@ -4,9 +4,14 @@ import edu.wpi.first.wpilibj.command.Command
 import frc.team4096.robot.subsystems.IntakeSubsystem
 import frc.team4096.robot.util.IntakeConsts
 
+/**
+ * Manual intake wheel rotation command.
+ * Takes the difference between inSpeed and outSpeed.
+ *
+ * @param inSpeed Inward speed
+ * @param outSpeed Outward speed
+ */
 class ManualIntakeCmd(var inSpeed: Double, var outSpeed: Double): Command() {
-	// Set the speed of the intake wheels to be the difference between the triggers
-	// i.e. LT - RT
 	override fun execute() {
 		IntakeSubsystem.intakeSpeed =
 			inSpeed * IntakeConsts.MAX_IN_SPEED - outSpeed * IntakeConsts.MAX_OUT_SPEED
