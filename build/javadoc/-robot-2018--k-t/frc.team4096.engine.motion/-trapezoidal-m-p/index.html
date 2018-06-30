@@ -1,0 +1,165 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>TrapezoidalMP - Robot-2018-KT</title>
+<link rel="stylesheet" href="../../../style.css">
+</HEAD>
+<BODY>
+<a href="../../index.html">Robot-2018-KT</a>&nbsp;/&nbsp;<a href="../index.html">frc.team4096.engine.motion</a>&nbsp;/&nbsp;<a href="./index.html">TrapezoidalMP</a><br/>
+<br/>
+<h1>TrapezoidalMP</h1>
+<code><span class="keyword">class </span><span class="identifier">TrapezoidalMP</span></code>
+<p>A trapezoidal motion profile.
+Consists of vel ramp up, cruise, and vel ramp down periods.
+For more information, refer to 254 champs video.</p>
+<h3>Parameters</h3>
+<p><a name="targetPos"></a>
+<code>targetPos</code> - Target position</p>
+<p><a name="maxVel"></a>
+<code>maxVel</code> - Maximum velocity</p>
+<p><a name="maxAccel"></a>
+<code>maxAccel</code> - Maximum acceleration</p>
+<h3>Constructors</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="-init-.html">&lt;init&gt;</a></p>
+</td>
+<td>
+<code><span class="identifier">TrapezoidalMP</span><span class="symbol">(</span><span class="identifier" id="frc.team4096.engine.motion.TrapezoidalMP$<init>(kotlin.Double, kotlin.Double, kotlin.Double)/targetPos">targetPos</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-double/index.html"><span class="identifier">Double</span></a><span class="symbol">, </span><span class="identifier" id="frc.team4096.engine.motion.TrapezoidalMP$<init>(kotlin.Double, kotlin.Double, kotlin.Double)/maxVel">maxVel</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-double/index.html"><span class="identifier">Double</span></a><span class="symbol">, </span><span class="identifier" id="frc.team4096.engine.motion.TrapezoidalMP$<init>(kotlin.Double, kotlin.Double, kotlin.Double)/maxAccel">maxAccel</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-double/index.html"><span class="identifier">Double</span></a><span class="symbol">)</span></code>
+<p>Constructor</p>
+</td>
+</tr>
+</tbody>
+</table>
+<h3>Properties</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="cur-time.html">curTime</a></p>
+</td>
+<td>
+<code><span class="keyword">var </span><span class="identifier">curTime</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-double/index.html"><span class="identifier">Double</span></a></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="error.html">error</a></p>
+</td>
+<td>
+<code><span class="keyword">var </span><span class="identifier">error</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-double/index.html"><span class="identifier">Double</span></a></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="goal-pos.html">goalPos</a></p>
+</td>
+<td>
+<code><span class="keyword">var </span><span class="identifier">goalPos</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-double/index.html"><span class="identifier">Double</span></a></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="goal-vel.html">goalVel</a></p>
+</td>
+<td>
+<code><span class="keyword">var </span><span class="identifier">goalVel</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-double/index.html"><span class="identifier">Double</span></a></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="integral.html">integral</a></p>
+</td>
+<td>
+<code><span class="keyword">var </span><span class="identifier">integral</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-double/index.html"><span class="identifier">Double</span></a></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="is-finished.html">isFinished</a></p>
+</td>
+<td>
+<code><span class="keyword">var </span><span class="identifier">isFinished</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html"><span class="identifier">Boolean</span></a></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="max-accel.html">maxAccel</a></p>
+</td>
+<td>
+<code><span class="keyword">val </span><span class="identifier">maxAccel</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-double/index.html"><span class="identifier">Double</span></a></code>
+<p>Maximum acceleration</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="max-vel.html">maxVel</a></p>
+</td>
+<td>
+<code><span class="keyword">val </span><span class="identifier">maxVel</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-double/index.html"><span class="identifier">Double</span></a></code>
+<p>Maximum velocity</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="start-time.html">startTime</a></p>
+</td>
+<td>
+<code><span class="keyword">var </span><span class="identifier">startTime</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-double/index.html"><span class="identifier">Double</span></a></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="t-accel.html">tAccel</a></p>
+</td>
+<td>
+<code><span class="keyword">val </span><span class="identifier">tAccel</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-double/index.html"><span class="identifier">Double</span></a></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="t-cruise.html">tCruise</a></p>
+</td>
+<td>
+<code><span class="keyword">val </span><span class="identifier">tCruise</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-double/index.html"><span class="identifier">Double</span></a></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="target-pos.html">targetPos</a></p>
+</td>
+<td>
+<code><span class="keyword">val </span><span class="identifier">targetPos</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-double/index.html"><span class="identifier">Double</span></a></code>
+<p>Target position</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="x-accel.html">xAccel</a></p>
+</td>
+<td>
+<code><span class="keyword">val </span><span class="identifier">xAccel</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-double/index.html"><span class="identifier">Double</span></a></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="x-cruise.html">xCruise</a></p>
+</td>
+<td>
+<code><span class="keyword">val </span><span class="identifier">xCruise</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-double/index.html"><span class="identifier">Double</span></a></code></td>
+</tr>
+</tbody>
+</table>
+<h3>Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="follow.html">follow</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">follow</span><span class="symbol">(</span><span class="identifier" id="frc.team4096.engine.motion.TrapezoidalMP$follow(frc.team4096.engine.motion.util.PIDFVals, kotlin.Function0((kotlin.Double)), kotlin.Function1((kotlin.Double, kotlin.Unit)))/pidfVals">pidfVals</span><span class="symbol">:</span>&nbsp;<a href="../../frc.team4096.engine.motion.util/-p-i-d-f-vals/index.html"><span class="identifier">PIDFVals</span></a><span class="symbol">, </span><span class="identifier" id="frc.team4096.engine.motion.TrapezoidalMP$follow(frc.team4096.engine.motion.util.PIDFVals, kotlin.Function0((kotlin.Double)), kotlin.Function1((kotlin.Double, kotlin.Unit)))/sourceFun">sourceFun</span><span class="symbol">:</span>&nbsp;<span class="symbol">(</span><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-double/index.html"><span class="identifier">Double</span></a><span class="symbol">, </span><span class="identifier" id="frc.team4096.engine.motion.TrapezoidalMP$follow(frc.team4096.engine.motion.util.PIDFVals, kotlin.Function0((kotlin.Double)), kotlin.Function1((kotlin.Double, kotlin.Unit)))/sinkFun">sinkFun</span><span class="symbol">:</span>&nbsp;<span class="symbol">(</span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-double/index.html"><span class="identifier">Double</span></a><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="init-follower.html">initFollower</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">initFollower</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code></td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>

@@ -1,0 +1,8 @@
+/home/nixpower/Git/Robot-2018-KT/src/main/kotlin/frc/team4096/robot/util/Z_XboxController.kt
+/home/nixpower/Git/Robot-2018-KT/src/main/kotlin/frc/team4096/robot/util/General.kt
+/home/nixpower/Git/Robot-2018-KT/src/main/kotlin/frc/team4096/robot/util/Constants.kt
+/home/nixpower/Git/Robot-2018-KT/src/main/kotlin/frc/team4096/robot/Robot.kt
+/home/nixpower/Git/Robot-2018-KT/src/main/kotlin/frc/team4096/robot/subsystems/Drive.kt
+/home/nixpower/Git/Robot-2018-KT/src/main/kotlin/frc/team4096/robot/subsystems/Intake.kt
+/home/nixpower/Git/Robot-2018-KT/src/main/kotlin/frc/team4096/robot/commands/Drive.kt
+/home/nixpower/Git/Robot-2018-KT/src/main/kotlin/frc/team4096/robot/OI.kt
