@@ -2,16 +2,39 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="a7ee16c1-45c8-4cc8-8859-9c1d6dd8c97c" name="Default" comment=":O v2">
+      <change afterPath="$PROJECT_DIR$/src/main/kotlin/frc/team4096/robot/climber/ClimberConsts.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/kotlin/frc/team4096/robot/drivetrain/CurvatureDriveCmd.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/kotlin/frc/team4096/robot/drivetrain/DriveConsts.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/kotlin/frc/team4096/robot/drivetrain/DriveDistanceCmd.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/kotlin/frc/team4096/robot/drivetrain/ToggleDriveGearCmd.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/kotlin/frc/team4096/robot/elevator/AutoElevatorCmd.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/kotlin/frc/team4096/robot/elevator/ElevatorConsts.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/kotlin/frc/team4096/robot/intake/IntakeConsts.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/kotlin/frc/team4096/robot/misc/MiscConsts.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/kotlin/frc/team4096/robot/misc/XboxConsts.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Robot-2018-KT.iws" beforeDir="false" afterPath="$PROJECT_DIR$/Robot-2018-KT.iws" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/frc/team4096/engine/OI/ZedXboxController.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/frc/team4096/engine/OI/ZedXboxController.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/frc/team4096/engine/OI/util/JoystickPOV.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/frc/team4096/engine/OI/util/JoystickPOV.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/frc/team4096/engine/extensions/Phoenix.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/frc/team4096/engine/extensions/Phoenix.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/frc/team4096/engine/motion/PIDFController.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/frc/team4096/engine/motion/PIDFController.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/frc/team4096/engine/motion/TrapezoidalMP.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/frc/team4096/engine/motion/TrapezoidalMP.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/frc/team4096/engine/motion/util/PIDVAController.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/frc/team4096/engine/motion/util/PIDVAController.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/kotlin/frc/team4096/robot/OI.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/frc/team4096/robot/OI.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/kotlin/frc/team4096/robot/Robot.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/frc/team4096/robot/Robot.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/frc/team4096/robot/autonomous/AutoMain.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/frc/team4096/robot/autonomous/AutoMain.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/frc/team4096/robot/commands/Drive.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/frc/team4096/robot/commands/Drive.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/frc/team4096/robot/commands/Elevator.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/frc/team4096/robot/commands/Elevator.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/frc/team4096/robot/commands/Intake.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/frc/team4096/robot/commands/Intake.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/frc/team4096/robot/subsystems/Climber.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/frc/team4096/robot/subsystems/Climber.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/frc/team4096/robot/subsystems/Drive.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/frc/team4096/robot/subsystems/Drive.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/frc/team4096/robot/subsystems/Elevator.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/frc/team4096/robot/subsystems/Elevator.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/frc/team4096/robot/subsystems/Intake.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/frc/team4096/robot/subsystems/Intake.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/frc/team4096/robot/autonomous/modes/CenterSwitch.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/frc/team4096/robot/autonomous/modes/CenterSwitch.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/frc/team4096/robot/autonomous/modes/DoNothing.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/frc/team4096/robot/autonomous/modes/DoNothing.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/frc/team4096/robot/autonomous/modes/LeftScale.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/frc/team4096/robot/autonomous/modes/LeftScale.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/frc/team4096/robot/autonomous/modes/LeftSwitch.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/frc/team4096/robot/autonomous/modes/LeftSwitch.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/frc/team4096/robot/autonomous/modes/RightScale.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/frc/team4096/robot/autonomous/modes/RightScale.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/frc/team4096/robot/autonomous/modes/RightSwitch.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/frc/team4096/robot/autonomous/modes/RightSwitch.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/frc/team4096/robot/commands/Drive.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/frc/team4096/robot/commands/Elevator.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/frc/team4096/robot/elevator/ManualElevatorCmd.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/frc/team4096/robot/commands/Intake.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/frc/team4096/robot/intake/ManualIntakeCmd.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/frc/team4096/robot/subsystems/Climber.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/frc/team4096/robot/climber/ClimberSubsystem.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/frc/team4096/robot/subsystems/Drive.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/frc/team4096/robot/drivetrain/DriveSubsystem.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/frc/team4096/robot/subsystems/Elevator.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/frc/team4096/robot/elevator/ElevatorSubsystem.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/frc/team4096/robot/subsystems/Intake.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/frc/team4096/robot/intake/IntakeSubsystem.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/frc/team4096/robot/util/Constants.kt" beforeDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.gradle/" />
     <ignored path="$PROJECT_DIR$/build/" />
@@ -107,19 +130,10 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="Constants.kt" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/kotlin/frc/team4096/robot/util/Constants.kt">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="75">
-              <caret line="5" selection-start-line="5" selection-end-line="5" />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="AutoMain.kt" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/kotlin/frc/team4096/robot/autonomous/AutoMain.kt">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="465">
+            <state relative-caret-position="672">
               <caret line="42" column="37" selection-start-line="42" selection-start-column="37" selection-end-line="42" selection-end-column="37" />
               <folding>
                 <element signature="e#39#284#0" expanded="true" />
@@ -128,14 +142,29 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="CenterSwitch.kt" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/main/kotlin/frc/team4096/robot/autonomous/modes/CenterSwitch.kt">
+      <file leaf-file-name="DriveDistanceCmd.kt" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/kotlin/frc/team4096/robot/drivetrain/DriveDistanceCmd.kt">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="135">
-              <caret line="9" selection-start-line="9" selection-end-line="9" />
-              <folding>
-                <element signature="e#45#333#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="176">
+              <caret line="11" column="14" selection-start-line="11" selection-start-column="14" selection-end-line="11" selection-end-column="14" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="MiscConsts.kt" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/main/kotlin/frc/team4096/robot/misc/MiscConsts.kt">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="224">
+              <caret line="14" selection-start-line="14" selection-end-line="14" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ManualElevatorCmd.kt" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/kotlin/frc/team4096/robot/elevator/ManualElevatorCmd.kt">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="285">
+              <caret line="19" selection-start-line="19" selection-end-line="19" />
             </state>
           </provider>
         </entry>
@@ -741,7 +770,6 @@
         <option value="$PROJECT_DIR$/src/main/kotlin/frc/team4096/robot/autonomous/modes/LeftScale.kt" />
         <option value="$PROJECT_DIR$/src/main/kotlin/frc/team4096/robot/util/Drive.kt" />
         <option value="$PROJECT_DIR$/src/main/kotlin/frc/team4096/robot/util/CTRE.kt" />
-        <option value="$PROJECT_DIR$/src/main/kotlin/frc/team4096/robot/util/Constants.kt" />
         <option value="$PROJECT_DIR$/src/main/kotlin/frc/team4096/robot/util/MotionControl.kt" />
         <option value="$PROJECT_DIR$/src/main/kotlin/frc/team4096/engine/motion/MotionControl.kt" />
         <option value="$PROJECT_DIR$/src/main/kotlin/frc/team4096/robot/util/ZedXboxController.kt" />
@@ -770,6 +798,11 @@
         <option value="$PROJECT_DIR$/src/main/kotlin/frc/team4096/robot/subsystems/Intake.kt" />
         <option value="$PROJECT_DIR$/src/main/kotlin/frc/team4096/robot/autonomous/AutoMain.kt" />
         <option value="$PROJECT_DIR$/src/main/kotlin/frc/team4096/robot/autonomous/modes/CenterSwitch.kt" />
+        <option value="$PROJECT_DIR$/src/main/kotlin/frc/team4096/robot/drivetrain/DriveCmds.kt" />
+        <option value="$PROJECT_DIR$/src/main/kotlin/frc/team4096/robot/elevator/Elevator.kt" />
+        <option value="$PROJECT_DIR$/src/main/kotlin/frc/team4096/robot/util/Constants.kt" />
+        <option value="$PROJECT_DIR$/src/main/kotlin/frc/team4096/robot/misc/Constants.kt" />
+        <option value="$PROJECT_DIR$/src/main/kotlin/frc/team4096/robot/misc/MiscConsts.kt" />
       </list>
     </option>
   </component>
@@ -862,18 +895,7 @@
               <item name="kotlin" type="462c0819:PsiDirectoryNode" />
               <item name="team4096" type="462c0819:PsiDirectoryNode" />
               <item name="robot" type="462c0819:PsiDirectoryNode" />
-              <item name="autonomous" type="462c0819:PsiDirectoryNode" />
-              <item name="modes" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Robot-2018-KT" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Robot-2018-KT" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="kotlin" type="462c0819:PsiDirectoryNode" />
-              <item name="team4096" type="462c0819:PsiDirectoryNode" />
-              <item name="robot" type="462c0819:PsiDirectoryNode" />
-              <item name="subsystems" type="462c0819:PsiDirectoryNode" />
+              <item name="misc" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -891,25 +913,27 @@
     <property name="MemberChooser.copyJavadoc" value="false" />
     <property name="MemberChooser.showClasses" value="true" />
     <property name="MemberChooser.sorted" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/main/kotlin/frc/team4096/engine/extensions" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/main/kotlin/frc/team4096/robot/drivetrain" />
     <property name="project.structure.last.edited" value="SDKs" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.33678162" />
     <property name="run.code.analysis.last.selected.profile" value="pProject Default" />
-    <property name="settings.editor.selected.configurable" value="Errors" />
+    <property name="settings.editor.selected.configurable" value="editor.preferences.fonts.default" />
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/src/main/kotlin/frc/team4096/engine/extensions" />
-      <recent name="$PROJECT_DIR$/src/main/kotlin/frc/team4096/engine/util" />
-      <recent name="$PROJECT_DIR$/src/main/kotlin/frc/team4096/robot/util" />
+      <recent name="$PROJECT_DIR$/src/main/kotlin/frc/team4096/robot/climber" />
+      <recent name="$PROJECT_DIR$/src/main/kotlin/frc/team4096/robot/elevator" />
+      <recent name="$PROJECT_DIR$/src/main/kotlin/frc/team4096/robot/intake" />
+      <recent name="$PROJECT_DIR$/src/main/kotlin/frc/team4096/robot/drivetrain" />
+      <recent name="$PROJECT_DIR$/src/main/kotlin/frc/team4096/robot/subsystems" />
     </key>
     <key name="MoveKotlinTopLevelDeclarationsDialog.RECENTS_KEY">
-      <recent name="frc.team4096.engine.wpi" />
-      <recent name="frc.team4096.engine.util" />
-      <recent name="frc.team4096.engine.motion.util" />
-      <recent name="frc.team4096.engine.signalProcessing" />
-      <recent name="frc.team4096.engine.OI.util" />
+      <recent name="frc.team4096.robot.misc" />
+      <recent name="frc.team4096.robot.climber" />
+      <recent name="frc.team4096.robot.elevator" />
+      <recent name="frc.team4096.robot.intake" />
+      <recent name="frc.team4096.robot.drivetrain" />
     </key>
     <key name="CopyKotlinDeclarationDialog.RECENTS_KEY">
       <recent name="frc.team4096.robot.autonomous.modes" />
@@ -1109,6 +1133,7 @@
       <window_info id="Designer" order="2" />
       <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.4992126" visible="true" weight="0.20757575" />
       <window_info anchor="bottom" id="Build" order="7" weight="0.26865673" />
+      <window_info anchor="bottom" id="Find" order="1" weight="0.26064736" />
       <window_info anchor="right" id="Gradle" order="3" weight="0.26742426" />
       <window_info id="Structure" order="1" sideWeight="0.5007874" side_tool="true" weight="0.20075758" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.24960753" />
@@ -1124,7 +1149,6 @@
       <window_info id="Image Layers" order="2" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
-      <window_info anchor="bottom" id="Find" order="1" weight="0.3283582" />
     </layout>
   </component>
   <component name="VcsContentAnnotationSettings">
@@ -1146,20 +1170,6 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/main/kotlin/frc/team4096/robot/subsystems/Drive.kt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1245">
-          <caret line="83" column="32" selection-start-line="83" selection-start-column="32" selection-end-line="83" selection-end-column="32" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/kotlin/frc/team4096/robot/subsystems/Intake.kt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="885">
-          <caret line="59" column="9" selection-start-line="59" selection-start-column="9" selection-end-line="59" selection-end-column="9" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/kotlin/frc/team4096/robot/util/Extensions.kt">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="105">
@@ -1174,21 +1184,21 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/kotlin/frc/team4096/robot/commands/Drive.kt">
+    <entry file="file://$PROJECT_DIR$/src/main/kotlin/frc/team4096/robot/drivetrain/DriveDistanceCmd.kt">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="180">
           <caret line="12" column="4" selection-start-line="12" selection-start-column="4" selection-end-line="12" selection-end-column="4" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/kotlin/frc/team4096/robot/subsystems/Drive.kt">
+    <entry file="file://$PROJECT_DIR$/src/main/kotlin/frc/team4096/robot/drivetrain/DriveSubsystem.kt">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1200">
           <caret line="80" selection-start-line="80" selection-end-line="80" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/kotlin/frc/team4096/robot/subsystems/Intake.kt">
+    <entry file="file://$PROJECT_DIR$/src/main/kotlin/frc/team4096/robot/intake/IntakeSubsystem.kt">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="945">
           <caret line="63" selection-start-line="63" selection-end-line="63" />
@@ -1209,7 +1219,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/kotlin/frc/team4096/robot/subsystems/Drive.kt">
+    <entry file="file://$PROJECT_DIR$/src/main/kotlin/frc/team4096/robot/drivetrain/DriveSubsystem.kt">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1245">
           <caret line="83" column="44" selection-start-line="83" selection-start-column="44" selection-end-line="83" selection-end-column="44" />
@@ -1223,14 +1233,14 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/kotlin/frc/team4096/robot/subsystems/Drive.kt">
+    <entry file="file://$PROJECT_DIR$/src/main/kotlin/frc/team4096/robot/drivetrain/DriveSubsystem.kt">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1245">
           <caret line="83" column="61" selection-start-line="83" selection-start-column="61" selection-end-line="83" selection-end-column="61" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/kotlin/frc/team4096/robot/subsystems/Drive.kt">
+    <entry file="file://$PROJECT_DIR$/src/main/kotlin/frc/team4096/robot/drivetrain/DriveSubsystem.kt">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1260">
           <caret line="84" selection-start-line="84" selection-end-line="84" />
@@ -1258,6 +1268,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="105">
           <caret line="7" selection-start-line="7" selection-end-line="7" />
+          <folding>
+            <element signature="e#45#136#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -1406,30 +1419,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/kotlin/frc/team4096/robot/commands/Intake.kt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="285">
-          <caret line="21" column="31" selection-start-line="21" selection-start-column="31" selection-end-line="21" selection-end-column="31" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/kotlin/frc/team4096/robot/commands/Elevator.kt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="60">
-          <caret line="35" column="36" selection-start-line="35" selection-start-column="36" selection-end-line="35" selection-end-column="36" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/kotlin/frc/team4096/robot/commands/Drive.kt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1125">
-          <caret line="75" selection-start-line="75" selection-end-line="75" />
-          <folding>
-            <element signature="e#37#305#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/kotlin/frc/team4096/robot/OI.kt">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="525">
@@ -1447,46 +1436,22 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/kotlin/frc/team4096/robot/subsystems/Climber.kt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="75">
-          <caret line="8" column="20" selection-start-line="8" selection-start-column="20" selection-end-line="8" selection-end-column="20" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/kotlin/frc/team4096/robot/subsystems/Drive.kt">
+    <entry file="file://$PROJECT_DIR$/src/main/kotlin/frc/team4096/robot/drivetrain/DriveSubsystem.kt">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="435">
           <caret line="147" selection-start-line="147" selection-end-line="147" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/kotlin/frc/team4096/robot/subsystems/Elevator.kt">
+    <entry file="file://$PROJECT_DIR$/src/main/kotlin/frc/team4096/robot/elevator/ElevatorSubsystem.kt">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="135">
           <caret line="21" selection-start-line="21" selection-end-line="21" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/kotlin/frc/team4096/robot/subsystems/Intake.kt">
+    <entry file="file://$PROJECT_DIR$/src/main/kotlin/frc/team4096/robot/intake/IntakeSubsystem.kt">
       <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/kotlin/frc/team4096/robot/util/Constants.kt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="75">
-          <caret line="5" selection-start-line="5" selection-end-line="5" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/kotlin/frc/team4096/robot/autonomous/AutoMain.kt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="465">
-          <caret line="42" column="37" selection-start-line="42" selection-start-column="37" selection-end-line="42" selection-end-column="37" />
-          <folding>
-            <element signature="e#39#284#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/kotlin/frc/team4096/robot/autonomous/modes/CenterSwitch.kt">
       <provider selected="true" editor-type-id="text-editor">
@@ -1495,6 +1460,65 @@
           <folding>
             <element signature="e#45#333#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/kotlin/frc/team4096/robot/drivetrain/CurvatureDriveCmd.kt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="192">
+          <caret line="12" column="6" selection-start-line="12" selection-start-column="6" selection-end-line="12" selection-end-column="6" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/kotlin/frc/team4096/robot/autonomous/AutoMain.kt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="672">
+          <caret line="42" column="37" selection-start-line="42" selection-start-column="37" selection-end-line="42" selection-end-column="37" />
+          <folding>
+            <element signature="e#39#284#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/kotlin/frc/team4096/robot/intake/ManualIntakeCmd.kt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="304">
+          <caret line="21" column="31" selection-start-line="21" selection-start-column="31" selection-end-line="21" selection-end-column="31" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/kotlin/frc/team4096/robot/elevator/ManualElevatorCmd.kt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="285">
+          <caret line="19" selection-start-line="19" selection-end-line="19" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/kotlin/frc/team4096/robot/climber/ClimberSubsystem.kt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="75">
+          <caret line="8" column="20" selection-start-line="8" selection-start-column="20" selection-end-line="8" selection-end-column="20" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/kotlin/frc/team4096/robot/misc/RAP_LYRICS.kt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="64">
+          <caret line="4" selection-start-line="4" selection-end-line="4" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/kotlin/frc/team4096/robot/drivetrain/DriveDistanceCmd.kt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="176">
+          <caret line="11" column="14" selection-start-line="11" selection-start-column="14" selection-end-line="11" selection-end-column="14" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/kotlin/frc/team4096/robot/misc/MiscConsts.kt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="224">
+          <caret line="14" selection-start-line="14" selection-end-line="14" />
         </state>
       </provider>
     </entry>

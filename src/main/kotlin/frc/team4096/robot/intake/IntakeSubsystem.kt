@@ -1,4 +1,4 @@
-package frc.team4096.robot.subsystems
+package frc.team4096.robot.intake
 
 import edu.wpi.first.wpilibj.DoubleSolenoid
 import edu.wpi.first.wpilibj.VictorSP
@@ -6,8 +6,7 @@ import frc.team4096.engine.motion.util.ControlState
 import frc.team4096.engine.util.applyDeadband
 import frc.team4096.engine.wpi.ZedSubsystem
 import frc.team4096.robot.OI
-import frc.team4096.robot.commands.ManualIntakeCmd
-import frc.team4096.robot.util.*
+import frc.team4096.robot.misc.*
 
 /**
  * Intake subsystem.
@@ -63,9 +62,12 @@ object IntakeSubsystem: ZedSubsystem() {
 		}
 
 	// Required Methods
-	init { reset() }
+	init {
+		reset()
+	}
 
-	override fun reset() { squeeze = SqueezeState.IN }
+	override fun reset() { squeeze = SqueezeState.IN
+	}
 
 	override fun autoReset() {
 		// We have a cube at the start of auto

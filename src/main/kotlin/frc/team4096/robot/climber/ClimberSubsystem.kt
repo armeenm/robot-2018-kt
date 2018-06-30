@@ -1,8 +1,7 @@
-package frc.team4096.robot.subsystems
+package frc.team4096.robot.climber
 
 import edu.wpi.first.wpilibj.Servo
 import edu.wpi.first.wpilibj.VictorSP
-import frc.team4096.robot.util.ClimberConsts
 import frc.team4096.engine.wpi.ZedSubsystem
 
 /**
@@ -18,7 +17,9 @@ object ClimberSubsystem: ZedSubsystem() {
 	var isReleased = false
 
 	// Required Methods
-	init { reset() }
+	init {
+		reset()
+	}
 
 	override fun reset() {
 		isReleased = false

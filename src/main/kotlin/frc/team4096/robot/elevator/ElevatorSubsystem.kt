@@ -1,4 +1,4 @@
-package frc.team4096.robot.subsystems
+package frc.team4096.robot.elevator
 
 import com.ctre.phoenix.motorcontrol.FeedbackDevice
 import com.ctre.phoenix.motorcontrol.NeutralMode
@@ -11,8 +11,7 @@ import frc.team4096.engine.motion.util.ControlState
 import frc.team4096.engine.motion.util.PIDFVals
 import frc.team4096.engine.wpi.ZedSubsystem
 import frc.team4096.robot.OI
-import frc.team4096.robot.commands.ManualElevatorCmd
-import frc.team4096.robot.util.*
+import frc.team4096.robot.misc.*
 
 /**
  * Elevator subsystem.
@@ -45,7 +44,9 @@ object ElevatorSubsystem: ZedSubsystem() {
 	var controlState = ControlState.OPEN_LOOP
 
 	// Required Methods
-	init { reset() }
+	init {
+		reset()
+	}
 
 	override fun reset() {
 		// Configure Talon SRX (Master)
@@ -97,7 +98,9 @@ object ElevatorSubsystem: ZedSubsystem() {
 		TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
 	}
 
-	override fun initDefaultCommand() { ManualElevatorCmd(OI.XboxController2.getAxis(XboxConsts.Axis.LEFT_Y)) }
+	override fun initDefaultCommand() {
+		ManualElevatorCmd(OI.XboxController2.getAxis(XboxConsts.Axis.LEFT_Y))
+	}
 
 	// Enums
 	enum class ElevatorState(val solenoidState: DoubleSolenoid.Value) {

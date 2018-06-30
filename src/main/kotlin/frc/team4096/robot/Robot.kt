@@ -4,8 +4,11 @@ import edu.wpi.first.wpilibj.*
 import edu.wpi.first.wpilibj.command.Scheduler
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard
 import frc.team4096.robot.autonomous.AutoMain
-import frc.team4096.robot.subsystems.*
-import frc.team4096.robot.util.MiscConsts
+import frc.team4096.robot.climber.ClimberSubsystem
+import frc.team4096.robot.drivetrain.DriveSubsystem
+import frc.team4096.robot.elevator.ElevatorSubsystem
+import frc.team4096.robot.intake.IntakeSubsystem
+import frc.team4096.robot.misc.MiscConsts
 
 /**
  * Main robot object.

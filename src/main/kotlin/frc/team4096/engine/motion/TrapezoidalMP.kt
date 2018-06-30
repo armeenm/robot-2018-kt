@@ -1,7 +1,7 @@
 package frc.team4096.engine.motion
 
 import edu.wpi.first.wpilibj.Timer
-import frc.team4096.robot.util.MiscConsts.K_DT
+import frc.team4096.robot.misc.MiscConsts.K_DT
 import frc.team4096.engine.motion.util.PIDFVals
 
 /**

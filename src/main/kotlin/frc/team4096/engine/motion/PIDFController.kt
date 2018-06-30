@@ -1,7 +1,7 @@
 package frc.team4096.engine.motion
 
 import edu.wpi.first.wpilibj.PIDSourceType
-import frc.team4096.robot.util.MiscConsts
+import frc.team4096.robot.misc.MiscConsts
 import frc.team4096.engine.motion.util.PIDFVals
 import kotlinx.coroutines.experimental.delay
 import kotlinx.coroutines.experimental.launch

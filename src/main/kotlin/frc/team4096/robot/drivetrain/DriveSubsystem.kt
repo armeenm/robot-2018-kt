@@ -1,4 +1,4 @@
-package frc.team4096.robot.subsystems
+package frc.team4096.robot.drivetrain
 
 import edu.wpi.first.wpilibj.*
 import edu.wpi.first.wpilibj.drive.DifferentialDrive
@@ -7,8 +7,7 @@ import frc.team4096.engine.wpi.ZedSubsystem
 
 import frc.team4096.robot.OI
 import frc.team4096.robot.Robot
-import frc.team4096.robot.commands.CurvatureDriveCmd
-import frc.team4096.robot.util.*
+import frc.team4096.robot.misc.*
 import kotlin.math.cos
 import kotlin.math.sin
 
@@ -90,22 +89,22 @@ object DriveSubsystem: ZedSubsystem() {
 
 	override fun initDefaultCommand() {
 		CurvatureDriveCmd(
-				OI.XboxController1.getAxis(XboxConsts.Axis.LEFT_Y),
-				OI.XboxController1.getAxis(XboxConsts.Axis.RIGHT_X),
-				OI.XboxController1.lbButton.get()
+			OI.XboxController1.getAxis(XboxConsts.Axis.LEFT_Y),
+			OI.XboxController1.getAxis(XboxConsts.Axis.RIGHT_X),
+			OI.XboxController1.lbButton.get()
 		)
 	}
 
 	// Methods
-	fun stop() = this.diffDrive.tankDrive(0.0, 0.0)
+	fun stop() = diffDrive.tankDrive(0.0, 0.0)
 
 	fun curvatureDrive(xSpeed: Double, zRotation: Double, isQuickTurn: Boolean) {
 		// Update signal
-		this.signal.xSpeed = xSpeed; this.signal.zRotation = zRotation
+		signal.xSpeed = xSpeed; signal.zRotation = zRotation
 		// Update quick turn state
-		this.isQuickTurn = isQuickTurn
+		DriveSubsystem.isQuickTurn = isQuickTurn
 
-		this.diffDrive.curvatureDrive(xSpeed, zRotation, isQuickTurn)
+		diffDrive.curvatureDrive(xSpeed, zRotation, isQuickTurn)
 	}
 
 	private fun updatePose() {
@@ -125,16 +124,16 @@ object DriveSubsystem: ZedSubsystem() {
 	data class DrivePose(var xPos: Double, var yPos: Double, var yawAngle: Double)
 	data class EncDistances(var leftDistance: Double, var rightDistance: Double) {
 		operator fun minus(incEncDistances: EncDistances) =
-				EncDistances(
-						incEncDistances.leftDistance - leftDistance,
-						incEncDistances.rightDistance - rightDistance
-				)
+			EncDistances(
+				incEncDistances.leftDistance - leftDistance,
+				incEncDistances.rightDistance - rightDistance
+			)
 
 		operator fun plus(incEncDistances: EncDistances) =
-				EncDistances(
-						incEncDistances.leftDistance + leftDistance,
-						incEncDistances.rightDistance + rightDistance
-				)
+			EncDistances(
+				incEncDistances.leftDistance + leftDistance,
+				incEncDistances.rightDistance + rightDistance
+			)
 
 		fun average() = (leftDistance + rightDistance) / 2
 	}

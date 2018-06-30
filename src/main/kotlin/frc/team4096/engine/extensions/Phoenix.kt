@@ -2,7 +2,7 @@ package frc.team4096.engine.extensions
 
 import com.ctre.phoenix.motorcontrol.can.BaseMotorController
 import frc.team4096.engine.motion.util.PIDFVals
-import frc.team4096.robot.util.MiscConsts.K_TIMEOUT_MS
+import frc.team4096.robot.misc.MiscConsts.K_TIMEOUT_MS
 
 /**
  * Extension function to simplify CTRE motor controller PID configuration.
