@@ -1,5 +1,13 @@
 package frc.team4096.engine.motion.util
 
+/**
+ * Structure to store PVAJ data.
+ *
+ * @param pos Position
+ * @param vel Velocity
+ * @param accel Acceleration
+ * @param jerk Jerk
+ */
 data class PVAJData(
 	var pos: Double = 0.0,
 	var vel: Double = 0.0,
@@ -7,6 +15,14 @@ data class PVAJData(
 	var jerk: Double = 0.0
 )
 
+/**
+ * Structure to store PIDF gain data.
+ *
+ * @param kP Proportion Gain
+ * @param kI Integral Gain
+ * @param kD Derivative Gain
+ * @param kF Feedforward
+ */
 data class PIDFVals(
 	var kP: Double = 0.0,
 	var kI: Double = 0.0,
@@ -14,6 +30,15 @@ data class PIDFVals(
 	var kF: Double = 0.0
 )
 
+/**
+ * Structure to store PID gain and VA feedforward data.
+ *
+ * @param kP Proportion Gain
+ * @param kI Integral Gain
+ * @param kD Derivative Gain
+ * @param kV Velocity Gain
+ * @param kA Acceleration Gain
+ */
 data class PIDVAVals(
 	var kP: Double = 0.0,
 	var kI: Double = 0.0,
@@ -22,6 +47,9 @@ data class PIDVAVals(
 	var kA: Double = 0.0
 )
 
+/**
+ * General control state enum to be used in state machines.
+ */
 enum class ControlState {
 	OPEN_LOOP,
 	CURRENT_CONTROL,

@@ -23,21 +23,30 @@
 <p><a href="command-group.html">commandGroup</a></p>
 </td>
 <td>
-<code><span class="keyword">fun </span><span class="identifier">commandGroup</span><span class="symbol">(</span><span class="identifier" id="frc.team4096.engine.util$commandGroup(kotlin.Function1((edu.wpi.first.wpilibj.command.CommandGroup, kotlin.Unit)))/create">create</span><span class="symbol">:</span>&nbsp;<span class="identifier">CommandGroup</span><span class="symbol">.</span><span class="symbol">(</span><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">CommandGroup</span></code></td>
+<code><span class="keyword">fun </span><span class="identifier">commandGroup</span><span class="symbol">(</span><span class="identifier" id="frc.team4096.engine.util$commandGroup(kotlin.Function1((edu.wpi.first.wpilibj.command.CommandGroup, kotlin.Unit)))/create">create</span><span class="symbol">:</span>&nbsp;<span class="identifier">CommandGroup</span><span class="symbol">.</span><span class="symbol">(</span><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">CommandGroup</span></code>
+<p>Easily make command groups on the spot.
+Helpful for addParallels in other command groups.</p>
+</td>
 </tr>
 <tr>
 <td>
 <p><a href="commandify.html">commandify</a></p>
 </td>
 <td>
-<code><span class="keyword">fun </span><span class="identifier">commandify</span><span class="symbol">(</span><span class="identifier" id="frc.team4096.engine.util$commandify(kotlin.Function0((kotlin.Unit)))/method">method</span><span class="symbol">:</span>&nbsp;<span class="symbol">(</span><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">Command</span></code></td>
+<code><span class="keyword">fun </span><span class="identifier">commandify</span><span class="symbol">(</span><span class="identifier" id="frc.team4096.engine.util$commandify(kotlin.Function0((kotlin.Unit)))/method">method</span><span class="symbol">:</span>&nbsp;<span class="symbol">(</span><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">Command</span></code>
+<p>Transform a given lambda into an InstantCommand.
+Useful for oneshot activities like an OI button.
+Inlined and crossinlined for performance and non-local return prevention, respectively.</p>
+</td>
 </tr>
 <tr>
 <td>
 <p><a href="on-target.html">onTarget</a></p>
 </td>
 <td>
-<code><span class="keyword">fun </span><span class="identifier">onTarget</span><span class="symbol">(</span><span class="identifier" id="frc.team4096.engine.util$onTarget(kotlin.Double, kotlin.Double, kotlin.Double)/checkVal">checkVal</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-double/index.html"><span class="identifier">Double</span></a><span class="symbol">, </span><span class="identifier" id="frc.team4096.engine.util$onTarget(kotlin.Double, kotlin.Double, kotlin.Double)/cmpVal">cmpVal</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-double/index.html"><span class="identifier">Double</span></a><span class="symbol">, </span><span class="identifier" id="frc.team4096.engine.util$onTarget(kotlin.Double, kotlin.Double, kotlin.Double)/deadBand">deadBand</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-double/index.html"><span class="identifier">Double</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html"><span class="identifier">Boolean</span></a></code></td>
+<code><span class="keyword">fun </span><span class="identifier">onTarget</span><span class="symbol">(</span><span class="identifier" id="frc.team4096.engine.util$onTarget(kotlin.Double, kotlin.Double, kotlin.Double)/checkVal">checkVal</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-double/index.html"><span class="identifier">Double</span></a><span class="symbol">, </span><span class="identifier" id="frc.team4096.engine.util$onTarget(kotlin.Double, kotlin.Double, kotlin.Double)/cmpVal">cmpVal</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-double/index.html"><span class="identifier">Double</span></a><span class="symbol">, </span><span class="identifier" id="frc.team4096.engine.util$onTarget(kotlin.Double, kotlin.Double, kotlin.Double)/deadBand">deadBand</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-double/index.html"><span class="identifier">Double</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html"><span class="identifier">Boolean</span></a></code>
+<p>Check if a value is within a certain deadband to a target.</p>
+</td>
 </tr>
 </tbody>
 </table>
