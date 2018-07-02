@@ -88,10 +88,12 @@ class Robot: TimedRobot() {
 	 * General robot logging suspend function.
 	 */
 	suspend fun log() {
-		SmartDashboard.putNumber("Pressure", analogToPressure(pressureSensor.averageVoltage))
+		while (true) {
+			SmartDashboard.putNumber("Pressure", analogToPressure(pressureSensor.averageVoltage))
 
-		// Wait 100ms (10Hz)
-		delay(100)
+			// Wait 100ms (10Hz)
+			delay(100)
+		}
 	}
 
 	/**
