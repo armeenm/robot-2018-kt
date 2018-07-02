@@ -1,8 +1,8 @@
 @file:Suppress("unused")
 
-package frc.team4096.robot
+package frc.team4096.robot.oi
 
-import frc.team4096.engine.OI.ZedXboxController
+import frc.team4096.engine.oi.ZedXboxController
 import frc.team4096.engine.util.commandify
 import frc.team4096.robot.climber.ClimberConsts
 import frc.team4096.robot.climber.ClimberSubsystem
@@ -16,8 +16,7 @@ import frc.team4096.robot.intake.IntakeSubsystem
  * Operator input object.
  * Handles all joystick activity.
  */
-object OI {
-
+object OIMain {
 	// Setup controllers with custom Ctrl-Z XboxController wrapper
 	val XboxController1 = ZedXboxController(0)
 	val XboxController2 = ZedXboxController(1)

@@ -15,11 +15,9 @@ class DriveDistanceCmd(val distance: Double, val maxAccel: Double, val maxVel: D
 		this.isInterruptible = false
 	}
 
-	override fun execute() {
-		super.execute()
-	}
+	override fun execute() {}
 
 	override fun isFinished(): Boolean {
-		TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+		TODO("not implemented")
 	}
 }

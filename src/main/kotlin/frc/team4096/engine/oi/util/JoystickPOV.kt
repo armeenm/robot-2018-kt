@@ -1,4 +1,4 @@
-package frc.team4096.engine.OI.util
+package frc.team4096.engine.oi.util
 
 import edu.wpi.first.wpilibj.GenericHID
 import edu.wpi.first.wpilibj.buttons.JoystickButton

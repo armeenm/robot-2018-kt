@@ -11,19 +11,23 @@ import frc.team4096.robot.intake.IntakeSubsystem
 import frc.team4096.robot.misc.MiscConsts
 
 /**
- * Main robot object.
- * Used by robot internals.
+ * Main robot class, instantiated by WPILib.
  * Inherits from timed robot for consistent frequency.
  */
-object Robot: TimedRobot() {
-	// Sensors
-	val gyro = ADXRS450_Gyro()
-	// Note: use the average value from the pressure sensor
-	private val pressureSensor = AnalogInput(MiscConsts.AIN_PRESSURE)
+class Robot: TimedRobot() {
+	companion object {
+		// Sensors
+		val gyro = ADXRS450_Gyro()
+		// Note: use the averaged value from the pressure sensor
+		private val pressureSensor = AnalogInput(MiscConsts.AIN_PRESSURE)
 
-	private val cameraServer = CameraServer.getInstance()
-	val driverStation = DriverStation.getInstance()
-	private val subsystemList = listOf(DriveSubsystem, IntakeSubsystem, ElevatorSubsystem, ClimberSubsystem)
+		private val cameraServer = CameraServer.getInstance()
+
+		val driverStation: DriverStation = DriverStation.getInstance()
+		val scheduler: Scheduler = Scheduler.getInstance()
+
+		private val subsystemList = listOf(DriveSubsystem, IntakeSubsystem, ElevatorSubsystem, ClimberSubsystem)
+	}
 
 	override fun robotInit() {
 		// Put all of the subsystems on SmartDashboard
@@ -31,27 +35,27 @@ object Robot: TimedRobot() {
 
 		// Miscellaneous setups
 		gyro.reset()
-		// 2 ^ 12 average bits
-		pressureSensor.averageBits = 12
+
+		pressureSensor.averageBits = MiscConsts.PRESSURE_AVG_BITS
 
 		cameraServer.startAutomaticCapture()
 	}
 
 	// DISABLED //
 	override fun disabledInit() {
-		// Empty out the scheduler on disable
-		Scheduler.getInstance().removeAll()
+		// Empty out the scheduler
+		scheduler.removeAll()
 	}
 
 	override fun disabledPeriodic() { }
 
 	// ENABLED //
-	fun initialize() {
-
+	fun periodic() {
+		scheduler.run()
 	}
 
 	override fun robotPeriodic() {
-		Scheduler.getInstance().run()
+		periodic()
 	}
 
 	// AUTONOMOUS //
@@ -63,6 +67,7 @@ object Robot: TimedRobot() {
 	}
 
 	override fun autonomousPeriodic() {
+		periodic()
 		AutoMain.runAuto()
 	}
 

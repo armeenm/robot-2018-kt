@@ -5,7 +5,7 @@ import edu.wpi.first.wpilibj.VictorSP
 import frc.team4096.engine.motion.util.ControlState
 import frc.team4096.engine.util.applyDeadband
 import frc.team4096.engine.wpi.ZedSubsystem
-import frc.team4096.robot.OI
+import frc.team4096.robot.oi.OIMain
 import frc.team4096.robot.misc.*
 
 /**
@@ -80,7 +80,7 @@ object IntakeSubsystem: ZedSubsystem() {
 	}
 
 	override fun initDefaultCommand() {
-		ManualIntakeCmd(OI.XboxController2.getAxis(XboxConsts.Axis.LT), OI.XboxController2.getAxis(XboxConsts.Axis.RT))
+		ManualIntakeCmd(OIMain.XboxController2.getAxis(XboxConsts.Axis.LT), OIMain.XboxController2.getAxis(XboxConsts.Axis.RT))
 	}
 
 	// Enums

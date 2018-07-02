@@ -10,7 +10,7 @@ import frc.team4096.engine.extensions.configPIDF
 import frc.team4096.engine.motion.util.ControlState
 import frc.team4096.engine.motion.util.PIDFVals
 import frc.team4096.engine.wpi.ZedSubsystem
-import frc.team4096.robot.OI
+import frc.team4096.robot.oi.OIMain
 import frc.team4096.robot.misc.*
 
 /**
@@ -95,11 +95,11 @@ object ElevatorSubsystem: ZedSubsystem() {
 	}
 
 	override fun log() {
-		TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+		TODO("not implemented")
 	}
 
 	override fun initDefaultCommand() {
-		ManualElevatorCmd(OI.XboxController2.getAxis(XboxConsts.Axis.LEFT_Y))
+		ManualElevatorCmd(OIMain.XboxController2.getAxis(XboxConsts.Axis.LEFT_Y))
 	}
 
 	// Enums

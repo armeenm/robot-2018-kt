@@ -1,8 +1,8 @@
-package frc.team4096.engine.OI
+package frc.team4096.engine.oi
 
 import edu.wpi.first.wpilibj.XboxController
 import edu.wpi.first.wpilibj.buttons.JoystickButton
-import frc.team4096.engine.OI.util.JoystickPOV
+import frc.team4096.engine.oi.util.JoystickPOV
 import frc.team4096.robot.misc.XboxConsts
 import frc.team4096.engine.util.applyDeadband
 

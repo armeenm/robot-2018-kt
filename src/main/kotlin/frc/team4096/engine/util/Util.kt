@@ -32,7 +32,7 @@ fun applyDeadband(inputValue: Double, deadBand: Double) = if (abs(inputValue) >=
 
 /**
  * Transform a given lambda into an InstantCommand.
- * Useful for oneshot activities like an OI button.
+ * Useful for oneshot activities like an OIMain button.
  * Inlined and crossinlined for performance and non-local return prevention, respectively.
  *
  * @param method Lambda to run as command

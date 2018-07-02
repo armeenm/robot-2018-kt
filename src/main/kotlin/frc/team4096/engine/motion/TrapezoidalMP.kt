@@ -17,7 +17,8 @@ import frc.team4096.engine.motion.util.PIDFVals
 class TrapezoidalMP(
 	val targetPos: Double,
 	val maxVel: Double,
-	val maxAccel: Double) {
+	val maxAccel: Double
+) {
 
 	private enum class ProfileState { REST, ACCEL, CRUISE, DECEL }
 

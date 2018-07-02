@@ -23,11 +23,11 @@ class PIDFController(
 	val pidSinkFun: (Double) -> Unit,
 	val pidSourceType: PIDSourceType
 ) {
+	var isEnabled = false
 	var error = 0.0
 	var lastError = 0.0
 	var integral = 0.0
 	var derivative = 0.0
-	var isEnabled = false
 
 	/**
 	 * Enables controller and launches coroutine.
@@ -42,9 +42,9 @@ class PIDFController(
 
 				pidSinkFun(
 					pidfVals.kP * error +
-						pidfVals.kI * integral +
-						pidfVals.kD * derivative +
-						pidfVals.kF
+					pidfVals.kI * integral +
+					pidfVals.kD * derivative +
+					pidfVals.kF
 				)
 
 				lastError = error
@@ -58,5 +58,11 @@ class PIDFController(
 	/**
 	 * Disables controller.
 	 */
-	fun disable() { isEnabled = false }
+	fun disable() {
+		isEnabled = false
+		error = 0.0
+		lastError = 0.0
+		integral = 0.0
+		derivative = 0.0
+	}
 }

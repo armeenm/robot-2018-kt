@@ -5,7 +5,7 @@ import edu.wpi.first.wpilibj.drive.DifferentialDrive
 import frc.team4096.engine.motion.util.ControlState
 import frc.team4096.engine.wpi.ZedSubsystem
 
-import frc.team4096.robot.OI
+import frc.team4096.robot.oi.OIMain
 import frc.team4096.robot.Robot
 import frc.team4096.robot.misc.*
 import kotlin.math.cos
@@ -89,9 +89,9 @@ object DriveSubsystem: ZedSubsystem() {
 
 	override fun initDefaultCommand() {
 		CurvatureDriveCmd(
-			OI.XboxController1.getAxis(XboxConsts.Axis.LEFT_Y),
-			OI.XboxController1.getAxis(XboxConsts.Axis.RIGHT_X),
-			OI.XboxController1.lbButton.get()
+			OIMain.XboxController1.getAxis(XboxConsts.Axis.LEFT_Y),
+			OIMain.XboxController1.getAxis(XboxConsts.Axis.RIGHT_X),
+			OIMain.XboxController1.lbButton.get()
 		)
 	}
 
