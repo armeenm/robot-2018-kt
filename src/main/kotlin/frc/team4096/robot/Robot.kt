@@ -18,11 +18,8 @@ class Robot: TimedRobot() {
 	companion object {
 		// Sensors
 		val gyro = ADXRS450_Gyro()
-		// Note: use the averaged value from the pressure sensor
-		private val pressureSensor = AnalogInput(MiscConsts.AIN_PRESSURE)
-
-		private val cameraServer = CameraServer.getInstance()
-
+		val pressureSensor = AnalogInput(MiscConsts.AIN_PRESSURE)
+		val cameraServer = CameraServer.getInstance()
 		val driverStation: DriverStation = DriverStation.getInstance()
 		val scheduler: Scheduler = Scheduler.getInstance()
 
@@ -50,12 +47,8 @@ class Robot: TimedRobot() {
 	override fun disabledPeriodic() { }
 
 	// ENABLED //
-	fun periodic() {
-		scheduler.run()
-	}
-
 	override fun robotPeriodic() {
-		periodic()
+		scheduler.run()
 	}
 
 	// AUTONOMOUS //
@@ -67,7 +60,6 @@ class Robot: TimedRobot() {
 	}
 
 	override fun autonomousPeriodic() {
-		periodic()
 		AutoMain.runAuto()
 	}
 
@@ -85,4 +77,6 @@ class Robot: TimedRobot() {
 	override fun testInit() { }
 
 	override fun testPeriodic() { }
+
+	// MISC //
 }

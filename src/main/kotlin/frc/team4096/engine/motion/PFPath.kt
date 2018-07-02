@@ -68,7 +68,8 @@ class PFPath(
 		modifier = TankModifier(trajectory).modify(wheelbaseWidth)
 
 		// JSON
-		
+		val bufferedReader = jsonFile.bufferedReader()
+		jsonData = bufferedReader.use { it.readText() }
 	}
 
 	/**
