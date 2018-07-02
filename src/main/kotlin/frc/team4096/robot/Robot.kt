@@ -9,6 +9,8 @@ import frc.team4096.robot.drivetrain.DriveSubsystem
 import frc.team4096.robot.elevator.ElevatorSubsystem
 import frc.team4096.robot.intake.IntakeSubsystem
 import frc.team4096.robot.misc.MiscConsts
+import kotlinx.coroutines.experimental.delay
+import kotlinx.coroutines.experimental.launch
 
 /**
  * Main robot class, instantiated by WPILib.
@@ -16,10 +18,12 @@ import frc.team4096.robot.misc.MiscConsts
  */
 class Robot: TimedRobot() {
 	companion object {
-		// Sensors
+		// Hardware
 		val gyro = ADXRS450_Gyro()
 		val pressureSensor = AnalogInput(MiscConsts.AIN_PRESSURE)
-		val cameraServer = CameraServer.getInstance()
+
+		// Software
+		val cameraServer: CameraServer = CameraServer.getInstance()
 		val driverStation: DriverStation = DriverStation.getInstance()
 		val scheduler: Scheduler = Scheduler.getInstance()
 
@@ -27,15 +31,16 @@ class Robot: TimedRobot() {
 	}
 
 	override fun robotInit() {
-		// Put all of the subsystems on SmartDashboard
-		subsystemList.forEach{ SmartDashboard.putData(it) }
-
-		// Miscellaneous setups
+		// Hardware
 		gyro.reset()
-
 		pressureSensor.averageBits = MiscConsts.PRESSURE_AVG_BITS
 
+		// Software
 		cameraServer.startAutomaticCapture()
+		// SmartDashboard
+		subsystemList.forEach { SmartDashboard.putData(it) }
+		SmartDashboard.putData(gyro)
+		launch { log() }
 	}
 
 	// DISABLED //
@@ -54,7 +59,7 @@ class Robot: TimedRobot() {
 	// AUTONOMOUS //
 	override fun autonomousInit() {
 		// Reset all subsystems for autonomous
-		subsystemList.forEach{ it.autoReset() }
+		subsystemList.forEach { it.autoReset() }
 
 		AutoMain.fetchData()
 	}
@@ -68,7 +73,7 @@ class Robot: TimedRobot() {
 		// Clear out scheduler, potentially from autonomous
 		Scheduler.getInstance().removeAll()
 		// Reset all subsystems for teleop
-		subsystemList.forEach{ it.teleopReset() }
+		subsystemList.forEach { it.teleopReset() }
 	}
 
 	override fun teleopPeriodic() { }
@@ -79,4 +84,21 @@ class Robot: TimedRobot() {
 	override fun testPeriodic() { }
 
 	// MISC //
+	/**
+	 * General robot logging suspend function.
+	 */
+	suspend fun log() {
+		SmartDashboard.putNumber("Pressure", analogToPressure(pressureSensor.averageVoltage))
+
+		// Wait 100ms (10Hz)
+		delay(100)
+	}
+
+	/**
+	 * Convert analog pressure sensor values (V) to pressure (PSI).
+	 * Equation from REV Robotics part datasheet (REV-11-1107-DS-00).
+	 *
+	 * @param vOut Voltage output from pressure sensor
+	 */
+	private fun analogToPressure(vOut: Double) = 250 * vOut / 5.0 - 25
 }
