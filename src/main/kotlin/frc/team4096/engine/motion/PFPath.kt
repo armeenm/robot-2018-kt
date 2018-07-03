@@ -1,7 +1,7 @@
 package frc.team4096.engine.motion
 
-import com.github.salomonbrys.kotson.jsonObject
-import com.google.gson.JsonObject
+import com.google.gson.Gson
+import frc.team4096.robot.misc.MiscConsts
 import jaci.pathfinder.Pathfinder
 import jaci.pathfinder.Trajectory
 import jaci.pathfinder.Waypoint
@@ -16,60 +16,52 @@ import java.io.File
  * @constructor Constructs a shell of a Pathfinder path/trajectory
  */
 class PFPath(
-	val wheelbaseWidth: Double,
-	val pathName: String,
-	val baseFilePath: String = "/home/lvuser/paths"
+	private val pathName: String,
+	private val baseFilePath: String = MiscConsts.PF_HOME
 ) {
+
 	/**
-	 * Constructor if no deserialization.
-	 * @param waypoints Array of waypoints to use in trajectory
-	 * @param trajectoryConf Pathfinder trajectory configuration object
-	 * @param wheelbaseWidth Width of robot wheelbase
-	 * @param pathName Name of path, e.g. "CS_L"
-	 * @param baseFilePath Where to store all the path data, defaults to '/home/lvuser/paths'
+	 * Secondary constructor if not deserializing.
 	 */
 	constructor(
-		waypoints: Array<Waypoint>,
-		trajectoryConf: Trajectory.Config,
-		wheelbaseWidth: Double,
+		pathData: metadata,
 		pathName: String,
-		baseFilePath: String
-	) : this(wheelbaseWidth, pathName, baseFilePath) {
-		this.trajectoryConf = trajectoryConf
-		this.waypoints = waypoints
+		baseFilePath: String = MiscConsts.PF_HOME
+	) : this(pathName, baseFilePath) {
+		this.pathData = pathData
 	}
 
 	// You MUST either generate the trajectory or deserialize it from something!
 	lateinit var trajectory: Trajectory
 	lateinit var modifier: TankModifier
-	lateinit var waypoints: Array<Waypoint>
-	lateinit var trajectoryConf: Trajectory.Config
-	lateinit var jsonData: JsonObject
+	private var pathData: metadata? = null
 
 	// Pathfinder trajectory CSV
 	private val csvFile = File("$baseFilePath/$pathName/trajectory.csv")
-	// Associated Pathfinder data JSON
-	private val jsonFile = File("$baseFilePath/$pathName/data.json")
+	// Associated Pathfinder metadata JSON
+	private val jsonFile = File("$baseFilePath/$pathName/metadata.json")
 
 	/**
 	 * Generate trajectory and modifier.
 	 */
 	fun generate() {
-		trajectory = Pathfinder.generate(waypoints, trajectoryConf)
-		modifier = TankModifier(trajectory).modify(wheelbaseWidth)
+		trajectory = Pathfinder.generate(pathData?.waypoints, pathData?.trajectoryConf)
+		modifier = TankModifier(trajectory).modify(pathData!!.wheelbaseWidth)
 	}
 
 	/**
 	 * Deserialize trajectory and other data from CSV and JSON.
 	 */
 	fun deserialize() {
+		// JSON
+		val gson = Gson()
+		val bufferedReader = jsonFile.bufferedReader()
+		val jsonText = bufferedReader.use { it.readText() }
+		pathData = gson.fromJson(jsonText, metadata::class.java)
+
 		// CSV
 		trajectory = Pathfinder.readFromCSV(csvFile)
-		modifier = TankModifier(trajectory).modify(wheelbaseWidth)
-
-		// JSON
-		val bufferedReader = jsonFile.bufferedReader()
-		jsonData = bufferedReader.use { it.readText() }
+		modifier = TankModifier(trajectory).modify(pathData!!.wheelbaseWidth)
 	}
 
 	/**
@@ -78,13 +70,18 @@ class PFPath(
 	 * @param csvName Filename to save trajectory to
 	 */
 	fun serialize() {
+		// CSV
 		Pathfinder.writeToCSV(csvFile, trajectory)
 
-		jsonData = jsonObject(
-			"waypoints" to waypoints,
-			"wheelbaseWidth" to wheelbaseWidth,
-			"trajectoryConf" to trajectoryConf
-		)
-		jsonFile.writeText(jsonData.toString())
+		// JSON
+		val gson = Gson()
+		val jsonStr = gson.toJson(pathData)
+		jsonFile.writeText(jsonStr)
 	}
+
+	data class metadata(
+		val waypoints: Array<Waypoint>,
+		val trajectoryConf: Trajectory.Config,
+		val wheelbaseWidth: Double
+	)
 }

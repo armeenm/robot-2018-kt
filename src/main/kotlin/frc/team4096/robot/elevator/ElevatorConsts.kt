@@ -1,7 +1,5 @@
 package frc.team4096.robot.elevator
 
-import java.lang.reflect.Type
-
 object ElevatorConsts {
 	// Motors
 	const val CAN_MASTER_MOTOR = 1

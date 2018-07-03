@@ -106,6 +106,4 @@ class Robot : TimedRobot() {
 			delay(100)
 		}
 	}
-
-
 }
