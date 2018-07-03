@@ -1,8 +1,8 @@
 package frc.team4096.engine.motion
 
 import edu.wpi.first.wpilibj.Timer
-import frc.team4096.robot.misc.MiscConsts.K_DT
 import frc.team4096.engine.motion.util.PIDFVals
+import frc.team4096.robot.misc.MiscConsts.K_DT
 
 /**
  * A trapezoidal motion profile.
@@ -82,8 +82,8 @@ class TrapezoidalMP(
 
 		sinkFun(
 			pidfVals.kP * error +
-			pidfVals.kI * integral +
-			pidfVals.kF * goalVel
+				pidfVals.kI * integral +
+				pidfVals.kF * goalVel
 		)
 	}
 }

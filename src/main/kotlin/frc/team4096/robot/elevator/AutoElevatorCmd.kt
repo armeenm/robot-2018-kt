@@ -10,7 +10,7 @@ import frc.team4096.engine.util.onTarget
  *
  * @param distance Distance to travel
  */
-class AutoElevatorCmd(private val distance: Double): Command() {
+class AutoElevatorCmd(private val distance: Double) : Command() {
 	init {
 		this.requires(ElevatorSubsystem)
 		// TODO: Maybe this can be interruptible??

@@ -1,5 +1,7 @@
 package frc.team4096.robot.elevator
 
+import java.lang.reflect.Type
+
 object ElevatorConsts {
 	// Motors
 	const val CAN_MASTER_MOTOR = 1
@@ -18,12 +20,18 @@ object ElevatorConsts {
 	const val MAX_OPEN_LOOP_SPEED = 0.6
 
 	// Software
-	enum class Positions(val pos: Double) {
-		BOTTOM(0.0),
-		NO_DRAG(0.25),
-		SWITCH(2.0),
-		SCALE(6.5)
+	enum class Positions(val index: Int, val pos: Double) {
+		BOTTOM(0, 0.0),
+		NO_DRAG(1, 0.25),
+		SWITCH(2, 2.0),
+		SCALE(3, 6.5);
+
+		companion object {
+			private val map = Positions.values().associateBy(Positions::index)
+			fun fromIndex(index: Int) = map[index]
+		}
 	}
+
 	const val K_SLOT_ID = 0
 	const val DISTANCE_kF = 0.2
 	const val DISTANCE_kP = 0.2

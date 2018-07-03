@@ -20,7 +20,9 @@ object AutoMain {
 		SmartDashboard.putData(autoChooser)
 	}
 
-	fun fetchData() { autoData = Robot.driverStation.gameSpecificMessage }
+	fun fetchData() {
+		autoData = Robot.driverStation.gameSpecificMessage
+	}
 
 	fun runAuto() {
 		if (autoData == null)

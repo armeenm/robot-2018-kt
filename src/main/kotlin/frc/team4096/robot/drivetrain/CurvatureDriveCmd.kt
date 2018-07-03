@@ -10,7 +10,7 @@ import edu.wpi.first.wpilibj.command.Command
  * @param zRotation Yaw joystick value
  * @param isQuickTurn Allow for quick turning
  */
-class CurvatureDriveCmd(var xSpeed: Double, var zRotation: Double, var isQuickTurn: Boolean): Command() {
+class CurvatureDriveCmd(var xSpeed: Double, var zRotation: Double, var isQuickTurn: Boolean) : Command() {
 	init {
 		this.requires(DriveSubsystem)
 		this.isInterruptible = true

@@ -1,13 +1,16 @@
 package frc.team4096.robot.drivetrain
 
-import edu.wpi.first.wpilibj.*
+import edu.wpi.first.wpilibj.DoubleSolenoid
+import edu.wpi.first.wpilibj.Encoder
+import edu.wpi.first.wpilibj.SpeedControllerGroup
+import edu.wpi.first.wpilibj.VictorSP
 import edu.wpi.first.wpilibj.drive.DifferentialDrive
 import frc.team4096.engine.motion.util.ControlState
 import frc.team4096.engine.wpi.ZedSubsystem
-
-import frc.team4096.robot.oi.OIMain
 import frc.team4096.robot.Robot
-import frc.team4096.robot.misc.*
+import frc.team4096.robot.misc.MiscConsts
+import frc.team4096.robot.misc.XboxConsts
+import frc.team4096.robot.oi.OIMain
 import kotlin.math.cos
 import kotlin.math.sin
 
@@ -15,7 +18,7 @@ import kotlin.math.sin
  * Drivetrain subsystem.
  * Handles driving and shifting.
  */
-object DriveSubsystem: ZedSubsystem() {
+object DriveSubsystem : ZedSubsystem() {
 	// Hardware
 	private val leftMotor1 = VictorSP(DriveConsts.PWM_L1)
 	private val leftMotor2 = VictorSP(DriveConsts.PWM_L2)
@@ -28,9 +31,9 @@ object DriveSubsystem: ZedSubsystem() {
 	private val diffDrive = DifferentialDrive(leftMotorGroup, rightMotorGroup)
 
 	private val shifterSolenoid = DoubleSolenoid(
-			MiscConsts.CAN_PCM,
-			DriveConsts.PCM_SHIFTER_1,
-			DriveConsts.PCM_SHIFTER_2
+		MiscConsts.CAN_PCM,
+		DriveConsts.PCM_SHIFTER_1,
+		DriveConsts.PCM_SHIFTER_2
 	)
 
 	private val leftEncoder = Encoder(DriveConsts.L_ENC_CHANNEL_A, DriveConsts.L_ENC_CHANNEL_B)
@@ -121,6 +124,7 @@ object DriveSubsystem: ZedSubsystem() {
 
 	// Data Classes
 	data class DriveSignal(var xSpeed: Double, var zRotation: Double)
+
 	data class DrivePose(var xPos: Double, var yPos: Double, var yawAngle: Double)
 	data class EncDistances(var leftDistance: Double, var rightDistance: Double) {
 		operator fun minus(incEncDistances: EncDistances) =

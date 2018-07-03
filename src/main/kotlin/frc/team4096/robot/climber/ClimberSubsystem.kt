@@ -8,7 +8,7 @@ import frc.team4096.engine.wpi.ZedSubsystem
  * Climber subsystem.
  * Handles climber motor and release servo.
  */
-object ClimberSubsystem: ZedSubsystem() {
+object ClimberSubsystem : ZedSubsystem() {
 	// Hardware
 	var motor = VictorSP(ClimberConsts.PWM_MOTOR)
 	private var servo = Servo(ClimberConsts.PWM_SERVO)

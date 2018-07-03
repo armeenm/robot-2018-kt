@@ -9,7 +9,7 @@ import edu.wpi.first.wpilibj.command.Command
  * @param maxAccel Maximum acceleration
  * @param maxVel Maximum velocity
  */
-class DriveDistanceCmd(val distance: Double, val maxAccel: Double, val maxVel: Double): Command() {
+class DriveDistanceCmd(val distance: Double, val maxAccel: Double, val maxVel: Double) : Command() {
 	init {
 		this.requires(DriveSubsystem)
 		this.isInterruptible = false

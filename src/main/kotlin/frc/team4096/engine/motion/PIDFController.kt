@@ -1,8 +1,8 @@
 package frc.team4096.engine.motion
 
 import edu.wpi.first.wpilibj.PIDSourceType
-import frc.team4096.robot.misc.MiscConsts
 import frc.team4096.engine.motion.util.PIDFVals
+import frc.team4096.robot.misc.MiscConsts
 import kotlinx.coroutines.experimental.delay
 import kotlinx.coroutines.experimental.launch
 
@@ -42,9 +42,9 @@ class PIDFController(
 
 				pidSinkFun(
 					pidfVals.kP * error +
-					pidfVals.kI * integral +
-					pidfVals.kD * derivative +
-					pidfVals.kF
+						pidfVals.kI * integral +
+						pidfVals.kD * derivative +
+						pidfVals.kF
 				)
 
 				lastError = error

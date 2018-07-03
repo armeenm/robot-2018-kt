@@ -5,23 +5,24 @@ import edu.wpi.first.wpilibj.VictorSP
 import frc.team4096.engine.motion.util.ControlState
 import frc.team4096.engine.util.applyDeadband
 import frc.team4096.engine.wpi.ZedSubsystem
+import frc.team4096.robot.misc.MiscConsts
+import frc.team4096.robot.misc.XboxConsts
 import frc.team4096.robot.oi.OIMain
-import frc.team4096.robot.misc.*
 
 /**
  * Intake subsystem.
  * Handles spinning, rotation, and squeezing.
  */
-object IntakeSubsystem: ZedSubsystem() {
+object IntakeSubsystem : ZedSubsystem() {
 	// Hardware
 	// TODO: Add second motor controller for wheels
 	private var wheelMotor = VictorSP(IntakeConsts.PWM_WHEELS_MOTOR)
 	private var rotationMotor = VictorSP(IntakeConsts.PWM_ROTATE_MOTOR)
 
 	private var squeezeSolenoid = DoubleSolenoid(
-			MiscConsts.CAN_PCM,
-			IntakeConsts.PCM_SQUEEZE_1,
-			IntakeConsts.PCM_SQUEEZE_2
+		MiscConsts.CAN_PCM,
+		IntakeConsts.PCM_SQUEEZE_1,
+		IntakeConsts.PCM_SQUEEZE_2
 	)
 
 	// Hardware states
@@ -55,7 +56,7 @@ object IntakeSubsystem: ZedSubsystem() {
 	var rotateSpeed: Double = 0.0
 		set(inputSpeed) {
 			applyDeadband(inputSpeed, IntakeConsts.ROTATE_DEAD_BAND)
-			if(!rotateHolding) {
+			if (!rotateHolding) {
 				rotationMotor.speed = inputSpeed
 				field = inputSpeed
 			}
@@ -66,7 +67,8 @@ object IntakeSubsystem: ZedSubsystem() {
 		reset()
 	}
 
-	override fun reset() { squeeze = SqueezeState.IN
+	override fun reset() {
+		squeeze = SqueezeState.IN
 	}
 
 	override fun autoReset() {

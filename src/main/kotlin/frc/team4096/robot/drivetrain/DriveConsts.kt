@@ -29,7 +29,7 @@ object DriveConsts {
 
 	const val ENC_TICKS_PER_REV = 256
 	const val ENC_TICKS_PER_FOOT =
-			ENC_TICKS_PER_REV / (PI * WHEEL_DIAMETER)
+		ENC_TICKS_PER_REV / (PI * WHEEL_DIAMETER)
 
 	// Software
 	const val CORRECTION_THRESHOLD = 0.05

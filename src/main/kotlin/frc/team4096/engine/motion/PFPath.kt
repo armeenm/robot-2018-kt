@@ -34,7 +34,7 @@ class PFPath(
 		wheelbaseWidth: Double,
 		pathName: String,
 		baseFilePath: String
-	): this(wheelbaseWidth, pathName, baseFilePath) {
+	) : this(wheelbaseWidth, pathName, baseFilePath) {
 		this.trajectoryConf = trajectoryConf
 		this.waypoints = waypoints
 	}

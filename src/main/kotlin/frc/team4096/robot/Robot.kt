@@ -1,8 +1,12 @@
 package frc.team4096.robot
 
-import edu.wpi.first.wpilibj.*
+import edu.wpi.first.wpilibj.ADXRS450_Gyro
+import edu.wpi.first.wpilibj.CameraServer
+import edu.wpi.first.wpilibj.DriverStation
+import edu.wpi.first.wpilibj.TimedRobot
 import edu.wpi.first.wpilibj.command.Scheduler
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard
+import frc.team4096.engine.sensors.REVPressureSensor
 import frc.team4096.robot.autonomous.AutoMain
 import frc.team4096.robot.climber.ClimberSubsystem
 import frc.team4096.robot.drivetrain.DriveSubsystem
@@ -16,11 +20,11 @@ import kotlinx.coroutines.experimental.launch
  * Main robot class, instantiated by WPILib.
  * Inherits from timed robot for consistent frequency.
  */
-class Robot: TimedRobot() {
+class Robot : TimedRobot() {
 	companion object {
 		// Hardware
 		val gyro = ADXRS450_Gyro()
-		val pressureSensor = AnalogInput(MiscConsts.AIN_PRESSURE)
+		val pressureSensor = REVPressureSensor(MiscConsts.AIN_PRESSURE)
 
 		// Software
 		val cameraServer: CameraServer = CameraServer.getInstance()
@@ -33,7 +37,6 @@ class Robot: TimedRobot() {
 	override fun robotInit() {
 		// Hardware
 		gyro.reset()
-		pressureSensor.averageBits = MiscConsts.PRESSURE_AVG_BITS
 
 		// Software
 		cameraServer.startAutomaticCapture()
@@ -49,7 +52,7 @@ class Robot: TimedRobot() {
 		scheduler.removeAll()
 	}
 
-	override fun disabledPeriodic() { }
+	override fun disabledPeriodic() {}
 
 	// ENABLED //
 	override fun robotPeriodic() {
@@ -71,17 +74,17 @@ class Robot: TimedRobot() {
 	// TELE-OPERATED //
 	override fun teleopInit() {
 		// Clear out scheduler, potentially from autonomous
-		Scheduler.getInstance().removeAll()
+		scheduler.removeAll()
 		// Reset all subsystems for teleop
 		subsystemList.forEach { it.teleopReset() }
 	}
 
-	override fun teleopPeriodic() { }
+	override fun teleopPeriodic() {}
 
 	// TEST //
-	override fun testInit() { }
+	override fun testInit() {}
 
-	override fun testPeriodic() { }
+	override fun testPeriodic() {}
 
 	// MISC //
 	/**
@@ -89,18 +92,20 @@ class Robot: TimedRobot() {
 	 */
 	suspend fun log() {
 		while (true) {
-			SmartDashboard.putNumber("Pressure", analogToPressure(pressureSensor.averageVoltage))
+			subsystemList.forEach {
+				when {
+					isAutonomous -> it.autoLog()
+					isOperatorControl -> it.teleopLog()
+					else -> it.log()
+				}
+			}
+
+			SmartDashboard.putNumber("Pressure", pressureSensor.pressure)
 
 			// Wait 100ms (10Hz)
 			delay(100)
 		}
 	}
 
-	/**
-	 * Convert analog pressure sensor values (V) to pressure (PSI).
-	 * Equation from REV Robotics part datasheet (REV-11-1107-DS-00).
-	 *
-	 * @param vOut Voltage output from pressure sensor
-	 */
-	private fun analogToPressure(vOut: Double) = 250 * vOut / 5.0 - 25
+
 }

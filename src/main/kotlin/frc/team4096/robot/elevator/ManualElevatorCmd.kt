@@ -9,7 +9,7 @@ import edu.wpi.first.wpilibj.command.Command
  *
  * @param speed Speed to move elevator at
  */
-class ManualElevatorCmd(private var speed: Double): Command() {
+class ManualElevatorCmd(private var speed: Double) : Command() {
 	init {
 		this.requires(ElevatorSubsystem)
 		this.isInterruptible = true
@@ -22,7 +22,9 @@ class ManualElevatorCmd(private var speed: Double): Command() {
 
 	override fun isFinished() = false
 
-	override fun end() { ElevatorSubsystem.speed = 0.0 }
+	override fun end() {
+		ElevatorSubsystem.speed = 0.0
+	}
 
 	override fun interrupted() = this.end()
 }

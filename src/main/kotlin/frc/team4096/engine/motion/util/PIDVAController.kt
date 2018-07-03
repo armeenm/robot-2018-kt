@@ -28,8 +28,8 @@ class PIDVAController(
 
 				pidSinkFun(
 					pidvaVals.kP * error +
-					pidvaVals.kI * integral +
-					pidvaVals.kD * derivative
+						pidvaVals.kI * integral +
+						pidvaVals.kD * derivative
 				)
 
 				lastError = error
@@ -40,5 +40,7 @@ class PIDVAController(
 		}
 	}
 
-	fun disable() { isEnabled = false }
+	fun disable() {
+		isEnabled = false
+	}
 }

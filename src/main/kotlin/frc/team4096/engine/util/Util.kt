@@ -37,6 +37,6 @@ fun applyDeadband(inputValue: Double, deadBand: Double) = if (abs(inputValue) >=
  *
  * @param method Lambda to run as command
  */
-inline fun commandify(crossinline method: () -> Unit): Command = object: InstantCommand() {
+inline fun commandify(crossinline method: () -> Unit): Command = object : InstantCommand() {
 	override fun execute() = method()
 }

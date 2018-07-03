@@ -5,7 +5,7 @@ import edu.wpi.first.wpilibj.command.InstantCommand
 /**
  * Toggle the drive gear state
  */
-class ToggleDriveGearCmd(): InstantCommand() {
+class ToggleDriveGearCmd() : InstantCommand() {
 	init {
 		this.requires(DriveSubsystem)
 		this.isInterruptible = false

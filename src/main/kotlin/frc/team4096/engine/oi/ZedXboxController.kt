@@ -3,8 +3,8 @@ package frc.team4096.engine.oi
 import edu.wpi.first.wpilibj.XboxController
 import edu.wpi.first.wpilibj.buttons.JoystickButton
 import frc.team4096.engine.oi.util.JoystickPOV
-import frc.team4096.robot.misc.XboxConsts
 import frc.team4096.engine.util.applyDeadband
+import frc.team4096.robot.misc.XboxConsts
 
 /**
  * Custom Xbox controller class with many convenience methods.
@@ -12,7 +12,7 @@ import frc.team4096.engine.util.applyDeadband
  *
  * @param port Joystick port
  */
-class ZedXboxController(port: Int): XboxController(port) {
+class ZedXboxController(port: Int) : XboxController(port) {
 	// Buttons
 	val aButton = JoystickButton(this, XboxConsts.Button.A.id)
 	val bButton = JoystickButton(this, XboxConsts.Button.B.id)

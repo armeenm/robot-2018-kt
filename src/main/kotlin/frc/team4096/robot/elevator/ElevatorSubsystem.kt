@@ -10,22 +10,23 @@ import frc.team4096.engine.extensions.configPIDF
 import frc.team4096.engine.motion.util.ControlState
 import frc.team4096.engine.motion.util.PIDFVals
 import frc.team4096.engine.wpi.ZedSubsystem
+import frc.team4096.robot.misc.MiscConsts
+import frc.team4096.robot.misc.XboxConsts
 import frc.team4096.robot.oi.OIMain
-import frc.team4096.robot.misc.*
 
 /**
  * Elevator subsystem.
  * Handles movement and braking.
  */
-object ElevatorSubsystem: ZedSubsystem() {
+object ElevatorSubsystem : ZedSubsystem() {
 	// Hardware
 	var masterMotor = WPI_TalonSRX(ElevatorConsts.CAN_MASTER_MOTOR)
 	var slaveMotor = WPI_VictorSPX(ElevatorConsts.CAN_SLAVE_MOTOR)
 
 	private var brakeSolenoid = DoubleSolenoid(
-			MiscConsts.CAN_PCM,
-			ElevatorConsts.PCM_BRAKE_1,
-			ElevatorConsts.PCM_BRAKE_2
+		MiscConsts.CAN_PCM,
+		ElevatorConsts.PCM_BRAKE_1,
+		ElevatorConsts.PCM_BRAKE_2
 	)
 
 	// Hardware States
@@ -61,28 +62,28 @@ object ElevatorSubsystem: ZedSubsystem() {
 			ElevatorConsts.K_SLOT_ID
 		)
 		masterMotor.configSelectedFeedbackSensor(
-				FeedbackDevice.CTRE_MagEncoder_Relative,
-				0,
-				MiscConsts.K_TIMEOUT_MS
+			FeedbackDevice.CTRE_MagEncoder_Relative,
+			0,
+			MiscConsts.K_TIMEOUT_MS
 		)
 
 		masterMotor.setSelectedSensorPosition(0, 0, MiscConsts.K_TIMEOUT_MS)
 
 		masterMotor.configAllowableClosedloopError(
-				ElevatorConsts.K_SLOT_ID,
-				ElevatorConsts.MAX_CLOSED_LOOP_ERROR,
-				MiscConsts.K_TIMEOUT_MS
+			ElevatorConsts.K_SLOT_ID,
+			ElevatorConsts.MAX_CLOSED_LOOP_ERROR,
+			MiscConsts.K_TIMEOUT_MS
 		)
 
 		masterMotor.setStatusFramePeriod(
-				StatusFrameEnhanced.Status_13_Base_PIDF0,
-				10,
-				MiscConsts.K_TIMEOUT_MS
+			StatusFrameEnhanced.Status_13_Base_PIDF0,
+			10,
+			MiscConsts.K_TIMEOUT_MS
 		)
 		masterMotor.setStatusFramePeriod(
-				StatusFrameEnhanced.Status_10_MotionMagic,
-				10,
-				MiscConsts.K_TIMEOUT_MS
+			StatusFrameEnhanced.Status_10_MotionMagic,
+			10,
+			MiscConsts.K_TIMEOUT_MS
 		)
 
 		masterMotor.configMotionAcceleration(ElevatorConsts.MAX_ACCEL, MiscConsts.K_TIMEOUT_MS)
