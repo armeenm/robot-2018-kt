@@ -2,6 +2,7 @@ package frc.team4096.engine.motion
 
 import frc.team4096.engine.motion.util.PVAJData
 import frc.team4096.robot.misc.MiscConsts.K_DT
+import kotlin.math.sqrt
 
 /**
  * A trapezoidal motion profile.
@@ -18,16 +19,31 @@ class TrapezoidalMP(
 	private val maxVel: Double,
 	private val maxAccel: Double,
 	override val source: () -> Double,
-	override val sink: (Double) -> Unit
+	override val sink: (Double) -> Unit,
+	override val freq: Double
 ) : MotionProfile() {
 
 	private enum class ProfileState { REST, ACCEL, CRUISE, DECEL }
 
-	private val tAccel = maxVel / maxAccel
-	private val xAccel = 0.5 * maxVel * tAccel
+	private var tAccel = maxVel / maxAccel
+	private var xAccel = 0.5 * maxVel * tAccel
 
-	private val xCruise = targetPos - 2 * xAccel
-	private val tCruise = xCruise / maxVel
+	private var xCruise = 0.0
+	private var tCruise = 0.0
+
+	private val dt = 1 / freq
+
+	init {
+		if (2 * xAccel < targetPos) {
+			// Trapezoidal
+			xCruise = targetPos - 2 * xAccel
+			tCruise = xCruise / maxVel
+		} else {
+			// Triangular
+			tAccel = sqrt(targetPos / maxAccel)
+			xAccel = targetPos / 2
+		}
+	}
 
 	private var state = ProfileState.REST
 
@@ -35,7 +51,7 @@ class TrapezoidalMP(
 	private var integral = 0.0
 	private val pvajData = PVAJData()
 
-	var isFinished = false
+	override var isFinished = false
 
 	fun reset() {
 		state = ProfileState.ACCEL
@@ -63,15 +79,15 @@ class TrapezoidalMP(
 		when (state) {
 			ProfileState.ACCEL -> {
 				pvajData.vel += maxAccel * K_DT
-				pvajData.pos += pvajData.vel * K_DT
+				pvajData.pos += pvajData.vel * dt
 			}
 
 			ProfileState.CRUISE ->
-				pvajData.pos += pvajData.vel * K_DT
+				pvajData.pos += pvajData.vel * dt
 
 			ProfileState.DECEL -> {
 				pvajData.vel -= maxAccel * K_DT
-				pvajData.pos -= pvajData.vel * K_DT
+				pvajData.pos -= pvajData.vel * dt
 			}
 
 			ProfileState.REST -> {
