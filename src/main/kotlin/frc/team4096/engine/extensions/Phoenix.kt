@@ -1,7 +1,6 @@
 package frc.team4096.engine.extensions
 
 import com.ctre.phoenix.motorcontrol.can.BaseMotorController
-import frc.team4096.engine.motion.util.PIDFVals
 import frc.team4096.robot.misc.MiscConsts.K_TIMEOUT_MS
 
 /**

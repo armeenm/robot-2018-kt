@@ -16,21 +16,6 @@ data class PVAJData(
 )
 
 /**
- * Structure to store PIDF gain data.
- *
- * @param kP Proportion Gain
- * @param kI Integral Gain
- * @param kD Derivative Gain
- * @param kF Feedforward
- */
-data class PIDFVals(
-	var kP: Double = 0.0,
-	var kI: Double = 0.0,
-	var kD: Double = 0.0,
-	var kF: Double = 0.0
-)
-
-/**
  * Structure to store PID gain and VA feedforward data.
  *
  * @param kP Proportion Gain
@@ -43,6 +28,7 @@ data class PIDVAVals(
 	var kP: Double = 0.0,
 	var kI: Double = 0.0,
 	var kD: Double = 0.0,
+	var kF: Double = 0.0,
 	var kV: Double = 0.0,
 	var kA: Double = 0.0
 )

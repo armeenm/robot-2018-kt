@@ -16,7 +16,7 @@ object AutoMain {
 
 	init {
 		autoChooser.addDefault(AutoMode.DO_NOTHING.modeStr, AutoMode.DO_NOTHING.cmdGroup)
-		AutoMode.values().forEach { mode -> autoChooser.addObject(mode.modeStr, mode.cmdGroup) }
+		AutoMode.values().forEach { autoChooser.addObject(it.modeStr, it.cmdGroup) }
 		SmartDashboard.putData(autoChooser)
 	}
 

@@ -8,7 +8,7 @@ import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX
 import edu.wpi.first.wpilibj.DoubleSolenoid
 import frc.team4096.engine.extensions.configPIDF
 import frc.team4096.engine.motion.util.ControlState
-import frc.team4096.engine.motion.util.PIDFVals
+import frc.team4096.engine.motion.util.PIDVAVals
 import frc.team4096.engine.wpi.ZedSubsystem
 import frc.team4096.robot.misc.MiscConsts
 import frc.team4096.robot.misc.XboxConsts
@@ -51,45 +51,60 @@ object ElevatorSubsystem : ZedSubsystem() {
 
 	override fun reset() {
 		// Configure Talon SRX (Master)
-		masterMotor.selectProfileSlot(ElevatorConsts.K_SLOT_ID, 0)
-		masterMotor.configPIDF(
-			PIDFVals(
-				ElevatorConsts.DISTANCE_kP,
-				ElevatorConsts.DISTANCE_kI,
-				ElevatorConsts.DISTANCE_kD,
-				ElevatorConsts.DISTANCE_kF
-			),
-			ElevatorConsts.K_SLOT_ID
-		)
-		masterMotor.configSelectedFeedbackSensor(
-			FeedbackDevice.CTRE_MagEncoder_Relative,
-			0,
-			MiscConsts.K_TIMEOUT_MS
-		)
+		masterMotor.apply {
+			selectProfileSlot(ElevatorConsts.K_SLOT_ID, 0)
 
-		masterMotor.setSelectedSensorPosition(0, 0, MiscConsts.K_TIMEOUT_MS)
+			configPIDF(
+				PIDVAVals(
+					ElevatorConsts.DISTANCE_kP,
+					ElevatorConsts.DISTANCE_kI,
+					ElevatorConsts.DISTANCE_kD,
+					ElevatorConsts.DISTANCE_kF
+				),
+				ElevatorConsts.K_SLOT_ID
+			)
 
-		masterMotor.configAllowableClosedloopError(
-			ElevatorConsts.K_SLOT_ID,
-			ElevatorConsts.MAX_CLOSED_LOOP_ERROR,
-			MiscConsts.K_TIMEOUT_MS
-		)
+			// Set sensor type
+			configSelectedFeedbackSensor(
+				FeedbackDevice.CTRE_MagEncoder_Relative,
+				0,
+				MiscConsts.K_TIMEOUT_MS
+			)
 
-		masterMotor.setStatusFramePeriod(
-			StatusFrameEnhanced.Status_13_Base_PIDF0,
-			10,
-			MiscConsts.K_TIMEOUT_MS
-		)
-		masterMotor.setStatusFramePeriod(
-			StatusFrameEnhanced.Status_10_MotionMagic,
-			10,
-			MiscConsts.K_TIMEOUT_MS
-		)
+			// Reset encoder
+			setSelectedSensorPosition(0, 0, MiscConsts.K_TIMEOUT_MS)
 
-		masterMotor.configMotionAcceleration(ElevatorConsts.MAX_ACCEL, MiscConsts.K_TIMEOUT_MS)
-		masterMotor.configMotionCruiseVelocity(ElevatorConsts.MAX_CRUISE_VEL, MiscConsts.K_TIMEOUT_MS)
+			configAllowableClosedloopError(
+				ElevatorConsts.K_SLOT_ID,
+				ElevatorConsts.MAX_CLOSED_LOOP_ERROR,
+				MiscConsts.K_TIMEOUT_MS
+			)
+			setStatusFramePeriod(
+				StatusFrameEnhanced.Status_13_Base_PIDF0,
+				10,
+				MiscConsts.K_TIMEOUT_MS
+			)
 
-		masterMotor.setNeutralMode(NeutralMode.Brake)
+			// Motion Magic
+			setStatusFramePeriod(
+				StatusFrameEnhanced.Status_10_MotionMagic,
+				10,
+				MiscConsts.K_TIMEOUT_MS
+			)
+			configMotionAcceleration(ElevatorConsts.MAX_ACCEL, MiscConsts.K_TIMEOUT_MS)
+			configMotionCruiseVelocity(ElevatorConsts.MAX_CRUISE_VEL, MiscConsts.K_TIMEOUT_MS)
+			setNeutralMode(NeutralMode.Brake)
+
+			// Voltage Compensation
+			configVoltageCompSaturation(12.0, MiscConsts.K_TIMEOUT_MS)
+			enableVoltageCompensation(true)
+			/* Tweak vbus measurement filter.
+			 * Default is 32 cells in rolling average (1ms/sample)
+			 */
+			configVoltageMeasurementFilter(32, 10)
+
+			// Current Limiting
+		}
 
 		// Configure Victor SPX (Slave)
 		slaveMotor.follow(masterMotor)

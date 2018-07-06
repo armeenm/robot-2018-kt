@@ -1,7 +1,7 @@
 package frc.team4096.engine.motion
 
 import edu.wpi.first.wpilibj.PIDSourceType
-import frc.team4096.engine.motion.util.PIDFVals
+import frc.team4096.engine.motion.util.PIDVAVals
 import frc.team4096.robot.misc.MiscConsts
 import kotlinx.coroutines.experimental.delay
 import kotlinx.coroutines.experimental.launch
@@ -17,7 +17,7 @@ import kotlinx.coroutines.experimental.launch
  * @constructor Constructor
  */
 class PIDFController(
-	val pidfVals: PIDFVals,
+	val pidfVals: PIDVAVals,
 	var setpoint: Double,
 	val pidSourceFun: () -> Double,
 	val pidSinkFun: (Double) -> Unit,

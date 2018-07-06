@@ -1,7 +1,6 @@
 package frc.team4096.engine.motion
 
-import edu.wpi.first.wpilibj.Timer
-import frc.team4096.engine.motion.util.PIDFVals
+import frc.team4096.engine.motion.util.PVAJData
 import frc.team4096.robot.misc.MiscConsts.K_DT
 
 /**
@@ -15,75 +14,71 @@ import frc.team4096.robot.misc.MiscConsts.K_DT
  * @constructor Constructor
  */
 class TrapezoidalMP(
-	val targetPos: Double,
-	val maxVel: Double,
-	val maxAccel: Double
-) {
+	private val targetPos: Double,
+	private val maxVel: Double,
+	private val maxAccel: Double,
+	override val source: () -> Double,
+	override val sink: (Double) -> Unit
+) : MotionProfile() {
 
 	private enum class ProfileState { REST, ACCEL, CRUISE, DECEL }
 
-	val tAccel = maxVel / maxAccel
-	val xAccel = 0.5 * maxVel * tAccel
+	private val tAccel = maxVel / maxAccel
+	private val xAccel = 0.5 * maxVel * tAccel
 
-	val xCruise = targetPos - 2 * xAccel
-	val tCruise = xCruise / maxVel
+	private val xCruise = targetPos - 2 * xAccel
+	private val tCruise = xCruise / maxVel
 
 	private var state = ProfileState.REST
 
-	var error = 0.0
-	var integral = 0.0
-	var goalVel = 0.0
-	var goalPos = 0.0
-
-	var startTime = 0.0
-	var curTime = 0.0
+	private var error = 0.0
+	private var integral = 0.0
+	private val pvajData = PVAJData()
 
 	var isFinished = false
 
-	fun initFollower() {
-		startTime = Timer.getFPGATimestamp()
+	fun reset() {
 		state = ProfileState.ACCEL
 
 		error = 0.0
 		integral = 0.0
-		goalVel = 0.0
-		goalPos = 0.0
+		pvajData.apply {
+			pos = 0.0
+			vel = 0.0
+			accel = 0.0
+		}
 	}
 
-	private fun updateState() {
-		val diff = curTime - startTime
+	private fun updateState(curPos: Double) {
+		state = when {
+			curPos < xAccel -> ProfileState.ACCEL
+			curPos < xAccel + xCruise -> ProfileState.CRUISE
+			curPos < 2 * xAccel + xCruise -> ProfileState.DECEL
+			else -> ProfileState.REST
+		}
 	}
 
-	fun follow(pidfVals: PIDFVals, sourceFun: () -> Double, sinkFun: (Double) -> Unit) {
-		curTime = Timer.getFPGATimestamp()
-
-		updateState()
-
+	override fun follow(curPos: Double): PVAJData {
+		updateState(curPos)
 		when (state) {
 			ProfileState.ACCEL -> {
-				goalVel += maxAccel * K_DT
-				goalPos += goalVel * K_DT
+				pvajData.vel += maxAccel * K_DT
+				pvajData.pos += pvajData.vel * K_DT
 			}
 
 			ProfileState.CRUISE ->
-				goalPos += goalVel * K_DT
+				pvajData.pos += pvajData.vel * K_DT
 
 			ProfileState.DECEL -> {
-				goalVel -= maxAccel * K_DT
-				goalPos -= goalVel * K_DT
+				pvajData.vel -= maxAccel * K_DT
+				pvajData.pos -= pvajData.vel * K_DT
 			}
 
-			ProfileState.REST ->
+			ProfileState.REST -> {
 				isFinished = true
+				reset()
+			}
 		}
-
-		error = goalPos - sourceFun()
-		integral += (error * K_DT)
-
-		sinkFun(
-			pidfVals.kP * error +
-				pidfVals.kI * integral +
-				pidfVals.kF * goalVel
-		)
+		return pvajData
 	}
 }

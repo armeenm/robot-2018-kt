@@ -16,6 +16,8 @@ object ElevatorConsts {
 	const val ENC_TICKS_PER_REV = 4096
 	const val ENC_TICKS_PER_FOOT = 141000
 	const val MAX_OPEN_LOOP_SPEED = 0.6
+	// Voltage to consider as "full" for voltage compensation.
+	const val COMP_VOLTAGE = 12.0
 
 	// Software
 	enum class Positions(val index: Int, val pos: Double) {

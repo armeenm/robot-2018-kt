@@ -22,13 +22,13 @@ object DriveSubsystem : ZedSubsystem() {
 	// Hardware
 	private val leftMotor1 = VictorSP(DriveConsts.PWM_L1)
 	private val leftMotor2 = VictorSP(DriveConsts.PWM_L2)
-	private val leftMotorGroup = SpeedControllerGroup(leftMotor1, leftMotor2)
+	val leftMotorGroup = SpeedControllerGroup(leftMotor1, leftMotor2)
 
 	private val rightMotor1 = VictorSP(DriveConsts.PWM_R1)
 	private val rightMotor2 = VictorSP(DriveConsts.PWM_R2)
-	private val rightMotorGroup = SpeedControllerGroup(rightMotor1, rightMotor2)
+	val rightMotorGroup = SpeedControllerGroup(rightMotor1, rightMotor2)
 
-	private val diffDrive = DifferentialDrive(leftMotorGroup, rightMotorGroup)
+	val diffDrive = DifferentialDrive(leftMotorGroup, rightMotorGroup)
 
 	private val shifterSolenoid = DoubleSolenoid(
 		MiscConsts.CAN_PCM,
@@ -36,8 +36,8 @@ object DriveSubsystem : ZedSubsystem() {
 		DriveConsts.PCM_SHIFTER_2
 	)
 
-	private val leftEncoder = Encoder(DriveConsts.L_ENC_CHANNEL_A, DriveConsts.L_ENC_CHANNEL_B)
-	private val rightEncoder = Encoder(DriveConsts.R_ENC_CHANNEL_A, DriveConsts.R_ENC_CHANNEL_B)
+	val leftEncoder = Encoder(DriveConsts.L_ENC_CHANNEL_A, DriveConsts.L_ENC_CHANNEL_B)
+	val rightEncoder = Encoder(DriveConsts.R_ENC_CHANNEL_A, DriveConsts.R_ENC_CHANNEL_B)
 
 	/**
 	 * 254-style drive signal.

@@ -3,7 +3,12 @@ package frc.team4096.engine.math
 import java.math.BigDecimal
 import java.math.BigInteger
 
-fun <T: Number> genericAbs(x: T): T {
+/**
+ * Function to achieve generics for abs function.
+ *
+ * @param x Value to abs()
+ */
+fun <T : Number> genericAbs(x: T): T {
 	val absoluteValue: Number = when (x) {
 		is Double -> Math.abs(x)
 		is Int -> Math.abs(x)

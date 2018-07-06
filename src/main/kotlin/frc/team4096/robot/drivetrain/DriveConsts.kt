@@ -20,9 +20,9 @@ object DriveConsts {
 	const val PCM_SHIFTER_2 = 7
 
 	// Hardware
-	const val MAX_VEL = 9
-	const val MAX_ACCEL = 9
-	const val MAX_JERK = 150
+	const val MAX_VEL = 9.0
+	const val MAX_ACCEL = 9.0
+	const val MAX_JERK = 150.0
 
 	const val WHEELBASE_WIDTH = 2.3
 	const val WHEEL_DIAMETER = 6.25 / 12 // Feet
