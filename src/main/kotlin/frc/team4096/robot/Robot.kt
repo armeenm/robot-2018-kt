@@ -1,18 +1,17 @@
 package frc.team4096.robot
 
-import edu.wpi.first.wpilibj.ADXRS450_Gyro
 import edu.wpi.first.wpilibj.CameraServer
 import edu.wpi.first.wpilibj.DriverStation
 import edu.wpi.first.wpilibj.TimedRobot
 import edu.wpi.first.wpilibj.command.Scheduler
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard
-import frc.team4096.engine.sensors.REVPressureSensor
+import frc.team4096.engine.sensors.ADXRS450
 import frc.team4096.robot.autonomous.AutoMain
 import frc.team4096.robot.climber.ClimberSubsystem
 import frc.team4096.robot.drivetrain.DriveSubsystem
 import frc.team4096.robot.elevator.ElevatorSubsystem
 import frc.team4096.robot.intake.IntakeSubsystem
-import frc.team4096.robot.misc.MiscConsts
+import frc.team4096.robot.sensors.PressureSensor
 import kotlinx.coroutines.experimental.delay
 import kotlinx.coroutines.experimental.launch
 
@@ -22,27 +21,24 @@ import kotlinx.coroutines.experimental.launch
  */
 class Robot : TimedRobot() {
 	companion object {
-		// Hardware
-		val gyro = ADXRS450_Gyro()
-		val pressureSensor = REVPressureSensor(MiscConsts.AIN_PRESSURE)
-
 		// Software
 		val cameraServer: CameraServer = CameraServer.getInstance()
 		val driverStation: DriverStation = DriverStation.getInstance()
 		val scheduler: Scheduler = Scheduler.getInstance()
 
+		val sensorList = listOf(ADXRS450, PressureSensor)
 		private val subsystemList = listOf(DriveSubsystem, IntakeSubsystem, ElevatorSubsystem, ClimberSubsystem)
 	}
 
 	override fun robotInit() {
 		// Hardware
-		gyro.reset()
+		ADXRS450.reset()
 
 		// Software
 		cameraServer.startAutomaticCapture()
 		// SmartDashboard
 		subsystemList.forEach { SmartDashboard.putData(it) }
-		SmartDashboard.putData(gyro)
+		SmartDashboard.putData(ADXRS450)
 		launch { log() }
 	}
 
@@ -100,7 +96,7 @@ class Robot : TimedRobot() {
 				}
 			}
 
-			SmartDashboard.putNumber("Pressure", pressureSensor.pressure)
+			SmartDashboard.putNumber("Pressure", PressureSensor.pressure)
 
 			// Wait 100ms (10Hz)
 			delay(100)

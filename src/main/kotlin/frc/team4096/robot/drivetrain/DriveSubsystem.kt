@@ -43,11 +43,11 @@ object DriveSubsystem : ZedSubsystem() {
 	 * 254-style drive signal.
 	 * Lacks brake due to motor controller capabilities.
 	 */
-	private val signal = DriveSignal(0.0, 0.0)
+	private var signal = DriveSignal(0.0, 0.0)
 
 	// Assumes starting at the origin facing forward.
 	// TODO: Change this based on robot starting position in auto.
-	private val pose = DrivePose(0.0, 0.0, 0.0)
+	private var pose = DrivePose(0.0, 0.0, 0.0)
 
 	var encDistances = EncDistances(leftEncoder.distance, rightEncoder.distance)
 
@@ -103,7 +103,9 @@ object DriveSubsystem : ZedSubsystem() {
 
 	fun curvatureDrive(xSpeed: Double, zRotation: Double, isQuickTurn: Boolean) {
 		// Update signal
-		signal.xSpeed = xSpeed; signal.zRotation = zRotation
+		signal.xSpeed = xSpeed
+		signal.zRotation = zRotation
+
 		// Update quick turn state
 		DriveSubsystem.isQuickTurn = isQuickTurn
 

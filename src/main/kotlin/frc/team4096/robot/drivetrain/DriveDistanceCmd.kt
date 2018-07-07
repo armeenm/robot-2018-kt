@@ -1,7 +1,7 @@
 package frc.team4096.robot.drivetrain
 
 import edu.wpi.first.wpilibj.command.Command
-import frc.team4096.engine.motion.PIDPVAController
+import frc.team4096.engine.motion.PIDVAController
 import frc.team4096.engine.motion.TrapezoidalMP
 import frc.team4096.engine.motion.util.PIDVAVals
 
@@ -30,8 +30,8 @@ class DriveDistanceCmd(
 		{ DriveSubsystem.rightMotorGroup.set(it) }
 	)
 
-	private var leftController = PIDPVAController(pidvaVals, leftProfile)
-	private var rightController = PIDPVAController(pidvaVals, rightProfile)
+	private var leftController = PIDVAController(pidvaVals, leftProfile)
+	private var rightController = PIDVAController(pidvaVals, rightProfile)
 
 	init {
 		this.requires(DriveSubsystem)

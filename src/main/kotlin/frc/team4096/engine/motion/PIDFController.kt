@@ -11,14 +11,12 @@ import kotlinx.coroutines.experimental.launch
  * Proportional, integral, and derivative gains, as well as fixed feed-forward.
  *
  * @param pidfVals P, I, D, and F values
- * @param setpoint Target setpoint
  * @param pidSourceFun Source lambda (e.g. encoder get)
  * @param pidSinkFun Sink lambda (e.g. motor controller set)
  * @constructor Constructor
  */
 class PIDFController(
 	val pidfVals: PIDVAVals,
-	var setpoint: Double,
 	val pidSourceFun: () -> Double,
 	val pidSinkFun: (Double) -> Unit,
 	val pidSourceType: PIDSourceType
@@ -28,6 +26,7 @@ class PIDFController(
 	var lastError = 0.0
 	var integral = 0.0
 	var derivative = 0.0
+	var setpoint = 0.0
 
 	/**
 	 * Enables controller and launches coroutine.
@@ -37,7 +36,7 @@ class PIDFController(
 		launch {
 			while (isEnabled) {
 				error = setpoint - pidSourceFun()
-				integral += (error * MiscConsts.K_DT)
+				integral += error * MiscConsts.K_DT
 				derivative = (error - lastError) / MiscConsts.K_DT
 
 				pidSinkFun(

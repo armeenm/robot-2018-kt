@@ -14,9 +14,10 @@ import kotlinx.coroutines.experimental.launch
  * @param profile Profile to follow
  * @constructor Constructor
  */
-class PIDPVAController(
+class PIDVAController(
 	val pidfVals: PIDVAVals,
-	val profile: MotionProfile
+	val profile: MotionProfile,
+	val freq: Double = 50.0
 ) {
 	var isEnabled = false
 	private var error = 0.0
@@ -25,6 +26,7 @@ class PIDPVAController(
 	private var derivative = 0.0
 	private var encoderPos = profile.source()
 	private var pvajData = profile.follow(encoderPos)
+	private val dt = 1 / freq
 
 	/**
 	 * Enables controller and launches coroutine.
@@ -36,8 +38,8 @@ class PIDPVAController(
 				encoderPos = profile.source()
 				pvajData = profile.follow(encoderPos)
 				error = pvajData.pos - encoderPos
-				integral += error * MiscConsts.K_DT
-				derivative = (error - lastError) / MiscConsts.K_DT
+				integral += error * dt
+				derivative = (error - lastError) / dt
 
 				profile.sink(
 					pidfVals.kP * error +
@@ -50,7 +52,7 @@ class PIDPVAController(
 				lastError = error
 
 				// Wait 20ms (50Hz)
-				delay((MiscConsts.K_DT * 1000).toInt())
+				delay((dt * 1000).toInt())
 			}
 		}
 	}

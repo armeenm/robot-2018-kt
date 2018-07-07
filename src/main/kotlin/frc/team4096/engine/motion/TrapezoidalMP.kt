@@ -20,7 +20,7 @@ class TrapezoidalMP(
 	private val maxAccel: Double,
 	override val source: () -> Double,
 	override val sink: (Double) -> Unit,
-	override val freq: Double
+	override val freq: Double = 50.0
 ) : MotionProfile() {
 
 	private enum class ProfileState { REST, ACCEL, CRUISE, DECEL }
