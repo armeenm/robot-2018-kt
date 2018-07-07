@@ -35,6 +35,4 @@ class AutoElevatorCmd(private val distance: Double) : Command() {
 	override fun end() {
 		ElevatorSubsystem.hwState = ElevatorSubsystem.ElevatorState.HOLDING
 	}
-
-	override fun interrupted() = this.end()
 }

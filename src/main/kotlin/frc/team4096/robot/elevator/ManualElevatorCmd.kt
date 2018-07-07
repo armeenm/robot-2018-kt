@@ -25,7 +25,5 @@ class ManualElevatorCmd(private var speed: Double) : Command() {
 	override fun end() {
 		ElevatorSubsystem.speed = 0.0
 	}
-
-	override fun interrupted() = this.end()
 }
 

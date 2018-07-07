@@ -7,6 +7,7 @@ import jaci.pathfinder.Trajectory
 import jaci.pathfinder.Waypoint
 import jaci.pathfinder.modifiers.TankModifier
 import java.io.File
+import java.security.InvalidParameterException
 
 /**
  * Class to handle Pathfinder trajectories and serialization.
@@ -32,9 +33,9 @@ class PFPath(
 	}
 
 	// You MUST either generate the trajectory or deserialize it from something!
-	lateinit var trajectory: Trajectory
-	lateinit var modifier: TankModifier
-	private var pathData: metadata? = null
+	var trajectory: Trajectory? = null
+	var modifier: TankModifier? = null
+	var pathData: metadata? = null
 
 	// Pathfinder trajectory CSV
 	private val csvFile = File("$baseFilePath/$pathName/trajectory.csv")
@@ -45,8 +46,12 @@ class PFPath(
 	 * Generate trajectory and modifier.
 	 */
 	fun generate() {
-		trajectory = Pathfinder.generate(pathData?.waypoints, pathData?.trajectoryConf)
-		modifier = TankModifier(trajectory).modify(pathData!!.wheelbaseWidth)
+		if (pathData == null) {
+			throw InvalidParameterException("No metadata given! Wrong constructor?")
+		} else {
+			trajectory = Pathfinder.generate(pathData!!.waypoints, pathData!!.trajectoryConf)
+			modifier = TankModifier(trajectory).modify(pathData!!.wheelbaseWidth)
+		}
 	}
 
 	/**

@@ -1,9 +1,10 @@
-package frc.team4096.robot.drivetrain
+package frc.team4096.robot.drivetrain.commands
 
 import edu.wpi.first.wpilibj.command.Command
 import frc.team4096.engine.motion.PIDVAController
 import frc.team4096.engine.motion.TrapezoidalMP
 import frc.team4096.engine.motion.util.PIDVAVals
+import frc.team4096.robot.drivetrain.DriveSubsystem
 
 /**
  * Drive a given distance with trapezoidal motion profiles.

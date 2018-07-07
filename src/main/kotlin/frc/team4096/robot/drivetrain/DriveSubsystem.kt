@@ -1,13 +1,11 @@
 package frc.team4096.robot.drivetrain
 
-import edu.wpi.first.wpilibj.DoubleSolenoid
-import edu.wpi.first.wpilibj.Encoder
-import edu.wpi.first.wpilibj.SpeedControllerGroup
-import edu.wpi.first.wpilibj.VictorSP
+import edu.wpi.first.wpilibj.*
 import edu.wpi.first.wpilibj.drive.DifferentialDrive
 import frc.team4096.engine.motion.util.ControlState
+import frc.team4096.engine.sensors.ADXRS450
 import frc.team4096.engine.wpi.ZedSubsystem
-import frc.team4096.robot.Robot
+import frc.team4096.robot.drivetrain.commands.CurvatureDriveCmd
 import frc.team4096.robot.misc.MiscConsts
 import frc.team4096.robot.misc.XboxConsts
 import frc.team4096.robot.oi.OIMain
@@ -119,9 +117,9 @@ object DriveSubsystem : ZedSubsystem() {
 		val avgEncDistance = deltaEncDistances.average()
 
 		// Update pose using basic trigonometry
-		pose.xPos = avgEncDistance * cos(Robot.gyro.angle)
-		pose.yPos = avgEncDistance * sin(Robot.gyro.angle)
-		pose.yawAngle = Robot.gyro.angle
+		pose.xPos = avgEncDistance * cos(ADXRS450.angle)
+		pose.yPos = avgEncDistance * sin(ADXRS450.angle)
+		pose.yawAngle = ADXRS450.angle
 	}
 
 	// Data Classes

@@ -1,6 +1,7 @@
-package frc.team4096.robot.drivetrain
+package frc.team4096.robot.drivetrain.commands
 
 import edu.wpi.first.wpilibj.command.Command
+import frc.team4096.robot.drivetrain.DriveSubsystem
 
 /**
  * Curvature/Cheesy drive command for tele-op.
@@ -21,6 +22,4 @@ class CurvatureDriveCmd(var xSpeed: Double, var zRotation: Double, var isQuickTu
 	override fun isFinished() = false
 
 	override fun end() = DriveSubsystem.stop()
-
-	override fun interrupted() = this.end()
 }

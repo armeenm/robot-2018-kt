@@ -1,6 +1,7 @@
-package frc.team4096.robot.drivetrain
+package frc.team4096.robot.drivetrain.commands
 
 import edu.wpi.first.wpilibj.command.InstantCommand
+import frc.team4096.robot.drivetrain.DriveSubsystem
 
 /**
  * Toggle the drive gear state
