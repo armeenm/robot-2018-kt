@@ -18,6 +18,7 @@ class PIDFController(
 	val pidfVals: PIDVAVals,
 	val source: () -> Double,
 	val sink: (Double) -> Unit,
+	val quitOnTarget: Boolean = true,
 	val freq: Double = 100.0
 ) {
 	private var error = 0.0
@@ -64,7 +65,8 @@ class PIDFController(
 	}
 
 	private fun run() {
-		if (onTarget && )
+		if (onTarget && quitOnTarget) return
+
 		sensorPos = source()
 		calculate()
 		sink(output)
@@ -75,6 +77,7 @@ class PIDFController(
 	 */
 	fun disable() {
 		isEnabled = false
+
 		error = 0.0
 		lastError = 0.0
 		integral = 0.0

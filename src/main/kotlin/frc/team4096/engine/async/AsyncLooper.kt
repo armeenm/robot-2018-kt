@@ -22,7 +22,7 @@ class AsyncLooper(var freq: Double, var logging: Boolean, loopFun: suspend () ->
 			while (isActive) {
 				val startTime = Timer.getFPGATimestamp()
 				onLoop()
-				val deltaTime = Timer.getFPGATimestamp()
+				val deltaTime = Timer.getFPGATimestamp() - startTime
 				if (deltaTime < msPeriod) delay((msPeriod - deltaTime).toLong())
 				else if (logging) logCantKeepUp(deltaTime)
 			}
