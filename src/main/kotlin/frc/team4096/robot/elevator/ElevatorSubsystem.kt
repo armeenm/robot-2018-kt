@@ -96,7 +96,7 @@ object ElevatorSubsystem : ZedSubsystem() {
 			setNeutralMode(NeutralMode.Brake)
 
 			// Voltage Compensation
-			configVoltageCompSaturation(12.0, MiscConsts.K_TIMEOUT_MS)
+			configVoltageCompSaturation(11.0, MiscConsts.K_TIMEOUT_MS)
 			enableVoltageCompensation(true)
 			/* Tweak vbus measurement filter.
 			 * Default is 32 cells in rolling average (1ms/sample)
