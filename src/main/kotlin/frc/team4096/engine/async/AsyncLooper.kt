@@ -7,15 +7,14 @@ import kotlinx.coroutines.experimental.*
  * Asynchronous coroutine-based looper.
  * Based on code from 2898.
  */
-class AsyncLooper(var freq: Double, var logging: Boolean, loopFun: suspend () -> Unit = {}) {
+class AsyncLooper(val freq: Double, var logging: Boolean, loopFun: suspend () -> Unit = {}) {
 	var onStart: () -> Unit = {}
 	var onLoop: suspend () -> Unit = loopFun
 	var onStop: () -> Unit = {}
 
 	var job = init()
 
-	val msPeriod
-		get() = 1000 / freq
+	val msPeriod = 1000 / freq
 
 	private fun init(): Job {
 		return launch(CommonPool, CoroutineStart.LAZY) {
