@@ -2,7 +2,7 @@ package frc.team4096.robot.climber
 
 import edu.wpi.first.wpilibj.Servo
 import edu.wpi.first.wpilibj.VictorSP
-import frc.team4096.engine.wpi.ZedSubsystem
+import frc.team4096.engine.extensions.wpi.ZedSubsystem
 
 /**
  * Climber subsystem.

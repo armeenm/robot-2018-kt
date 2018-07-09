@@ -1,9 +1,6 @@
 package frc.team4096.robot
 
-import edu.wpi.first.wpilibj.CameraServer
-import edu.wpi.first.wpilibj.DriverStation
 import edu.wpi.first.wpilibj.TimedRobot
-import edu.wpi.first.wpilibj.command.Scheduler
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard
 import frc.team4096.engine.sensors.ADXRS450
 import frc.team4096.robot.autonomous.AutoMain
@@ -11,6 +8,8 @@ import frc.team4096.robot.climber.ClimberSubsystem
 import frc.team4096.robot.drivetrain.DriveSubsystem
 import frc.team4096.robot.elevator.ElevatorSubsystem
 import frc.team4096.robot.intake.IntakeSubsystem
+import frc.team4096.robot.misc.cameraServer
+import frc.team4096.robot.misc.scheduler
 import frc.team4096.robot.sensors.PressureSensor
 import kotlinx.coroutines.experimental.delay
 import kotlinx.coroutines.experimental.launch
@@ -21,12 +20,7 @@ import kotlinx.coroutines.experimental.launch
  */
 class Robot : TimedRobot() {
 	companion object {
-		// Software
-		val cameraServer: CameraServer = CameraServer.getInstance()
-		val driverStation: DriverStation = DriverStation.getInstance()
-		val scheduler: Scheduler = Scheduler.getInstance()
-
-		val sensorList = listOf(ADXRS450, PressureSensor)
+		private val sensorList = listOf(ADXRS450, PressureSensor)
 		private val subsystemList = listOf(DriveSubsystem, IntakeSubsystem, ElevatorSubsystem, ClimberSubsystem)
 	}
 
@@ -43,17 +37,12 @@ class Robot : TimedRobot() {
 	}
 
 	// DISABLED //
-	override fun disabledInit() {
-		// Empty out the scheduler
-		scheduler.removeAll()
-	}
+	override fun disabledInit() { scheduler.removeAll() }
 
 	override fun disabledPeriodic() {}
 
 	// ENABLED //
-	override fun robotPeriodic() {
-		scheduler.run()
-	}
+	override fun robotPeriodic() { scheduler.run() }
 
 	// AUTONOMOUS //
 	override fun autonomousInit() {
@@ -96,7 +85,6 @@ class Robot : TimedRobot() {
 				}
 			}
 
-			SmartDashboard.putNumber("Pressure", PressureSensor.pressure)
 
 			// Wait 100ms (10Hz)
 			delay(100)

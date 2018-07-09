@@ -3,7 +3,7 @@ package frc.team4096.robot.autonomous
 import edu.wpi.first.wpilibj.command.CommandGroup
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard
-import frc.team4096.robot.Robot
+import frc.team4096.robot.misc.driverStation
 
 /**
  * Main autonomous handler.
@@ -21,7 +21,7 @@ object AutoMain {
 	}
 
 	fun fetchData() {
-		autoData = Robot.driverStation.gameSpecificMessage
+		autoData = driverStation.gameSpecificMessage
 	}
 
 	fun runAuto() {

@@ -14,7 +14,7 @@ class AsyncLooper(val freq: Double, var logging: Boolean, loopFun: suspend () ->
 
 	var job = init()
 
-	val msPeriod = 1000 / freq
+	var msPeriod = 1000 / freq
 
 	private fun init(): Job {
 		return launch(CommonPool, CoroutineStart.LAZY) {

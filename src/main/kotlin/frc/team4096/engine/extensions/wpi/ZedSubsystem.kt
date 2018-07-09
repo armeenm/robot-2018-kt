@@ -1,4 +1,4 @@
-package frc.team4096.engine.wpi
+package frc.team4096.engine.extensions.wpi
 
 import edu.wpi.first.wpilibj.command.Subsystem
 
