@@ -21,3 +21,13 @@ fun <T : Number> genericAbs(x: T): T {
 	@Suppress("UNCHECKED_CAST")
 	return absoluteValue as T
 }
+
+/**
+ * Inline cosine.
+ */
+infix fun Double.cos(x: Double): Double = this * cos(x)
+
+/**
+ * Infix sine.
+ */
+infix fun Double.sin(x: Double): Double = this * sin(x)

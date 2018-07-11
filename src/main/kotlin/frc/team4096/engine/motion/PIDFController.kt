@@ -47,7 +47,9 @@ class PIDFController(
 	/**
 	 * Enables controller and launches coroutine.
 	 */
-	fun enable() { isEnabled = true }
+	fun enable() {
+		isEnabled = true
+	}
 
 	private fun calculate() {
 		error = setpoint - sensorPos

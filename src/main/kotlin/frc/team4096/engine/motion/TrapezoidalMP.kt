@@ -36,10 +36,12 @@ class TrapezoidalMP(
 	init {
 		if (2 * xAccel < targetPos) {
 			// Trapezoidal
+			println("zoid")
 			xCruise = targetPos - 2 * xAccel
 			tCruise = xCruise / maxVel
 		} else {
 			// Triangular
+			println("triang")
 			tAccel = sqrt(targetPos / maxAccel)
 			xAccel = targetPos / 2
 		}

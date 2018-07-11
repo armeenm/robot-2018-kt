@@ -9,7 +9,7 @@ import frc.team4096.robot.misc.MiscConsts
  * @param analogPin Analog input pin
  * @param vCC Supply voltage, defaults to 5V
  */
-open class REVPressureSensor(val analogPin: Int, val vCC: Double = 5.0) {
+open class REVPressureSensor(analogPin: Int, val vCC: Double = 5.0) {
 	val analogInput = AnalogInput(analogPin)
 
 	init {

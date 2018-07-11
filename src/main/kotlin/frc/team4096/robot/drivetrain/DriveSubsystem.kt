@@ -1,10 +1,13 @@
 package frc.team4096.robot.drivetrain
 
-import edu.wpi.first.wpilibj.*
+import edu.wpi.first.wpilibj.DoubleSolenoid
+import edu.wpi.first.wpilibj.Encoder
+import edu.wpi.first.wpilibj.SpeedControllerGroup
+import edu.wpi.first.wpilibj.VictorSP
 import edu.wpi.first.wpilibj.drive.DifferentialDrive
+import frc.team4096.engine.extensions.wpi.ZedSubsystem
 import frc.team4096.engine.motion.util.ControlState
 import frc.team4096.engine.sensors.ADXRS450
-import frc.team4096.engine.extensions.wpi.ZedSubsystem
 import frc.team4096.robot.drivetrain.commands.CurvatureDriveCmd
 import frc.team4096.robot.misc.MiscConsts
 import frc.team4096.robot.misc.XboxConsts

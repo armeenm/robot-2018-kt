@@ -11,7 +11,6 @@ import frc.team4096.robot.intake.IntakeSubsystem
 import frc.team4096.robot.misc.cameraServer
 import frc.team4096.robot.misc.scheduler
 import frc.team4096.robot.sensors.PressureSensor
-import kotlinx.coroutines.experimental.delay
 import kotlinx.coroutines.experimental.launch
 
 /**
@@ -20,8 +19,12 @@ import kotlinx.coroutines.experimental.launch
  */
 class Robot : TimedRobot() {
 	companion object {
-		private val sensorList = listOf(ADXRS450, PressureSensor)
-		private val subsystemList = listOf(DriveSubsystem, IntakeSubsystem, ElevatorSubsystem, ClimberSubsystem)
+		val subsystemList = listOf(DriveSubsystem, IntakeSubsystem, ElevatorSubsystem, ClimberSubsystem)
+	}
+
+	init {
+		ADXRS450
+		PressureSensor
 	}
 
 	override fun robotInit() {
@@ -36,13 +39,16 @@ class Robot : TimedRobot() {
 		launch { log() }
 	}
 
+	override fun robotPeriodic() {
+		scheduler.run()
+	}
+
 	// DISABLED //
-	override fun disabledInit() { scheduler.removeAll() }
+	override fun disabledInit() {
+		scheduler.removeAll()
+	}
 
 	override fun disabledPeriodic() {}
-
-	// ENABLED //
-	override fun robotPeriodic() { scheduler.run() }
 
 	// AUTONOMOUS //
 	override fun autonomousInit() {
@@ -75,19 +81,13 @@ class Robot : TimedRobot() {
 	/**
 	 * General robot logging suspend function.
 	 */
-	suspend fun log() {
-		while (true) {
-			subsystemList.forEach {
-				when {
-					isAutonomous -> it.autoLog()
-					isOperatorControl -> it.teleopLog()
-					else -> it.log()
-				}
+	fun log() {
+		subsystemList.forEach {
+			when {
+				isAutonomous -> it.autoLog()
+				isOperatorControl -> it.teleopLog()
+				else -> it.log()
 			}
-
-
-			// Wait 100ms (10Hz)
-			delay(100)
 		}
 	}
 }

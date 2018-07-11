@@ -21,7 +21,7 @@ object DriveConsts {
 
 	// Hardware
 	const val MAX_VEL = 9.0
-	const val MAX_ACCEL = 9.0
+	const val MAX_ACCEL = 4.0
 	const val MAX_JERK = 150.0
 
 	const val WHEELBASE_WIDTH = 2.3

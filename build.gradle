@@ -3,9 +3,8 @@ plugins {
     id "org.jetbrains.kotlin.jvm" version "1.2.50"
     id "org.jetbrains.dokka" version "0.9.17"
     id "java"
-    id "eclipse"
     id "idea"
-    id "jaci.openrio.gradle.GradleRIO" version "2018.03.06"
+    id "edu.wpi.first.GradleRIO" version "2018.06.21"
 }
 
 repositories {
@@ -23,7 +22,11 @@ dependencies {
     compile "org.jetbrains.kotlinx:kotlinx-coroutines-core:0.22.5"
     compile "org.jetbrains.kotlin:kotlin-stdlib-jdk8"
     compile "org.jetbrains.dokka:dokka-gradle-plugin:0.9.17"
-	compile 'com.github.salomonbrys.kotson:kotson:2.5.0'
+	compile "com.github.salomonbrys.kotson:kotson:2.5.0"
+	compile "org.knowm.xchart:xchart:3.5.2"
+    // Testing
+    testCompile("org.junit.jupiter:junit-jupiter-api:5.2.0")
+    testRuntime("org.junit.jupiter:junit-jupiter-engine:5.2.0")
 }
 
 // GradleRIO //
@@ -34,12 +37,11 @@ def ROBOT_CLASS = "frc.team4096.robot.Robot"
 // This is added by GradleRIO's backing project EmbeddedTools.
 deploy {
     targets {
-        target("roborio", jaci.openrio.gradle.frc.RoboRIO) {
+        target("roborio", edu.wpi.first.gradlerio.frc.RoboRIO) {
             team = TEAM
-        }
-    }
+        } }
     artifacts {
-        artifact('frcJava', jaci.openrio.gradle.frc.FRCJavaArtifact) {
+        artifact('frcJava', edu.wpi.first.gradlerio.frc.FRCJavaArtifact) {
             targets << "roborio"
         }
     }
@@ -50,11 +52,16 @@ deploy {
 // knows where to look for our Robot Class.
 jar {
     from configurations.compile.collect { it.isDirectory() ? it : zipTree(it) }
-    manifest jaci.openrio.gradle.GradleRIOPlugin.javaManifest(ROBOT_CLASS)
+    manifest edu.wpi.first.gradlerio.GradleRIOPlugin.javaManifest(ROBOT_CLASS)
 }
 
 task wrapper(type: Wrapper) {
-    gradleVersion = '4.4'
+    gradleVersion = '4.7'
+}
+
+// Testing //
+test {
+    useJUnitPlatform()
 }
 
 // Kotlin //
