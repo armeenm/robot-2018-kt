@@ -33,7 +33,9 @@ class TrapezoidalMPTest {
 		do {
 			pvajData = tmp.follow(pos)
 			time += dt
-			pos += pvajData.vel * dt + 0.5 * pvajData.accel * dt.pow(2)
+			//pos += pvajData.vel * dt + 0.5 * pvajData.accel * dt.pow(2)
+			pos = pvajData.pos
+			println(pos)
 			velData.add(pvajData.vel)
 			posData.add(pvajData.pos)
 			tData.add(time)
@@ -50,7 +52,7 @@ class TrapezoidalMPTest {
 			.build()
 
 		chart.addSeries("Velocity", tData, velData)
-		//chart.addSeries("Position", tData, posData)
+		chart.addSeries("Position", tData, posData)
 
 		/*
 		val chart = QuickChart.getChart(

@@ -51,7 +51,7 @@ class TrapezoidalMP(
 
 	private var error = 0.0
 	private var integral = 0.0
-	private val pvajData = PVAJData()
+	private val pvajData = PVAJData(accel = maxAccel)
 
 	override var isFinished = false
 
@@ -81,7 +81,8 @@ class TrapezoidalMP(
 		when (state) {
 			ProfileState.ACCEL -> {
 				pvajData.vel += maxAccel * dt
-				pvajData.pos += pvajData.vel * dt
+				pvajData.pos += pvajData.vel * dt + 0.5 * maxAccel * dt.pow(2)
+				//pvajData.pos += pvajData.vel * dt
 			}
 
 			ProfileState.CRUISE ->
@@ -89,7 +90,8 @@ class TrapezoidalMP(
 
 			ProfileState.DECEL -> {
 				pvajData.vel -= maxAccel * dt
-				pvajData.pos -= pvajData.vel * dt
+				pvajData.pos += pvajData.vel * dt + 0.5 * maxAccel * dt.pow(2)
+				//pvajData.pos += pvajData.vel * dt
 			}
 
 			ProfileState.REST -> {
