@@ -25,11 +25,11 @@ class TrapezoidalMP(
 
 	private enum class ProfileState { REST, ACCEL, CRUISE, DECEL }
 
-	private var tAccel = maxVel / maxAccel
-	private var xAccel = 0.5 * maxVel * tAccel
+	var tAccel = maxVel / maxAccel
+	var xAccel = 0.5 * maxVel * tAccel
 
-	private var xCruise = 0.0
-	private var tCruise = 0.0
+	var xCruise = 0.0
+	var tCruise = 0.0
 
 	private val dt = 1 / freq
 
@@ -56,7 +56,7 @@ class TrapezoidalMP(
 	override var isFinished = false
 
 	fun reset() {
-		state = ProfileState.ACCEL
+		state = ProfileState.REST
 
 		error = 0.0
 		integral = 0.0
@@ -80,7 +80,7 @@ class TrapezoidalMP(
 		updateState(curPos)
 		when (state) {
 			ProfileState.ACCEL -> {
-				pvajData.vel += maxAccel * K_DT
+				pvajData.vel += maxAccel * dt
 				pvajData.pos += pvajData.vel * dt
 			}
 
@@ -88,13 +88,13 @@ class TrapezoidalMP(
 				pvajData.pos += pvajData.vel * dt
 
 			ProfileState.DECEL -> {
-				pvajData.vel -= maxAccel * K_DT
+				pvajData.vel -= maxAccel * dt
 				pvajData.pos -= pvajData.vel * dt
 			}
 
 			ProfileState.REST -> {
+				if (!isFinished) reset()
 				isFinished = true
-				reset()
 			}
 		}
 		return pvajData
