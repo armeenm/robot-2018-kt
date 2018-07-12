@@ -1,7 +1,7 @@
 package frc.team4096.engine.motion
 
 import frc.team4096.engine.motion.util.PVAJData
-import frc.team4096.robot.misc.MiscConsts.K_DT
+import kotlin.math.pow
 import kotlin.math.sqrt
 
 /**
@@ -23,10 +23,10 @@ class TrapezoidalMP(
 	override val freq: Double = 50.0
 ) : MotionProfile() {
 
-	private enum class ProfileState { REST, ACCEL, CRUISE, DECEL }
+	enum class ProfileState { REST, ACCEL, CRUISE, DECEL }
 
 	var tAccel = maxVel / maxAccel
-	var xAccel = 0.5 * maxVel * tAccel
+	var xAccel = 0.5 * maxAccel * tAccel.pow(2)
 
 	var xCruise = 0.0
 	var tCruise = 0.0
@@ -47,7 +47,7 @@ class TrapezoidalMP(
 		}
 	}
 
-	private var state = ProfileState.REST
+	var state = ProfileState.REST
 
 	private var error = 0.0
 	private var integral = 0.0
