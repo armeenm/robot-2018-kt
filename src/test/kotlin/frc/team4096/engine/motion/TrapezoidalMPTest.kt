@@ -2,46 +2,37 @@ package frc.team4096.engine.motion
 
 import frc.team4096.engine.motion.util.PVAJData
 import frc.team4096.robot.drivetrain.DriveConsts
-import org.junit.jupiter.api.Test
 import org.knowm.xchart.SwingWrapper
-import kotlin.math.pow
 import org.knowm.xchart.XYChartBuilder
 
 class TrapezoidalMPTest {
-	@Test
+	//@Test
 	fun test() {
 		// Chart
-		val velData = arrayListOf<Double>()
 		val posData = arrayListOf<Double>()
+		val velData = arrayListOf<Double>()
+		val accelData = arrayListOf<Double>()
 		val tData = arrayListOf<Double>()
 
 		// Motion Profile
-		val targetPos = 20.0
+		val targetPos = 30.0
 		var pos = 0.0
-		val freq = 50.0
+		val freq = 20.0
 		val dt = 1 / freq
 		var time = 0.0
 		val tmp = TrapezoidalMP(targetPos, DriveConsts.MAX_VEL, DriveConsts.MAX_ACCEL, { Double.NaN }, {}, freq)
-		var pvajData: PVAJData
-
-		println("tAccel: ${tmp.tAccel}")
-		println("xAccel: ${tmp.xAccel}")
-		println("tCruise: ${tmp.tCruise}")
-		println("xCruise: ${tmp.xCruise}")
-		println("Total Distance: ${tmp.xCruise + 2 * tmp.xAccel}")
+		val pvajData1 = PVAJData()
+		var pvajData = pvajData1
 
 		do {
-			pvajData = tmp.follow(pos)
-			time += dt
-			//pos += pvajData.vel * dt + 0.5 * pvajData.accel * dt.pow(2)
-			pos = pvajData.pos
-			println(pos)
 			velData.add(pvajData.vel)
 			posData.add(pvajData.pos)
+			accelData.add(pvajData.accel)
 			tData.add(time)
+			pvajData = tmp.follow(pos)
+			time += dt
+			pos = pvajData.pos
 		} while (tmp.state != TrapezoidalMP.ProfileState.REST)
-
-		println(pos)
 
 		val chart = XYChartBuilder()
 			.width(800)
@@ -51,19 +42,9 @@ class TrapezoidalMPTest {
 			.yAxisTitle("Y")
 			.build()
 
-		chart.addSeries("Velocity", tData, velData)
 		chart.addSeries("Position", tData, posData)
-
-		/*
-		val chart = QuickChart.getChart(
-			"Trapezoidal MP",
-			"Time",
-			"Velocity",
-			"Motion",
-			tData,
-			velData
-		)
-		*/
+		chart.addSeries("Velocity", tData, velData)
+		chart.addSeries("Acceleration", tData, accelData)
 
 		SwingWrapper(chart).displayChart()
 		Thread.sleep(1000000)

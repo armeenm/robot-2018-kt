@@ -10,7 +10,7 @@ import frc.team4096.engine.extensions.wpi.ZedSubsystem
  */
 object ClimberSubsystem : ZedSubsystem() {
 	// Hardware
-	var motor = VictorSP(ClimberConsts.PWM_MOTOR)
+	private var motor = VictorSP(ClimberConsts.PWM_MOTOR)
 	private var servo = Servo(ClimberConsts.PWM_SERVO)
 
 	// Hardware States
@@ -26,9 +26,7 @@ object ClimberSubsystem : ZedSubsystem() {
 		servo.angle = 0.0
 	}
 
-	override fun log() {
-
-	}
+	override fun log() {}
 
 	override fun initDefaultCommand() {}
 
@@ -39,4 +37,10 @@ object ClimberSubsystem : ZedSubsystem() {
 		isReleased = true
 		servo.angle = ClimberConsts.SERVO_RELEASE_ANGLE
 	}
+
+	var speed = 0.0
+		set(speed: Double) {
+			motor.speed = speed
+			field = speed
+		}
 }

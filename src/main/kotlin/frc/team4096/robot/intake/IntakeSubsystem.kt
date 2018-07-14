@@ -1,6 +1,7 @@
 package frc.team4096.robot.intake
 
 import edu.wpi.first.wpilibj.DoubleSolenoid
+import edu.wpi.first.wpilibj.SpeedControllerGroup
 import edu.wpi.first.wpilibj.VictorSP
 import frc.team4096.engine.extensions.wpi.ZedSubsystem
 import frc.team4096.engine.motion.util.ControlState
@@ -16,7 +17,9 @@ import frc.team4096.robot.oi.OIMain
 object IntakeSubsystem : ZedSubsystem() {
 	// Hardware
 	// TODO: Add second motor controller for wheels
-	private var wheelMotor = VictorSP(IntakeConsts.PWM_WHEELS_MOTOR)
+	private var wheelMotor1 = VictorSP(IntakeConsts.PWM_WHEELS_MOTOR_1)
+	private var wheelMotor2 = VictorSP(IntakeConsts.PWM_WHEELS_MOTOR_2)
+	private var wheelMotorGroup = SpeedControllerGroup(wheelMotor1, wheelMotor2)
 	private var rotationMotor = VictorSP(IntakeConsts.PWM_ROTATE_MOTOR)
 
 	private var squeezeSolenoid = DoubleSolenoid(
@@ -50,7 +53,7 @@ object IntakeSubsystem : ZedSubsystem() {
 	var intakeSpeed: Double = 0.0
 		set(inputSpeed) {
 			applyDeadband(inputSpeed, IntakeConsts.WHEEL_DEAD_BAND)
-			wheelMotor.speed = inputSpeed
+			wheelMotorGroup.set(inputSpeed)
 			field = inputSpeed
 		}
 	var rotateSpeed: Double = 0.0

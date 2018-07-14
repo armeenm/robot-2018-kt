@@ -6,6 +6,7 @@ import frc.team4096.engine.oi.ZedXboxController
 import frc.team4096.engine.util.commandify
 import frc.team4096.robot.climber.ClimberConsts
 import frc.team4096.robot.climber.ClimberSubsystem
+import frc.team4096.robot.climber.ManualClimberCmd
 import frc.team4096.robot.drivetrain.DriveSubsystem
 import frc.team4096.robot.elevator.AutoElevatorCmd
 import frc.team4096.robot.elevator.ElevatorConsts
@@ -30,10 +31,7 @@ object OIMain {
 		XboxController1.rbButton.whenReleased(commandify { DriveSubsystem.gear = DriveSubsystem.GearState.HIGH })
 
 		// Climber
-		XboxController1.upDPad.whenPressed(commandify {
-			ClimberSubsystem.motor.speed = ClimberConsts.MAX_FORWARD_SPEED
-		})
-		XboxController1.upDPad.whenReleased(commandify { ClimberSubsystem.motor.speed = 0.0 })
+		XboxController1.upDPad.whileHeld(ManualClimberCmd(ClimberConsts.MAX_FORWARD_SPEED))
 
 		// Controller 2 (Secondary Driver)
 		// Elevator Setpoints

@@ -31,19 +31,21 @@ class TrapezoidalMP(
 	var xCruise = 0.0
 	var tCruise = 0.0
 
+	val isTrapezoidal: Boolean
+
 	private val dt = 1 / freq
 
 	init {
 		if (2 * xAccel < targetPos) {
 			// Trapezoidal
-			println("zoid")
+			isTrapezoidal = true
 			xCruise = targetPos - 2 * xAccel
 			tCruise = xCruise / maxVel
 		} else {
 			// Triangular
-			println("triang")
-			tAccel = sqrt(targetPos / maxAccel)
-			xAccel = targetPos / 2
+			isTrapezoidal = false
+			xAccel = targetPos / 2.0
+			tAccel = sqrt(xAccel / maxAccel)
 		}
 	}
 
@@ -51,7 +53,7 @@ class TrapezoidalMP(
 
 	private var error = 0.0
 	private var integral = 0.0
-	private val pvajData = PVAJData(accel = maxAccel)
+	private val pvajData = PVAJData()
 
 	override var isFinished = false
 
@@ -71,7 +73,7 @@ class TrapezoidalMP(
 		state = when {
 			curPos < xAccel -> ProfileState.ACCEL
 			curPos < xAccel + xCruise -> ProfileState.CRUISE
-			curPos < 2 * xAccel + xCruise -> ProfileState.DECEL
+			curPos < 2 * xAccel + xCruise || pvajData.vel > 0.0 -> ProfileState.DECEL
 			else -> ProfileState.REST
 		}
 	}
@@ -80,24 +82,23 @@ class TrapezoidalMP(
 		updateState(curPos)
 		when (state) {
 			ProfileState.ACCEL -> {
+				pvajData.accel = maxAccel
+				pvajData.pos += pvajData.vel * dt + 0.5 * pvajData.accel * dt.pow(2)
 				pvajData.vel += maxAccel * dt
-				pvajData.pos += pvajData.vel * dt + 0.5 * maxAccel * dt.pow(2)
-				//pvajData.pos += pvajData.vel * dt
 			}
 
-			ProfileState.CRUISE ->
+			ProfileState.CRUISE -> {
+				pvajData.accel = 0.0
 				pvajData.pos += pvajData.vel * dt
+			}
 
 			ProfileState.DECEL -> {
+				pvajData.accel = -maxAccel
+				pvajData.pos += pvajData.vel * dt + 0.5 * pvajData.accel * dt.pow(2)
 				pvajData.vel -= maxAccel * dt
-				pvajData.pos += pvajData.vel * dt + 0.5 * maxAccel * dt.pow(2)
-				//pvajData.pos += pvajData.vel * dt
 			}
 
-			ProfileState.REST -> {
-				if (!isFinished) reset()
-				isFinished = true
-			}
+			ProfileState.REST -> isFinished = true
 		}
 		return pvajData
 	}

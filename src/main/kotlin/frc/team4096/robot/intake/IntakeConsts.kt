@@ -6,7 +6,9 @@ object IntakeConsts {
 	const val ROTATE_DEAD_BAND = 0.05
 
 	// Motors
-	const val PWM_WHEELS_MOTOR = 4
+	// TODO: SORT OUT THESE PINS!
+	const val PWM_WHEELS_MOTOR_1 = 4
+	const val PWM_WHEELS_MOTOR_2 = 4
 	const val PWM_ROTATE_MOTOR = 6
 
 	const val PDP_WHEELS = 7
