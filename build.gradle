@@ -24,6 +24,7 @@ dependencies {
     compile "org.jetbrains.dokka:dokka-gradle-plugin:0.9.17"
 	compile "com.github.salomonbrys.kotson:kotson:2.5.0"
 	compile "org.knowm.xchart:xchart:3.5.2"
+    compile "org.apache.commons:commons-math3:3.6"
     // Testing
     testCompile("org.junit.jupiter:junit-jupiter-api:5.2.0")
     testRuntime("org.junit.jupiter:junit-jupiter-engine:5.2.0")
