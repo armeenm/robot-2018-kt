@@ -1,4 +1,4 @@
-package frc.team4096.engine.signalProcessing
+package frc.team4096.engine.dsp
 
 /**
  * Circular FIFO buffer.

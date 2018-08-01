@@ -8,8 +8,9 @@ import frc.team4096.robot.climber.ClimberConsts
 import frc.team4096.robot.climber.ClimberSubsystem
 import frc.team4096.robot.climber.ManualClimberCmd
 import frc.team4096.robot.drivetrain.DriveSubsystem
-import frc.team4096.robot.elevator.AutoElevatorCmd
+import frc.team4096.robot.drivetrain.GearState
 import frc.team4096.robot.elevator.ElevatorConsts
+import frc.team4096.robot.elevator.commands.AutoElevatorCmd
 import frc.team4096.robot.intake.IntakeConsts
 import frc.team4096.robot.intake.IntakeSubsystem
 
@@ -27,8 +28,10 @@ object OIMain {
 
 		// Drivetrain
 		// Shifting
-		XboxController1.rbButton.whenPressed(commandify { DriveSubsystem.gear = DriveSubsystem.GearState.LOW })
-		XboxController1.rbButton.whenReleased(commandify { DriveSubsystem.gear = DriveSubsystem.GearState.HIGH })
+		XboxController1.rbButton.apply {
+			whenPressed(commandify { DriveSubsystem.gear = GearState.LOW })
+			whenReleased(commandify { DriveSubsystem.gear = GearState.HIGH })
+		}
 
 		// Climber
 		XboxController1.upDPad.whileHeld(ManualClimberCmd(ClimberConsts.MAX_FORWARD_SPEED))
@@ -49,16 +52,21 @@ object OIMain {
 		)
 
 		// Rotation Motor
-		XboxController2.yButton.whenPressed(commandify {
-			IntakeSubsystem.rotateHolding = false
-			IntakeSubsystem.rotateSpeed = IntakeConsts.DEFAULT_ROTATE_SPEED
-		})
-		XboxController2.yButton.whenReleased(commandify { IntakeSubsystem.rotateHolding = true })
+		XboxController2.yButton.apply {
+			whenPressed(commandify {
+				IntakeSubsystem.rotateHolding = false
+				IntakeSubsystem.rotateSpeed = IntakeConsts.DEFAULT_ROTATE_SPEED
+			})
+			XboxController2.yButton.whenReleased(commandify { IntakeSubsystem.rotateHolding = true })
+		}
+
 		XboxController2.aButton.whenPressed(commandify { IntakeSubsystem.rotateHolding = false })
 
 		// Intake
-		XboxController2.bButton.whenPressed(commandify { IntakeSubsystem.squeeze = IntakeSubsystem.SqueezeState.OUT })
-		XboxController2.bButton.whenPressed(commandify { IntakeSubsystem.squeeze = IntakeSubsystem.SqueezeState.IN })
+		XboxController2.bButton.apply {
+			whenPressed(commandify { IntakeSubsystem.squeeze = IntakeSubsystem.SqueezeState.OUT })
+			whenReleased(commandify { IntakeSubsystem.squeeze = IntakeSubsystem.SqueezeState.IN })
+		}
 
 		// Climber
 		XboxController2.selectButton.whenPressed(commandify { ClimberSubsystem.release() })

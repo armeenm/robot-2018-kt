@@ -2,7 +2,7 @@ package frc.team4096.robot
 
 import edu.wpi.first.wpilibj.TimedRobot
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard
-import frc.team4096.engine.sensors.ADXRS450
+import frc.team4096.robot.sensors.Gyro
 import frc.team4096.robot.autonomous.AutoMain
 import frc.team4096.robot.climber.ClimberSubsystem
 import frc.team4096.robot.drivetrain.DriveSubsystem
@@ -10,6 +10,7 @@ import frc.team4096.robot.elevator.ElevatorSubsystem
 import frc.team4096.robot.intake.IntakeSubsystem
 import frc.team4096.robot.misc.cameraServer
 import frc.team4096.robot.misc.scheduler
+import frc.team4096.robot.oi.OIMain
 import frc.team4096.robot.sensors.PressureSensor
 import kotlinx.coroutines.experimental.launch
 
@@ -23,19 +24,20 @@ class Robot : TimedRobot() {
 	}
 
 	init {
-		ADXRS450
+		Gyro
 		PressureSensor
+		OIMain
 	}
 
 	override fun robotInit() {
 		// Hardware
-		ADXRS450.reset()
+		Gyro.reset()
 
 		// Software
 		cameraServer.startAutomaticCapture()
 		// SmartDashboard
 		subsystemList.forEach { SmartDashboard.putData(it) }
-		SmartDashboard.putData(ADXRS450)
+		SmartDashboard.putData(Gyro)
 		launch { log() }
 	}
 

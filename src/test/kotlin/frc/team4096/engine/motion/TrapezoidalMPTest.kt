@@ -1,6 +1,5 @@
 package frc.team4096.engine.motion
 
-import frc.team4096.engine.motion.util.PVAJData
 import frc.team4096.robot.drivetrain.DriveConsts
 import org.junit.jupiter.api.Test
 import org.knowm.xchart.SwingWrapper

@@ -2,8 +2,8 @@ package frc.team4096.robot.drivetrain.commands
 
 import edu.wpi.first.wpilibj.command.Command
 import frc.team4096.engine.motion.PFPath
-import frc.team4096.engine.motion.util.PIDVAVals
-import frc.team4096.engine.sensors.ADXRS450
+import frc.team4096.engine.motion.PIDVAVals
+import frc.team4096.robot.sensors.Gyro
 import frc.team4096.robot.drivetrain.DriveConsts
 import frc.team4096.robot.drivetrain.DriveSubsystem
 import jaci.pathfinder.Pathfinder
@@ -57,7 +57,7 @@ class FollowPathPFCmd(path: PFPath, pidvaVals: PIDVAVals) : Command() {
 		l = leftFollower.calculate(DriveSubsystem.leftEncoder.get())
 		r = rightFollower.calculate(DriveSubsystem.rightEncoder.get())
 		// Heading
-		gyroHeading = ADXRS450.angle
+		gyroHeading = Gyro.angle
 		desiredHeading = Pathfinder.r2d(leftFollower.heading)
 		angleDifference = Pathfinder.boundHalfDegrees(desiredHeading - gyroHeading)
 		turn = 0.8 * (-1.0 / 80.0) * angleDifference

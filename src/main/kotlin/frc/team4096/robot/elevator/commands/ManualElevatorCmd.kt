@@ -1,6 +1,8 @@
-package frc.team4096.robot.elevator
+package frc.team4096.robot.elevator.commands
 
 import edu.wpi.first.wpilibj.command.Command
+import frc.team4096.robot.elevator.ElevatorConsts
+import frc.team4096.robot.elevator.ElevatorSubsystem
 
 /**
  * Manual elevator motion.

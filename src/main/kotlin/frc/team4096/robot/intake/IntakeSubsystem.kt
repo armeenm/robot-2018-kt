@@ -4,10 +4,11 @@ import edu.wpi.first.wpilibj.DoubleSolenoid
 import edu.wpi.first.wpilibj.SpeedControllerGroup
 import edu.wpi.first.wpilibj.VictorSP
 import frc.team4096.engine.extensions.wpi.ZedSubsystem
-import frc.team4096.engine.motion.util.ControlState
+import frc.team4096.engine.motion.ControlState
 import frc.team4096.engine.util.applyDeadband
 import frc.team4096.robot.misc.MiscConsts
-import frc.team4096.robot.misc.XboxConsts
+import frc.team4096.engine.oi.XboxConsts
+import frc.team4096.robot.intake.commands.ManualIntakeCmd
 import frc.team4096.robot.oi.OIMain
 
 /**
@@ -36,8 +37,6 @@ object IntakeSubsystem : ZedSubsystem() {
 		}
 
 	var cube = HasCube.UNKNOWN
-	var isIntakeStalling = false
-	var isRotateStalling = false
 
 	var rotateHolding = false
 		set(input) {
@@ -75,13 +74,15 @@ object IntakeSubsystem : ZedSubsystem() {
 	}
 
 	override fun autoReset() {
-		// We have a cube at the start of auto
+		// We should have a cube at the start of auto
 		cube = HasCube.TRUE
 		reset()
 	}
 
-	override fun log() {
-		TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+	override fun log() {}
+
+	override fun stop() {
+
 	}
 
 	override fun initDefaultCommand() {

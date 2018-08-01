@@ -6,12 +6,13 @@ import edu.wpi.first.wpilibj.SpeedControllerGroup
 import edu.wpi.first.wpilibj.VictorSP
 import edu.wpi.first.wpilibj.drive.DifferentialDrive
 import frc.team4096.engine.extensions.wpi.ZedSubsystem
-import frc.team4096.engine.motion.util.ControlState
-import frc.team4096.engine.sensors.ADXRS450
-import frc.team4096.robot.drivetrain.commands.CurvatureDriveCmd
+import frc.team4096.engine.motion.*
+import frc.team4096.engine.oi.XboxConsts
+import frc.team4096.engine.util.applyDeadband
+import frc.team4096.robot.drivetrain.commands.DriveCmd
 import frc.team4096.robot.misc.MiscConsts
-import frc.team4096.robot.misc.XboxConsts
 import frc.team4096.robot.oi.OIMain
+import frc.team4096.robot.sensors.Gyro
 import kotlin.math.cos
 import kotlin.math.sin
 
@@ -40,11 +41,16 @@ object DriveSubsystem : ZedSubsystem() {
 	val leftEncoder = Encoder(DriveConsts.L_ENC_CHANNEL_A, DriveConsts.L_ENC_CHANNEL_B)
 	val rightEncoder = Encoder(DriveConsts.R_ENC_CHANNEL_A, DriveConsts.R_ENC_CHANNEL_B)
 
-	/**
-	 * 254-style drive signal.
-	 * Lacks brake due to motor controller capabilities.
-	 */
-	private var signal = DriveSignal(0.0, 0.0)
+	var signal = DriveSignal(0.0, 0.0, isQuickTurn = false)
+		set(sig) {
+			sig.xSpeed = applyDeadband(sig.xSpeed, DriveConsts.SPEED_DEADBAND)
+			sig.zRotation = applyDeadband(sig.xSpeed, DriveConsts.ROTATION_DEADBAND)
+			when (driveMode) {
+				DriveMode.ARCADE -> diffDrive.arcadeDrive(sig.xSpeed, sig.zRotation)
+				DriveMode.CURVATURE -> diffDrive.curvatureDrive(sig.xSpeed, sig.zRotation, sig.isQuickTurn)
+			}
+			field = sig
+		}
 
 	// Assumes starting at the origin facing forward.
 	// TODO: Change this based on robot starting position in auto.
@@ -58,12 +64,10 @@ object DriveSubsystem : ZedSubsystem() {
 			shifterSolenoid.set(inputState.solenoidState)
 			field = inputState
 		}
-	var isQuickTurn = false
 
 	// Software States
 	var controlState = ControlState.OPEN_LOOP
 	var driveMode = DriveMode.CURVATURE
-	var wasCorrecting = false
 
 	// Required Methods
 	init {
@@ -92,25 +96,18 @@ object DriveSubsystem : ZedSubsystem() {
 	}
 
 	override fun initDefaultCommand() {
-		CurvatureDriveCmd(
-			OIMain.XboxController1.getAxis(XboxConsts.Axis.LEFT_Y),
-			OIMain.XboxController1.getAxis(XboxConsts.Axis.RIGHT_X),
-			OIMain.XboxController1.lbButton.get()
+		DriveCmd(
+			DriveSignal(
+				OIMain.XboxController1.getAxis(XboxConsts.Axis.LEFT_Y),
+				OIMain.XboxController1.getAxis(XboxConsts.Axis.RIGHT_X),
+				OIMain.XboxController1.lbButton.get()
+			)
 		)
 	}
 
 	// Methods
-	fun stop() = diffDrive.tankDrive(0.0, 0.0)
-
-	fun curvatureDrive(xSpeed: Double, zRotation: Double, isQuickTurn: Boolean) {
-		// Update signal
-		signal.xSpeed = xSpeed
-		signal.zRotation = zRotation
-
-		// Update quick turn state
-		DriveSubsystem.isQuickTurn = isQuickTurn
-
-		diffDrive.curvatureDrive(xSpeed, zRotation, isQuickTurn)
+	override fun stop() {
+		signal = DriveSignal(0.0, 0.0, signal.isQuickTurn)
 	}
 
 	private fun updatePose() {
@@ -120,41 +117,8 @@ object DriveSubsystem : ZedSubsystem() {
 		val avgEncDistance = deltaEncDistances.average()
 
 		// Update pose using basic trigonometry
-		pose.xPos = avgEncDistance * cos(ADXRS450.angle)
-		pose.yPos = avgEncDistance * sin(ADXRS450.angle)
-		pose.yawAngle = ADXRS450.angle
-	}
-
-	// Data Classes
-	data class DriveSignal(var xSpeed: Double, var zRotation: Double)
-
-	data class DrivePose(var xPos: Double, var yPos: Double, var yawAngle: Double)
-	data class EncDistances(var leftDistance: Double, var rightDistance: Double) {
-		operator fun minus(incEncDistances: EncDistances) =
-			EncDistances(
-				incEncDistances.leftDistance - leftDistance,
-				incEncDistances.rightDistance - rightDistance
-			)
-
-		operator fun plus(incEncDistances: EncDistances) =
-			EncDistances(
-				incEncDistances.leftDistance + leftDistance,
-				incEncDistances.rightDistance + rightDistance
-			)
-
-		fun average() = (leftDistance + rightDistance) / 2
-	}
-
-	// Enums
-	enum class DriveMode {
-		TANK,
-		ARCADE,
-		CURVATURE
-	}
-
-	enum class GearState(val solenoidState: DoubleSolenoid.Value) {
-		HIGH(DoubleSolenoid.Value.kForward),
-		LOW(DoubleSolenoid.Value.kReverse),
-		NEUTRAL(DoubleSolenoid.Value.kOff)
+		pose.xPos = avgEncDistance * cos(Gyro.angle)
+		pose.yPos = avgEncDistance * sin(Gyro.angle)
+		pose.yawAngle = Gyro.angle
 	}
 }

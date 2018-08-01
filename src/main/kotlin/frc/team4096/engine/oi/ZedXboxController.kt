@@ -4,7 +4,6 @@ import edu.wpi.first.wpilibj.XboxController
 import edu.wpi.first.wpilibj.buttons.JoystickButton
 import frc.team4096.engine.oi.util.JoystickPOV
 import frc.team4096.engine.util.applyDeadband
-import frc.team4096.robot.misc.XboxConsts
 
 /**
  * Custom Xbox controller class with many convenience methods.

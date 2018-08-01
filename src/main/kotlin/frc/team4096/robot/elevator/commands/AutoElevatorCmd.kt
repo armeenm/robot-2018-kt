@@ -1,8 +1,9 @@
-package frc.team4096.robot.elevator
+package frc.team4096.robot.elevator.commands
 
 import com.ctre.phoenix.motorcontrol.ControlMode
 import edu.wpi.first.wpilibj.command.Command
 import frc.team4096.engine.util.onTarget
+import frc.team4096.robot.elevator.ElevatorSubsystem
 
 /**
  * Move elevator a given distance.

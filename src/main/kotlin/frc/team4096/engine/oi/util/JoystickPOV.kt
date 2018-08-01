@@ -2,7 +2,7 @@ package frc.team4096.engine.oi.util
 
 import edu.wpi.first.wpilibj.GenericHID
 import edu.wpi.first.wpilibj.buttons.JoystickButton
-import frc.team4096.robot.misc.XboxConsts
+import frc.team4096.engine.oi.XboxConsts
 
 /**
  * Wrapper around D-Pad to make it usable as a Button class.

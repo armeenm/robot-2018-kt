@@ -32,6 +32,12 @@ object DriveConsts {
 		ENC_TICKS_PER_REV / (PI * WHEEL_DIAMETER)
 
 	// Software
+	const val ROTATION_DEADBAND = 0.05
+	const val SPEED_DEADBAND = 0.05
+
+	const val ROTATION_SQUARED = false
+	const val SPEED_SQUARED = true
+
 	const val CORRECTION_THRESHOLD = 0.05
 	const val CORRECTION_FORWARD_kP = 0.1
 	const val CORRECTION_REVERSE_kP = 0.04

@@ -1,6 +1,8 @@
-package frc.team4096.robot.intake
+package frc.team4096.robot.intake.commands
 
 import edu.wpi.first.wpilibj.command.Command
+import frc.team4096.robot.intake.IntakeConsts
+import frc.team4096.robot.intake.IntakeSubsystem
 
 /**
  * Manual intake wheel rotation command.

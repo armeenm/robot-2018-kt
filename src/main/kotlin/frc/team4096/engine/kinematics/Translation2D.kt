@@ -1,6 +1,8 @@
 package frc.team4096.engine.kinematics
 
 import org.apache.commons.math3.geometry.euclidean.twod.Vector2D
+import frc.team4096.engine.extensions.plus
+import frc.team4096.engine.extensions.unaryMinus
 
 /**
  * Represents a 2D transformation on the XY plane.
@@ -35,4 +37,8 @@ class Translation2D(var position: Vector2D = Vector2D(0.0, 0.0)) {
 	val normalized: Vector2D
 		get() = position.normalize()
 
+	infix fun translateBy(other: Vector2D): Translation2D = Translation2D(position + other)
+	infix fun translateBy(other: Translation2D): Translation2D = translateBy(other.position)
+
+	fun inverse() = Translation2D(-position)
 }
