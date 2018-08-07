@@ -1,5 +1,6 @@
 package frc.team4096.robot.drivetrain
 
+import frc.team4096.engine.motion.PIDVAVals
 import kotlin.math.PI
 
 object DriveConsts {
@@ -38,20 +39,18 @@ object DriveConsts {
 	const val ROTATION_SQUARED = false
 	const val SPEED_SQUARED = true
 
-	const val CORRECTION_THRESHOLD = 0.05
-	const val CORRECTION_FORWARD_kP = 0.1
-	const val CORRECTION_REVERSE_kP = 0.04
+	/**
+	 * PIDVA values for Pathfinder v1.
+	 */
+	val PIDVA_PF = PIDVAVals(
+		kP = 0.3,
+		kI = 0.0,
+		kD = 0.0,
+		kV = 1 / MAX_VEL,
+		kA = 0.0
+	)
 
-	const val ROTATION_CAP = 0.85
-
-	const val ROTATION_MIN_POWER = 0.5
-	const val DRIVE_MIN_POWER = 0.5
-
-	const val ROTATION_kP = 0.01
-	const val ROTATION_kI = 0
-	const val ROTATION_kD = 0
-
-	const val DRIVE_DISTANCE_kP = 0.35
-	const val DRIVE_DISTANCE_kI = 0
-	const val DRIVE_DISTANCE_kD = 0
+	// Ramsete NLTV Ref. Tracker Constants
+	const val RAMSETE_B = 0.5
+	const val RAMSETE_ZETA = 0.175
 }

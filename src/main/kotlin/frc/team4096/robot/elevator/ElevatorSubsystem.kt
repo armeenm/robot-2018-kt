@@ -1,5 +1,6 @@
 package frc.team4096.robot.elevator
 
+import com.ctre.phoenix.motorcontrol.ControlMode
 import com.ctre.phoenix.motorcontrol.FeedbackDevice
 import com.ctre.phoenix.motorcontrol.NeutralMode
 import com.ctre.phoenix.motorcontrol.StatusFrameEnhanced
@@ -117,6 +118,11 @@ object ElevatorSubsystem : ZedSubsystem() {
 
 	override fun initDefaultCommand() {
 		ManualElevatorCmd(OIMain.XboxController2.getAxis(XboxConsts.Axis.LEFT_Y))
+	}
+
+	override fun stop() {
+		masterMotor.set(ControlMode.PercentOutput, 0.0)
+		slaveMotor.set(ControlMode.PercentOutput, 0.0)
 	}
 
 	// Enums

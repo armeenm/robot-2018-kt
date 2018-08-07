@@ -1,35 +1,41 @@
 package frc.team4096.robot.autonomous.modes
 
 import edu.wpi.first.wpilibj.command.CommandGroup
+import frc.team4096.engine.motion.PFPath
 import frc.team4096.engine.util.commandify
 import frc.team4096.robot.autonomous.AutoMain
-import frc.team4096.robot.elevator.commands.AutoElevatorCmd
+import frc.team4096.robot.drivetrain.commands.FollowPathPFCmd
 import frc.team4096.robot.elevator.ElevatorConsts
+import frc.team4096.robot.elevator.commands.AutoElevatorCmd
 import frc.team4096.robot.intake.IntakeSubsystem
 
+/**
+ * Autonomous mode to place a single cube in the switch, starting from the center.
+ */
 object CenterSwitch : CommandGroup() {
-	init {
-		// Raise elevator while moving
-		addParallel(
-			AutoElevatorCmd(ElevatorConsts.Positions.SWITCH.pos)
-		)
+	// Drive forward by default
+	var path: PFPath? = null
 
+	init {
 		// Follow spline for specific side
 		when (AutoMain.autoData!![0]) {
-			'L' -> {
-				println("Do PF stuff here")
-			}
-			'R' -> {
-				println("Do PF stuff here")
-			}
-
+			'L' -> path = PFPath("CS_L")
+			'R' -> path = PFPath("CS_R")
 			else -> println("Bad data!")
 		}
 
-		// Spit cube
-		addSequential(
-			commandify { IntakeSubsystem.intakeSpeed = -0.75 },
-			0.5
-		)
+		if (path != null) {
+			// Raise elevator while moving
+			addParallel(AutoElevatorCmd(ElevatorConsts.Positions.SWITCH.pos))
+
+			// Follow path
+			addSequential(FollowPathPFCmd(path!!))
+
+			// Spit cube
+			addSequential(commandify { IntakeSubsystem.intakeSpeed = -0.75 }, 0.5)
+		} else {
+			// Drive forward if bad data
+			addSequential(DriveForward)
+		}
 	}
 }

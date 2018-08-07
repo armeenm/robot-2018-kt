@@ -3,9 +3,9 @@ package frc.team4096.robot.drivetrain.commands
 import edu.wpi.first.wpilibj.command.Command
 import frc.team4096.engine.motion.PFPath
 import frc.team4096.engine.motion.PIDVAVals
-import frc.team4096.robot.sensors.Gyro
 import frc.team4096.robot.drivetrain.DriveConsts
 import frc.team4096.robot.drivetrain.DriveSubsystem
+import frc.team4096.robot.sensors.Gyro
 import jaci.pathfinder.Pathfinder
 import jaci.pathfinder.followers.EncoderFollower
 
@@ -13,9 +13,9 @@ import jaci.pathfinder.followers.EncoderFollower
  * Follows path using Jaci's EncoderFollower.
  *
  * @param path Path object to follow
- * @param pidvaVals PIDVA gains to configure follower with
+ * @param pidvaVals PIDVA gains to configure follower with. I is ignored and A is ADDITIONAL gain.
  */
-class FollowPathPFCmd(path: PFPath, pidvaVals: PIDVAVals) : Command() {
+class FollowPathPFCmd(path: PFPath, pidvaVals: PIDVAVals = DriveConsts.PIDVA_PF) : Command() {
 	private val leftFollower = EncoderFollower(path.modifier!!.leftTrajectory)
 	private val rightFollower = EncoderFollower(path.modifier!!.rightTrajectory)
 

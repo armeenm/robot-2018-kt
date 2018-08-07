@@ -30,6 +30,10 @@ object ClimberSubsystem : ZedSubsystem() {
 
 	override fun initDefaultCommand() {}
 
+	override fun stop() {
+		motor.speed = 0.0
+	}
+
 	/**
 	 * Release climbing apparatus.
 	 */

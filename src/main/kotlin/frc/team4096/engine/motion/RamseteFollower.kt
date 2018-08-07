@@ -14,12 +14,15 @@ import kotlin.math.pow
 import kotlin.math.sin
 import kotlin.math.sqrt
 
-/*
-vd = eq. 5.2
-thetad =
+/**
+ * RAMSETE non-linear time-varying reference tracker using Pathfinder v1 trajectories.
+ * https://www.dis.uniroma1.it/~labrob/pub/papers/Ramsete01.pdf
+ *
+ * @param trajectory Pathfinder trajectory
+ * @param b B constant
+ * @param zeta Zeta constant
  */
-
-class RamseteFollower(private val trajectory: Trajectory) {
+class RamseteFollower(private val trajectory: Trajectory, private val b: Double, private val zeta: Double) {
 	private var currentSegmentIndex = 0
 	var currentSegment: Trajectory.Segment = trajectory.segments[0]
 		private set
@@ -27,11 +30,13 @@ class RamseteFollower(private val trajectory: Trajectory) {
 	val isFinished
 		get() = currentSegmentIndex == trajectory.segments.size - 1
 
-	// Returns desired linear and angular cruiseVelocity of the robot
+	/**
+	 * Returns desired linear and angular velocity of the robot.
+	 */
 	fun getRobotVel(pose: Pose2D): Twist2D {
-
 		// Update the current segment
 		if (currentSegmentIndex >= trajectory.segments.size) return Twist2D(0.0, 0.0, 0.0)
+
 		currentSegment = trajectory.segments[currentSegmentIndex]
 
 		// Calculate X and Y error
@@ -43,22 +48,24 @@ class RamseteFollower(private val trajectory: Trajectory) {
 		thetaError = thetaError.let { if (it epsilonEquals 0.0) EPSILON else it }
 
 		// Linear Velocity of the Segment
-		val sv = currentSegment.velocity
+		val segVel = currentSegment.velocity
 
 		// Angular Velocity of the Segment
-		val sw = if (currentSegmentIndex == trajectory.segments.size - 1) {
+		val segAngVel = if (currentSegmentIndex == trajectory.segments.size - 1) {
 			0.0
 		} else {
-			(trajectory.segments[currentSegmentIndex + 1].heading - currentSegment.heading).clamp(-PI, PI) / currentSegment.dt
+			(trajectory.segments[currentSegmentIndex + 1].heading - currentSegment.heading).clamp(-PI, PI) /
+				currentSegment.dt
 		}
 
 		// Calculate Linear and Angular Velocity based on errors
-		val v = calculateLinearVel(xError, yError, thetaError, sv, sw, pose.rotation.radians)
-		val w = calculateAngularVel(xError, yError, thetaError, sv, sw, pose.rotation.radians)
+		val v = calculateLinearVel(xError, yError, thetaError, segVel, segAngVel, pose.rotation.radians)
+		val w = calculateAngularVel(xError, yError, thetaError, segVel, segAngVel, pose.rotation.radians)
 
 		// Increment segment index
 		currentSegmentIndex++
 
+		// Debug
 		System.out.printf(
 			"[Path Follower] V: %2.3f, A: %2.3f, X Error: %2.3f, Y Error: %2.3f, Theta Error: %2.3f, Actual Speed: %2.3f %n",
 			v, w, xError, yError, thetaError, (DriveSubsystem.leftEncoder.rate + DriveSubsystem.rightEncoder.rate) / 2
@@ -67,34 +74,26 @@ class RamseteFollower(private val trajectory: Trajectory) {
 		return Twist2D(v, 0.0, w)
 	}
 
-	companion object {
-		// Constants
-		private const val b = 0.5
-		private const val zeta = 0.175
+	fun calculateLinearVel(
+		xError: Double,
+		yError: Double,
+		thetaError: Double,
+		pathV: Double,
+		pathW: Double,
+		theta: Double
+	) = (pathV cos thetaError) + (gain(pathV, pathW) * ((xError cos theta) + (yError sin theta)))
 
-		fun calculateLinearVel(
-			xError: Double,
-			yError: Double,
-			thetaError: Double,
-			pathV: Double,
-			pathW: Double,
-			theta: Double
-		) = (pathV cos thetaError) + (gain(pathV, pathW) * ((xError cos theta) + (yError sin theta)))
+	fun calculateAngularVel(
+		xError: Double,
+		yError: Double,
+		thetaError: Double,
+		pathV: Double,
+		pathW: Double,
+		theta: Double
+	) = pathW + b * pathV * (sin(thetaError) / thetaError) * ((xError cos theta) - (yError sin theta)) +
+		gain(pathV, pathW) * thetaError
 
-		fun calculateAngularVel(
-			xError: Double,
-			yError: Double,
-			thetaError: Double,
-			pathV: Double,
-			pathW: Double,
-			theta: Double
-		) = pathW + b * pathV * (sin(thetaError) / thetaError) * ((xError cos theta) - (yError sin theta)) +
-				gain(pathV, pathW) * thetaError
-
-		// k1 Gain Function
-		private fun gain(v: Double, w: Double): Double {
-			// Equation 5.9
-			return 2 * zeta * sqrt(w.pow(2) + b * v.pow(2))
-		}
+	private fun gain(v: Double, w: Double): Double {
+		return 2 * zeta * sqrt(w.pow(2) + b * v.pow(2))
 	}
 }

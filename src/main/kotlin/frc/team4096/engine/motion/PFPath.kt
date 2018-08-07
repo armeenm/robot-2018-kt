@@ -17,7 +17,7 @@ import java.security.InvalidParameterException
  * @constructor Constructs a shell of a Pathfinder path/trajectory
  */
 class PFPath(
-	private val pathName: String,
+	val pathName: String,
 	private val baseFilePath: String = MiscConsts.PF_HOME
 ) {
 
@@ -25,7 +25,7 @@ class PFPath(
 	 * Secondary constructor if not deserializing.
 	 */
 	constructor(
-		pathData: metadata,
+		pathData: Metadata,
 		pathName: String,
 		baseFilePath: String = MiscConsts.PF_HOME
 	) : this(pathName, baseFilePath) {
@@ -35,7 +35,7 @@ class PFPath(
 	// You MUST either generate the trajectory or deserialize it from something!
 	var trajectory: Trajectory? = null
 	var modifier: TankModifier? = null
-	var pathData: metadata? = null
+	var pathData: Metadata? = null
 
 	// Pathfinder trajectory CSV
 	private val csvFile = File("$baseFilePath/$pathName/trajectory.csv")
@@ -62,7 +62,7 @@ class PFPath(
 		val gson = Gson()
 		val bufferedReader = jsonFile.bufferedReader()
 		val jsonText = bufferedReader.use { it.readText() }
-		pathData = gson.fromJson(jsonText, metadata::class.java)
+		pathData = gson.fromJson(jsonText, Metadata::class.java)
 
 		// CSV
 		trajectory = Pathfinder.readFromCSV(csvFile)
@@ -84,7 +84,7 @@ class PFPath(
 		jsonFile.writeText(jsonStr)
 	}
 
-	data class metadata(
+	data class Metadata(
 		val waypoints: Array<Waypoint>,
 		val trajectoryConf: Trajectory.Config,
 		val wheelbaseWidth: Double
