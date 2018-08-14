@@ -8,15 +8,15 @@ import edu.wpi.first.wpilibj.command.Subsystem
  * Only logging and resets for now.
  */
 abstract class ZedSubsystem : Subsystem() {
-	abstract fun reset()
+    abstract fun reset()
 
-	open fun autoReset() = reset()
-	open fun teleopReset() = reset()
+    open fun autoReset() = reset()
+    open fun teleopReset() = reset()
 
-	abstract fun log()
+    abstract fun log()
 
-	open fun autoLog() = log()
-	open fun teleopLog() = log()
+    open fun autoLog() = log()
+    open fun teleopLog() = log()
 
-	abstract fun stop()
+    abstract fun stop()
 }

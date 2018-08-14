@@ -20,19 +20,19 @@ operator fun Vector2D.unaryPlus(): Vector2D = Vector2D(+this.x, +this.y)
 operator fun Vector2D.unaryMinus(): Vector2D = Vector2D(-this.x, -this.y)
 
 val Vector2D.l1: Double
-	get() = norm1
+    get() = norm1
 
 val Vector2D.l2: Double
-	get() = norm
+    get() = norm
 
 val Vector2D.atan2: Double
-	get() = Math.atan2(this.y, this.x)
+    get() = Math.atan2(this.y, this.x)
 
 val Vector2D.avg: Double
-	get() = avg(this.x, this.y)
+    get() = avg(this.x, this.y)
 val Vector2D.sum: Double
-	get() = sum(this.x, this.y)
+    get() = sum(this.x, this.y)
 
 operator fun Vector2D.get(index: Int) =
-	if (index == 0) x else y
+        if (index == 0) x else y
 

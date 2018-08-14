@@ -2,7 +2,6 @@ package frc.team4096.robot
 
 import edu.wpi.first.wpilibj.TimedRobot
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard
-import frc.team4096.robot.sensors.Gyro
 import frc.team4096.robot.autonomous.AutoMain
 import frc.team4096.robot.climber.ClimberSubsystem
 import frc.team4096.robot.drivetrain.DriveSubsystem
@@ -11,6 +10,7 @@ import frc.team4096.robot.intake.IntakeSubsystem
 import frc.team4096.robot.misc.cameraServer
 import frc.team4096.robot.misc.scheduler
 import frc.team4096.robot.oi.OIMain
+import frc.team4096.robot.sensors.Gyro
 import frc.team4096.robot.sensors.PressureSensor
 import kotlinx.coroutines.experimental.launch
 
@@ -19,77 +19,79 @@ import kotlinx.coroutines.experimental.launch
  * Inherits from timed robot for consistent frequency.
  */
 class Robot : TimedRobot() {
-	companion object {
-		val subsystemList = listOf(DriveSubsystem, IntakeSubsystem, ElevatorSubsystem, ClimberSubsystem)
-	}
+    companion object {
+        val subsystemList = listOf(DriveSubsystem, IntakeSubsystem, ElevatorSubsystem, ClimberSubsystem)
+    }
 
-	init {
-		Gyro
-		PressureSensor
-		OIMain
-	}
+    override fun robotInit() {
+        Gyro
+        PressureSensor
+        OIMain
 
-	override fun robotInit() {
-		// Hardware
-		Gyro.reset()
+        // Hardware
+        Gyro.reset()
 
-		// Software
-		cameraServer.startAutomaticCapture()
-		// SmartDashboard
-		subsystemList.forEach { SmartDashboard.putData(it) }
-		SmartDashboard.putData(Gyro)
-		launch { log() }
-	}
+        // Software
+        cameraServer.startAutomaticCapture()
+        // SmartDashboard
+        subsystemList.forEach { SmartDashboard.putData(it) }
+        SmartDashboard.putData(Gyro)
+        launch { log() }
+    }
 
-	override fun robotPeriodic() {
-		scheduler.run()
-	}
+    override fun robotPeriodic() {
+        scheduler.run()
+    }
 
-	// DISABLED //
-	override fun disabledInit() {
-		scheduler.removeAll()
-	}
+    // DISABLED //
+    override fun disabledInit() {
+        scheduler.removeAll()
+    }
 
-	override fun disabledPeriodic() {}
+    override fun disabledPeriodic() {}
 
-	// AUTONOMOUS //
-	override fun autonomousInit() {
-		// Reset all subsystems for autonomous
-		subsystemList.forEach { it.autoReset() }
+    // AUTONOMOUS //
+    override fun autonomousInit() {
+        // Reset all subsystems for autonomous
+        subsystemList.forEach { it.autoReset() }
 
-		AutoMain.fetchData()
-	}
+        AutoMain.fetchData()
+    }
 
-	override fun autonomousPeriodic() {
-		AutoMain.runAuto()
-	}
+    override fun autonomousPeriodic() {
+        AutoMain.runAuto()
+    }
 
-	// TELE-OPERATED //
-	override fun teleopInit() {
-		// Clear out scheduler, potentially from autonomous
-		scheduler.removeAll()
-		// Reset all subsystems for teleop
-		subsystemList.forEach { it.teleopReset() }
-	}
+    // TELE-OPERATED //
+    override fun teleopInit() {
+        // Clear out scheduler, potentially from autonomous
+        scheduler.removeAll()
+        // Reset all subsystems for teleop
+        subsystemList.forEach { it.teleopReset() }
+    }
 
-	override fun teleopPeriodic() {}
+    override fun teleopPeriodic() {}
 
-	// TEST //
-	override fun testInit() {}
+    // TEST //
+    override fun testInit() {
+        subsystemList.forEach { it.reset() }
+    }
 
-	override fun testPeriodic() {}
+    override fun testPeriodic() {
 
-	// MISC //
-	/**
-	 * General robot logging suspend function.
-	 */
-	fun log() {
-		subsystemList.forEach {
-			when {
-				isAutonomous -> it.autoLog()
-				isOperatorControl -> it.teleopLog()
-				else -> it.log()
-			}
-		}
-	}
+    }
+
+    // MISC //
+    /**
+     * General robot logging suspend function.
+     */
+    fun log() {
+        subsystemList.forEach {
+            when {
+                isAutonomous -> it.autoLog()
+                isOperatorControl -> it.teleopLog()
+                else -> it.log()
+            }
+        }
+    }
 }

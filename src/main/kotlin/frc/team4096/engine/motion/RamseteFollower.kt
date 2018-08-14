@@ -15,85 +15,85 @@ import kotlin.math.sin
 import kotlin.math.sqrt
 
 /**
- * RAMSETE non-linear time-varying reference tracker using Pathfinder v1 trajectories.
+ * RAMSETE non-linear time-varying reference tracker using Pathfinder (v1) trajectories.
  * https://www.dis.uniroma1.it/~labrob/pub/papers/Ramsete01.pdf
  *
  * @param trajectory Pathfinder trajectory
- * @param b B constant
- * @param zeta Zeta constant
+ * @param kBeta Beta constant
+ * @param kZeta Zeta constant
  */
-class RamseteFollower(private val trajectory: Trajectory, private val b: Double, private val zeta: Double) {
-	private var currentSegmentIndex = 0
-	var currentSegment: Trajectory.Segment = trajectory.segments[0]
-		private set
+class RamseteFollower(private val trajectory: Trajectory, private val kBeta: Double, private val kZeta: Double) {
+    private var currentSegmentIndex = 0
+    var currentSegment: Trajectory.Segment = trajectory.segments[0]
+        private set
 
-	val isFinished
-		get() = currentSegmentIndex == trajectory.segments.size - 1
+    val isFinished
+        get() = currentSegmentIndex == trajectory.segments.size - 1
 
-	/**
-	 * Returns desired linear and angular velocity of the robot.
-	 */
-	fun getRobotVel(pose: Pose2D): Twist2D {
-		// Update the current segment
-		if (currentSegmentIndex >= trajectory.segments.size) return Twist2D(0.0, 0.0, 0.0)
+    /**
+     * Returns desired linear and angular velocity of the robot.
+     */
+    fun getRobotVel(pose: Pose2D): Twist2D {
+        // Update the current segment
+        if (currentSegmentIndex >= trajectory.segments.size) return Twist2D(0.0, 0.0, 0.0)
 
-		currentSegment = trajectory.segments[currentSegmentIndex]
+        currentSegment = trajectory.segments[currentSegmentIndex]
 
-		// Calculate X and Y error
-		val xError = currentSegment.x - pose.translation.x
-		val yError = currentSegment.y - pose.translation.y
+        // Calculate X and Y error
+        val xError = currentSegment.x - pose.translation.x
+        val yError = currentSegment.y - pose.translation.y
 
-		// Calculate Theta Error
-		var thetaError = (currentSegment.heading - pose.rotation.radians).clamp(-PI, PI)
-		thetaError = thetaError.let { if (it epsilonEquals 0.0) EPSILON else it }
+        // Calculate Theta Error
+        var thetaError = (currentSegment.heading - pose.rotation.radians).clamp(-PI, PI)
+        thetaError = thetaError.let { if (it epsilonEquals 0.0) EPSILON else it }
 
-		// Linear Velocity of the Segment
-		val segVel = currentSegment.velocity
+        // Linear Velocity of the Segment
+        val segVel = currentSegment.velocity
 
-		// Angular Velocity of the Segment
-		val segAngVel = if (currentSegmentIndex == trajectory.segments.size - 1) {
-			0.0
-		} else {
-			(trajectory.segments[currentSegmentIndex + 1].heading - currentSegment.heading).clamp(-PI, PI) /
-				currentSegment.dt
-		}
+        // Angular Velocity of the Segment
+        val segAngVel = if (currentSegmentIndex == trajectory.segments.size - 1) {
+            0.0
+        } else {
+            (trajectory.segments[currentSegmentIndex + 1].heading - currentSegment.heading).clamp(-PI, PI) /
+                    currentSegment.dt
+        }
 
-		// Calculate Linear and Angular Velocity based on errors
-		val v = calculateLinearVel(xError, yError, thetaError, segVel, segAngVel, pose.rotation.radians)
-		val w = calculateAngularVel(xError, yError, thetaError, segVel, segAngVel, pose.rotation.radians)
+        // Calculate Linear and Angular Velocity based on errors
+        val v = calculateLinearVel(xError, yError, thetaError, segVel, segAngVel, pose.rotation.radians)
+        val w = calculateAngularVel(xError, yError, thetaError, segVel, segAngVel, pose.rotation.radians)
 
-		// Increment segment index
-		currentSegmentIndex++
+        // Increment segment index
+        currentSegmentIndex++
 
-		// Debug
-		System.out.printf(
-			"[Path Follower] V: %2.3f, A: %2.3f, X Error: %2.3f, Y Error: %2.3f, Theta Error: %2.3f, Actual Speed: %2.3f %n",
-			v, w, xError, yError, thetaError, (DriveSubsystem.leftEncoder.rate + DriveSubsystem.rightEncoder.rate) / 2
-		)
+        // Debug
+        System.out.printf(
+                "[Path Follower] V: %2.3f, A: %2.3f, X Error: %2.3f, Y Error: %2.3f, Theta Error: %2.3f, Actual Speed: %2.3f %n",
+                v, w, xError, yError, thetaError, (DriveSubsystem.leftEncoder.rate + DriveSubsystem.rightEncoder.rate) / 2
+        )
 
-		return Twist2D(v, 0.0, w)
-	}
+        return Twist2D(v, 0.0, w)
+    }
 
-	fun calculateLinearVel(
-		xError: Double,
-		yError: Double,
-		thetaError: Double,
-		pathV: Double,
-		pathW: Double,
-		theta: Double
-	) = (pathV cos thetaError) + (gain(pathV, pathW) * ((xError cos theta) + (yError sin theta)))
+    fun calculateLinearVel(
+            xError: Double,
+            yError: Double,
+            thetaError: Double,
+            pathV: Double,
+            pathW: Double,
+            theta: Double
+    ) = (pathV cos thetaError) + (gain(pathV, pathW) * ((xError cos theta) + (yError sin theta)))
 
-	fun calculateAngularVel(
-		xError: Double,
-		yError: Double,
-		thetaError: Double,
-		pathV: Double,
-		pathW: Double,
-		theta: Double
-	) = pathW + b * pathV * (sin(thetaError) / thetaError) * ((xError cos theta) - (yError sin theta)) +
-		gain(pathV, pathW) * thetaError
+    fun calculateAngularVel(
+            xError: Double,
+            yError: Double,
+            thetaError: Double,
+            pathV: Double,
+            pathW: Double,
+            theta: Double
+    ) = pathW + kBeta * pathV * (sin(thetaError) / thetaError) * ((xError cos theta) - (yError sin theta)) +
+            gain(pathV, pathW) * thetaError
 
-	private fun gain(v: Double, w: Double): Double {
-		return 2 * zeta * sqrt(w.pow(2) + b * v.pow(2))
-	}
+    private fun gain(v: Double, w: Double): Double {
+        return 2 * kZeta * sqrt(w.pow(2) + kBeta * v.pow(2))
+    }
 }

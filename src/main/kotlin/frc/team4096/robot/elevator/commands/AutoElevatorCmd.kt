@@ -12,28 +12,28 @@ import frc.team4096.robot.elevator.ElevatorSubsystem
  * @param distance Distance to travel
  */
 class AutoElevatorCmd(private val distance: Double) : Command() {
-	init {
-		this.requires(ElevatorSubsystem)
-		// TODO: Maybe this can be interruptible??
-		// Idea: set interruptible _only_ if joystick values are outside deadband.
-		this.isInterruptible = false
-	}
+    init {
+        this.requires(ElevatorSubsystem)
+        // TODO: Maybe this can be interruptible??
+        // Idea: set interruptible _only_ if joystick values are outside deadband.
+        this.isInterruptible = false
+    }
 
-	override fun initialize() {
-		ElevatorSubsystem.hwState = ElevatorSubsystem.ElevatorState.FREE
-	}
+    override fun initialize() {
+        ElevatorSubsystem.hwState = ElevatorSubsystem.ElevatorState.FREE
+    }
 
-	override fun execute() =
-		ElevatorSubsystem.masterMotor.set(ControlMode.MotionMagic, distance)
+    override fun execute() =
+            ElevatorSubsystem.masterMotor.set(ControlMode.MotionMagic, distance)
 
-	override fun isFinished() =
-		onTarget(
-			ElevatorSubsystem.masterMotor.sensorCollection.quadraturePosition.toDouble(),
-			distance,
-			5000.0
-		)
+    override fun isFinished() =
+            onTarget(
+                    ElevatorSubsystem.masterMotor.sensorCollection.quadraturePosition.toDouble(),
+                    distance,
+                    5000.0
+            )
 
-	override fun end() {
-		ElevatorSubsystem.hwState = ElevatorSubsystem.ElevatorState.HOLDING
-	}
+    override fun end() {
+        ElevatorSubsystem.hwState = ElevatorSubsystem.ElevatorState.HOLDING
+    }
 }

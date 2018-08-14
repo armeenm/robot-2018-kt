@@ -9,23 +9,22 @@ import frc.team4096.robot.elevator.ElevatorSubsystem
  * Intended for use with a joystick.
  * Does not finish but is interruptible.
  *
- * @param speed Speed to move elevator at
+ * @param speed Lambda to retrieve elevator speed
  */
-class ManualElevatorCmd(private var speed: Double) : Command() {
-	init {
-		this.requires(ElevatorSubsystem)
-		this.isInterruptible = true
-	}
+class ManualElevatorCmd(private var speedFun: () -> Double) : Command() {
+    init {
+        this.requires(ElevatorSubsystem)
+        this.isInterruptible = true
+    }
 
-	override fun execute() {
-		ElevatorSubsystem.speed =
-			speed * ElevatorConsts.MAX_OPEN_LOOP_SPEED
-	}
+    override fun execute() {
+        ElevatorSubsystem.speed = speedFun() * ElevatorConsts.MAX_OPEN_LOOP_SPEED
+    }
 
-	override fun isFinished() = false
+    override fun isFinished() = false
 
-	override fun end() {
-		ElevatorSubsystem.speed = 0.0
-	}
+    override fun end() {
+        ElevatorSubsystem.speed = 0.0
+    }
 }
 

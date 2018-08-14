@@ -12,9 +12,9 @@ import kotlin.math.abs
  * @param create Lambda with desired CommandGroup actions (e.g. addSequential(cmd))
  */
 fun commandGroup(create: CommandGroup.() -> Unit): CommandGroup {
-	val group = CommandGroup()
-	create.invoke(group)
-	return group
+    val group = CommandGroup()
+    create.invoke(group)
+    return group
 }
 
 /**
@@ -25,7 +25,7 @@ fun commandGroup(create: CommandGroup.() -> Unit): CommandGroup {
  * @param deadBand Deadband to be within
  */
 fun onTarget(checkVal: Double, cmpVal: Double, deadBand: Double) =
-	abs(abs(cmpVal) - abs(checkVal)) < deadBand
+        abs(abs(cmpVal) - abs(checkVal)) < deadBand
 
 // Applies a deadband to a given value
 fun applyDeadband(inputValue: Double, deadBand: Double) = if (abs(inputValue) >= deadBand) inputValue else 0.0
@@ -38,5 +38,5 @@ fun applyDeadband(inputValue: Double, deadBand: Double) = if (abs(inputValue) >=
  * @param method Lambda to run as command
  */
 inline fun commandify(crossinline method: () -> Unit): Command = object : InstantCommand() {
-	override fun execute() = method()
+    override fun execute() = method()
 }

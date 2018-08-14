@@ -12,10 +12,10 @@ import org.apache.commons.math3.geometry.euclidean.twod.Vector2D
  * @param dtheta Delta position, yaw component
  */
 data class Twist2D(var dx: Double, var dy: Double, var dtheta: Double) {
-	constructor(linear: Vector2D, angular: Vector2D) : this(linear.x, linear.y, angular.atan2)
-	constructor(linear: Translation2D, angular: Rotation2D) : this(linear.x, linear.y, angular.radians)
+    constructor(linear: Vector2D, angular: Vector2D) : this(linear.x, linear.y, angular.atan2)
+    constructor(linear: Translation2D, angular: Rotation2D) : this(linear.x, linear.y, angular.radians)
 
-	override fun toString(): String =
-		"dx: ${"%.3f".format(dx)}, dy: ${"%.3f".format(dy)}, dtheta: ${"%.3f".format(dtheta)}"
+    override fun toString(): String =
+            "dx: ${"%.3f".format(dx)}, dy: ${"%.3f".format(dy)}, dtheta: ${"%.3f".format(dtheta)}"
 
 }

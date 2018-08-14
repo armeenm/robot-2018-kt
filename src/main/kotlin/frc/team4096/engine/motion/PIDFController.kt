@@ -9,79 +9,83 @@ import kotlin.math.abs
  * Proportional, integral, and derivative gains, as well as fixed feed-forward.
  *
  * @param pidfVals P, I, D, and F values
+ * @param feedforward Feedforward lambda
  * @param source Source lambda (e.g. encoder get)
  * @param sink Sink lambda (e.g. motor controller set)
  * @constructor Constructor
  */
 class PIDFController(
-	val pidfVals: PIDVAVals,
-	val source: () -> Double,
-	val sink: (Double) -> Unit,
-	val quitOnTarget: Boolean = true,
-	val freq: Double = 100.0
+        val pidfVals: PIDVAVals,
+        val feedforward: () -> Double,
+        val source: () -> Double,
+        val sink: (Double) -> Unit,
+        val quitOnTarget: Boolean = true,
+        val freq: Double = 100.0
 ) {
-	private var error = 0.0
-	private var lastError = 0.0
-	private var integral = 0.0
-	private var derivative = 0.0
+    private var error = 0.0
+    private var lastError = 0.0
+    private var integral = 0.0
+    private var derivative = 0.0
 
-	private var sensorPos = 0.0
-	private var output = 0.0
+    private var sensorPos = 0.0
+    private var output = 0.0
 
-	private var dt = 1 / freq
+    private val looper = AsyncLooper(freq, true) { run() }
+    var isEnabled
+        get() = looper.job.isActive
+        set(state) {
+            looper.apply { if (state) start() else stop() }
+        }
 
-	private val looper = AsyncLooper(freq, true) { run() }
-	var isEnabled
-		get() = looper.job.isActive
-		set(state) {
-			looper.apply { if (state) start() else stop() }
-		}
+    var setpoint = 0.0
+    var tolerance = 0.0
 
-	var setpoint = 0.0
-	var tolerance = 0.0
+    val onTarget
+        get() = abs(error) <= abs(tolerance)
 
-	val onTarget
-		get() = (abs(error) <= abs(tolerance))
+    /**
+     * Enables controller and launches coroutine.
+     */
+    fun enable() {
+        isEnabled = true
+    }
 
-	/**
-	 * Enables controller and launches coroutine.
-	 */
-	fun enable() {
-		isEnabled = true
-	}
+    /**
+     * Calculate the output.
+     */
+    private fun calculate() {
+        error = setpoint - sensorPos
+        integral += error * MiscConsts.K_DT
+        derivative = (error - lastError) / MiscConsts.K_DT
 
-	private fun calculate() {
-		error = setpoint - sensorPos
-		integral += error * MiscConsts.K_DT
-		derivative = (error - lastError) / MiscConsts.K_DT
+        output =
+                pidfVals.kP * error +
+                pidfVals.kI * integral +
+                pidfVals.kD * derivative +
+                pidfVals.kF +
+                feedforward()
 
-		output =
-			pidfVals.kP * error +
-			pidfVals.kI * integral +
-			pidfVals.kD * derivative +
-			pidfVals.kF
+        lastError = error
 
-		lastError = error
+    }
 
-	}
+    private fun run() {
+        if (onTarget && quitOnTarget) return
 
-	private fun run() {
-		if (onTarget && quitOnTarget) return
+        sensorPos = source()
+        calculate()
+        sink(output)
+    }
 
-		sensorPos = source()
-		calculate()
-		sink(output)
-	}
+    /**
+     * Disables controller.
+     */
+    fun disable() {
+        isEnabled = false
 
-	/**
-	 * Disables controller.
-	 */
-	fun disable() {
-		isEnabled = false
-
-		error = 0.0
-		lastError = 0.0
-		integral = 0.0
-		derivative = 0.0
-	}
+        error = 0.0
+        lastError = 0.0
+        integral = 0.0
+        derivative = 0.0
+    }
 }

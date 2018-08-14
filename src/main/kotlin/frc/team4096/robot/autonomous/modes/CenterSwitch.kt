@@ -13,29 +13,29 @@ import frc.team4096.robot.intake.IntakeSubsystem
  * Autonomous mode to place a single cube in the switch, starting from the center.
  */
 object CenterSwitch : CommandGroup() {
-	// Drive forward by default
-	var path: PFPath? = null
+    // Drive forward by default
+    var path: PFPath? = null
 
-	init {
-		// Follow spline for specific side
-		when (AutoMain.autoData!![0]) {
-			'L' -> path = PFPath("CS_L")
-			'R' -> path = PFPath("CS_R")
-			else -> println("Bad data!")
-		}
+    init {
+        // Follow spline for specific side
+        when (AutoMain.autoData!![0]) {
+            'L' -> path = PFPath("CS_L")
+            'R' -> path = PFPath("CS_R")
+            else -> println("Bad data!")
+        }
 
-		if (path != null) {
-			// Raise elevator while moving
-			addParallel(AutoElevatorCmd(ElevatorConsts.Positions.SWITCH.pos))
+        if (path != null) {
+            // Raise elevator while moving
+            addParallel(AutoElevatorCmd(ElevatorConsts.Positions.SWITCH.pos))
 
-			// Follow path
-			addSequential(FollowPathPFCmd(path!!))
+            // Follow path
+            addSequential(FollowPathPFCmd(path!!))
 
-			// Spit cube
-			addSequential(commandify { IntakeSubsystem.intakeSpeed = -0.75 }, 0.5)
-		} else {
-			// Drive forward if bad data
-			addSequential(DriveForward)
-		}
-	}
+            // Spit cube
+            addSequential(commandify { IntakeSubsystem.intakeSpeed = -0.75 }, 0.5)
+        } else {
+            // Drive forward if bad data
+            addSequential(DriveForward)
+        }
+    }
 }

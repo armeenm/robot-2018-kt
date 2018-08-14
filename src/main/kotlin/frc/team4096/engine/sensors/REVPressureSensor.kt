@@ -10,16 +10,16 @@ import frc.team4096.robot.misc.MiscConsts
  * @param vCC Supply voltage, defaults to 5V
  */
 open class REVPressureSensor(analogPin: Int, val vCC: Double = 5.0) {
-	val analogInput = AnalogInput(analogPin)
+    val analogInput = AnalogInput(analogPin)
 
-	init {
-		analogInput.averageBits = MiscConsts.PRESSURE_AVG_BITS
-	}
+    init {
+        analogInput.averageBits = MiscConsts.PRESSURE_AVG_BITS
+    }
 
-	val pressure: Double
-		/**
-		 * Convert analog pressure sensor values (V) to pressure (PSI).
-		 * Equation from REV Robotics part datasheet (REV-11-1107-DS-00).
-		 */
-		get() = 250 * analogInput.averageVoltage / vCC - 25
+    val pressure: Double
+        /**
+         * Convert analog pressure sensor values (V) to pressure (PSI).
+         * Equation from REV Robotics part datasheet (REV-11-1107-DS-00).
+         */
+        get() = 250 * analogInput.averageVoltage / vCC - 25
 }

@@ -16,56 +16,56 @@ import jaci.pathfinder.followers.EncoderFollower
  * @param pidvaVals PIDVA gains to configure follower with. I is ignored and A is ADDITIONAL gain.
  */
 class FollowPathPFCmd(path: PFPath, pidvaVals: PIDVAVals = DriveConsts.PIDVA_PF) : Command() {
-	private val leftFollower = EncoderFollower(path.modifier!!.leftTrajectory)
-	private val rightFollower = EncoderFollower(path.modifier!!.rightTrajectory)
+    private val leftFollower = EncoderFollower(path.modifier!!.leftTrajectory)
+    private val rightFollower = EncoderFollower(path.modifier!!.rightTrajectory)
 
-	private var l = 0.0
-	private var r = 0.0
-	private var gyroHeading = 0.0
-	private var desiredHeading = 0.0
-	private var angleDifference = 0.0
-	private var turn = 0.0
+    private var l = 0.0
+    private var r = 0.0
+    private var gyroHeading = 0.0
+    private var desiredHeading = 0.0
+    private var angleDifference = 0.0
+    private var turn = 0.0
 
-	init {
-		isInterruptible = false
-		requires(DriveSubsystem)
+    init {
+        isInterruptible = false
+        requires(DriveSubsystem)
 
-		listOf(leftFollower, rightFollower).forEach {
-			it.configurePIDVA(pidvaVals.kP, pidvaVals.kI, pidvaVals.kD, pidvaVals.kV, pidvaVals.kA)
-		}
+        listOf(leftFollower, rightFollower).forEach {
+            it.configurePIDVA(pidvaVals.kP, pidvaVals.kI, pidvaVals.kD, pidvaVals.kV, pidvaVals.kA)
+        }
 
-		leftFollower.configureEncoder(
-			DriveSubsystem.leftEncoder.get(),
-			DriveConsts.ENC_TICKS_PER_REV,
-			DriveConsts.WHEEL_DIAMETER
-		)
-		rightFollower.configureEncoder(
-			DriveSubsystem.rightEncoder.get(),
-			DriveConsts.ENC_TICKS_PER_REV,
-			DriveConsts.WHEEL_DIAMETER
-		)
-	}
+        leftFollower.configureEncoder(
+                DriveSubsystem.leftEncoder.get(),
+                DriveConsts.ENC_TICKS_PER_REV,
+                DriveConsts.WHEEL_DIAMETER
+        )
+        rightFollower.configureEncoder(
+                DriveSubsystem.rightEncoder.get(),
+                DriveConsts.ENC_TICKS_PER_REV,
+                DriveConsts.WHEEL_DIAMETER
+        )
+    }
 
-	override fun initialize() {
-		DriveSubsystem.apply { leftEncoder.reset(); rightEncoder.reset() }
-		leftFollower.reset()
-		rightFollower.reset()
-	}
+    override fun initialize() {
+        DriveSubsystem.apply { leftEncoder.reset(); rightEncoder.reset() }
+        leftFollower.reset()
+        rightFollower.reset()
+    }
 
-	override fun execute() {
-		// Distance
-		l = leftFollower.calculate(DriveSubsystem.leftEncoder.get())
-		r = rightFollower.calculate(DriveSubsystem.rightEncoder.get())
-		// Heading
-		gyroHeading = Gyro.angle
-		desiredHeading = Pathfinder.r2d(leftFollower.heading)
-		angleDifference = Pathfinder.boundHalfDegrees(desiredHeading - gyroHeading)
-		turn = 0.8 * (-1.0 / 80.0) * angleDifference
+    override fun execute() {
+        // Distance
+        l = leftFollower.calculate(DriveSubsystem.leftEncoder.get())
+        r = rightFollower.calculate(DriveSubsystem.rightEncoder.get())
+        // Heading
+        gyroHeading = Gyro.angle
+        desiredHeading = Pathfinder.r2d(leftFollower.heading)
+        angleDifference = Pathfinder.boundHalfDegrees(desiredHeading - gyroHeading)
+        turn = 0.8 * (-1.0 / 80.0) * angleDifference
 
-		DriveSubsystem.diffDrive.tankDrive(l + turn, r - turn)
-	}
+        DriveSubsystem.diffDrive.tankDrive(l + turn, r - turn)
+    }
 
-	override fun isFinished() = leftFollower.isFinished && rightFollower.isFinished
+    override fun isFinished() = leftFollower.isFinished && rightFollower.isFinished
 
-	override fun end() = DriveSubsystem.diffDrive.tankDrive(0.0, 0.0)
+    override fun end() = DriveSubsystem.diffDrive.tankDrive(0.0, 0.0)
 }

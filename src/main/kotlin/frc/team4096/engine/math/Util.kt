@@ -10,17 +10,17 @@ import java.math.BigInteger
  * @param x Value to abs()
  */
 fun <T : Number> genericAbs(x: T): T {
-	val absoluteValue: Number = when (x) {
-		is Double -> Math.abs(x)
-		is Int -> Math.abs(x)
-		is Float -> Math.abs(x)
-		is BigDecimal -> x.abs()
-		is BigInteger -> x.abs()
-		else -> throw IllegalArgumentException("Unsupported type ${x.javaClass}")
-	}
+    val absoluteValue: Number = when (x) {
+        is Double -> Math.abs(x)
+        is Int -> Math.abs(x)
+        is Float -> Math.abs(x)
+        is BigDecimal -> x.abs()
+        is BigInteger -> x.abs()
+        else -> throw IllegalArgumentException("Unsupported type ${x.javaClass}")
+    }
 
-	@Suppress("UNCHECKED_CAST")
-	return absoluteValue as T
+    @Suppress("UNCHECKED_CAST")
+    return absoluteValue as T
 }
 
 /**
@@ -42,11 +42,11 @@ typealias Matrix = org.apache.commons.math3.linear.Array2DRowRealMatrix
  * Binds an input to a min/max.
  */
 fun Double.clamp(min: Double, max: Double) =
-	when {
-		(this < min) -> min
-		(this > max) -> max
-		else -> this
-	}
+        when {
+            (this < min) -> min
+            (this > max) -> max
+            else -> this
+        }
 
 /**
  * Fuzzy equals to determine if the difference between two numbers is less than EPSILON.

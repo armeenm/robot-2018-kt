@@ -12,8 +12,8 @@ import frc.team4096.robot.misc.MiscConsts.K_TIMEOUT_MS
  * @receiver CTRE motor controller, e.g. TalonSRX or VictorSPX
  */
 fun BaseMotorController.configPIDF(pidfVals: PIDVAVals, pidSlot: Int = 0) {
-	this.config_kP(pidSlot, pidfVals.kP, K_TIMEOUT_MS)
-	this.config_kI(pidSlot, pidfVals.kI, K_TIMEOUT_MS)
-	this.config_kD(pidSlot, pidfVals.kD, K_TIMEOUT_MS)
-	this.config_kF(pidSlot, pidfVals.kF, K_TIMEOUT_MS)
+    this.config_kP(pidSlot, pidfVals.kP, K_TIMEOUT_MS)
+    this.config_kI(pidSlot, pidfVals.kI, K_TIMEOUT_MS)
+    this.config_kD(pidSlot, pidfVals.kD, K_TIMEOUT_MS)
+    this.config_kF(pidSlot, pidfVals.kF, K_TIMEOUT_MS)
 }

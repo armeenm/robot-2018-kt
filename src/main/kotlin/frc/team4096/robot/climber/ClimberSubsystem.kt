@@ -9,42 +9,42 @@ import frc.team4096.engine.extensions.wpi.ZedSubsystem
  * Handles climber motor and release servo.
  */
 object ClimberSubsystem : ZedSubsystem() {
-	// Hardware
-	private var motor = VictorSP(ClimberConsts.PWM_MOTOR)
-	private var servo = Servo(ClimberConsts.PWM_SERVO)
+    // Hardware
+    private var motor = VictorSP(ClimberConsts.PWM_MOTOR)
+    private var servo = Servo(ClimberConsts.PWM_SERVO)
 
-	// Hardware States
-	var isReleased = false
+    // Hardware States
+    var isReleased = false
 
-	// Required Methods
-	init {
-		reset()
-	}
+    // Required Methods
+    init {
+        reset()
+    }
 
-	override fun reset() {
-		isReleased = false
-		servo.angle = 0.0
-	}
+    override fun reset() {
+        isReleased = false
+        servo.angle = 0.0
+    }
 
-	override fun log() {}
+    override fun log() {}
 
-	override fun initDefaultCommand() {}
+    override fun initDefaultCommand() {}
 
-	override fun stop() {
-		motor.speed = 0.0
-	}
+    override fun stop() {
+        motor.speed = 0.0
+    }
 
-	/**
-	 * Release climbing apparatus.
-	 */
-	fun release() {
-		isReleased = true
-		servo.angle = ClimberConsts.SERVO_RELEASE_ANGLE
-	}
+    /**
+     * Release climbing apparatus.
+     */
+    fun release() {
+        isReleased = true
+        servo.angle = ClimberConsts.SERVO_RELEASE_ANGLE
+    }
 
-	var speed = 0.0
-		set(speed: Double) {
-			motor.speed = speed
-			field = speed
-		}
+    var speed = 0.0
+        set(speed: Double) {
+            motor.speed = speed
+            field = speed
+        }
 }

@@ -10,25 +10,25 @@ import frc.team4096.robot.elevator.commands.AutoElevatorCmd
 import frc.team4096.robot.intake.IntakeSubsystem
 
 object LeftSwitch : CommandGroup() {
-	var path: PFPath? = null
+    var path: PFPath? = null
 
-	init {
-		// Follow spline for specific side
-		when (AutoMain.autoData!![0]) {
-			'L' -> PFPath("LS_L")
-			'R' -> PFPath("LS_R")
-			else -> println("Bad data!")
-		}
+    init {
+        // Follow spline for specific side
+        when (AutoMain.autoData!![0]) {
+            'L' -> PFPath("LS_L")
+            'R' -> PFPath("LS_R")
+            else -> println("Bad data!")
+        }
 
-		if (path != null) {
-			// Raise elevator while moving
-			addParallel(AutoElevatorCmd(ElevatorConsts.Positions.SWITCH.pos))
+        if (path != null) {
+            // Raise elevator while moving
+            addParallel(AutoElevatorCmd(ElevatorConsts.Positions.SWITCH.pos))
 
-			// Follow path
-			addSequential(FollowPathPFCmd(path!!))
+            // Follow path
+            addSequential(FollowPathPFCmd(path!!))
 
-			// Spit cube
-			addSequential(commandify { IntakeSubsystem.intakeSpeed = -0.75 }, 0.5)
-		}
-	}
+            // Spit cube
+            addSequential(commandify { IntakeSubsystem.intakeSpeed = -0.75 }, 0.5)
+        }
+    }
 }
