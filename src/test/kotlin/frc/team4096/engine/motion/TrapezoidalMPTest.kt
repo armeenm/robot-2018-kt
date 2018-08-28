@@ -1,5 +1,6 @@
 package frc.team4096.engine.motion
 
+import frc.team4096.engine.motion.profiles.TrapezoidalMP
 import frc.team4096.robot.drivetrain.DriveConsts
 import org.junit.jupiter.api.Test
 import org.knowm.xchart.SwingWrapper
@@ -20,7 +21,7 @@ class TrapezoidalMPTest {
         val freq = 50.0
         val dt = 1 / freq
         var time = 0.0
-        val tmp = TrapezoidalMP(targetPos, DriveConsts.MAX_VEL, DriveConsts.MAX_ACCEL, { Double.NaN }, {}, freq)
+        val tmp = TrapezoidalMP(targetPos, DriveConsts.kMaxVel, DriveConsts.kMaxAccel, { Double.NaN }, {}, freq)
         val pvajData1 = PVAJData()
         var pvajData = pvajData1
 

@@ -81,13 +81,9 @@ object IntakeSubsystem : ZedSubsystem() {
 
     override fun log() {}
 
-    override fun stop() {
+    override fun stop() {}
 
-    }
-
-    override fun initDefaultCommand() {
-        ManualIntakeCmd(OIMain.XboxController2.getAxis(XboxConsts.Axis.LT), OIMain.XboxController2.getAxis(XboxConsts.Axis.RT))
-    }
+    override fun initDefaultCommand() {}
 
     // Enums
     enum class SqueezeState(val solenoidState: DoubleSolenoid.Value) {

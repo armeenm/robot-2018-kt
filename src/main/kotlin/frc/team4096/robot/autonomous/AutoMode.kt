@@ -10,5 +10,5 @@ enum class AutoMode(val modeStr: String, val cmdGroup: CommandGroup) {
     RIGHT_SCALE("Right to Scale", RightScale),
     LEFT_SCALE("Left to Scale", LeftScale),
     DRIVE_FORWARD("Drive Forward", DriveForward),
-    DO_NOTHING("Do Nothing", DoNothing)
 }
+    DO_NOTHING("Do Nothing", DoNothing)

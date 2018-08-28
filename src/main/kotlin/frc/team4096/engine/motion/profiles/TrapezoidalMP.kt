@@ -1,5 +1,6 @@
-package frc.team4096.engine.motion
+package frc.team4096.engine.motion.profiles
 
+import frc.team4096.engine.motion.PVAJData
 import kotlin.math.pow
 import kotlin.math.sqrt
 

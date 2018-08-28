@@ -3,6 +3,7 @@ package frc.team4096.engine.math
 import org.apache.commons.math3.util.Precision.EPSILON
 import java.math.BigDecimal
 import java.math.BigInteger
+import kotlin.math.PI
 
 /**
  * Function to achieve generics for abs function.
@@ -49,7 +50,28 @@ fun Double.clamp(min: Double, max: Double) =
         }
 
 /**
+ * Binds an angle to -PI to PI.
+ * Uses loops as opposed to modulo for performance benefits at smaller values.
+ */
+fun Double.boundRadians(): Double {
+    var x = this
+    while (x >= PI) x -= (2 * PI)
+    while (x < -PI) x += (2 * PI)
+    return x
+}
+
+/**
  * Fuzzy equals to determine if the difference between two numbers is less than EPSILON.
  * Used for floating point comparisons.
  */
 infix fun Double.epsilonEquals(other: Double) = (this - other) < EPSILON
+
+/**
+ * Convert degrees to radians.
+ */
+fun Double.toRadians() = this * PI / 180
+
+/**
+ * Convert radians to degrees.
+ */
+fun Double.toDegrees() = this * 180 / PI

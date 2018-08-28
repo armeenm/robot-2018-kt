@@ -5,52 +5,52 @@ import kotlin.math.PI
 
 object DriveConsts {
     // Motors
-    const val PWM_L1 = 2
-    const val PWM_L2 = 3
-    const val PWM_R1 = 0
-    const val PWM_R2 = 1
+    const val kPWMVictorL1 = 2
+    const val kPWMVictorL2 = 3
+    const val kPWMVictorR1 = 0
+    const val kPWMVictorR2 = 1
 
     // Sensors
-    const val L_ENC_CHANNEL_A = 0
-    const val L_ENC_CHANNEL_B = 1
-    const val R_ENC_CHANNEL_A = 2
-    const val R_ENC_CHANNEL_B = 3
+    const val kLeftEncoderA = 0
+    const val kLeftEncoderB = 1
+    const val kRightEncoderA = 2
+    const val kRightEncoderB = 3
 
     // Pneumatics
-    const val PCM_SHIFTER_1 = 0
-    const val PCM_SHIFTER_2 = 7
+    const val kPCMShifter1 = 0
+    const val kPCMShifter2 = 7
 
     // Hardware
-    const val MAX_VEL = 9.0
-    const val MAX_ACCEL = 4.0
-    const val MAX_JERK = 150.0
+    const val kMaxVel = 9.0
+    const val kMaxAccel = 4.0
+    const val kMaxJerk = 150.0
 
-    const val WHEELBASE_WIDTH = 2.3
-    const val WHEEL_DIAMETER = 6.25 / 12 // Feet
+    const val kTrackWidth = 2.3
+    const val kWheelDiameter = 6.25 / 12 // Feet
 
-    const val ENC_TICKS_PER_REV = 256
-    const val ENC_TICKS_PER_FOOT =
-            ENC_TICKS_PER_REV / (PI * WHEEL_DIAMETER)
+    const val kEncoderTicksPerRev = 256
+    const val kEncTicksPerFoot =
+            kEncoderTicksPerRev / (PI * kWheelDiameter)
 
     // Software
-    const val ROTATION_DEADBAND = 0.05
-    const val SPEED_DEADBAND = 0.05
+    const val kRotDeadband = 0.05
+    const val kSpeedDeadband = 0.05
 
-    const val ROTATION_SQUARED = false
-    const val SPEED_SQUARED = true
+    const val kIsRotSquared = false
+    const val kIsSpeedSquared = true
 
     /**
      * PIDVA values for Pathfinder v1.
      */
-    val PIDVA_PF = PIDVAVals(
+    val kPIDVAGainsPF = PIDVAVals(
             kP = 0.3,
             kI = 0.0,
             kD = 0.0,
-            kV = 1 / MAX_VEL,
+            kV = 1 / kMaxVel,
             kA = 0.0
     )
 
     // Ramsete NLTV Ref. Tracker Constants
-    const val RAMSETE_B = 0.5
-    const val RAMSETE_ZETA = 0.175
+    const val kBeta = 0.5
+    const val kZeta = 0.175
 }

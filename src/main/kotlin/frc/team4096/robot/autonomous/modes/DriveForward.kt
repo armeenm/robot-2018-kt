@@ -6,7 +6,7 @@ import frc.team4096.robot.drivetrain.DriveConsts
 import frc.team4096.robot.drivetrain.commands.DriveDistanceCmd
 
 object DriveForward : CommandGroup() {
-    private val constraints = arrayOf(10.0, DriveConsts.MAX_VEL, DriveConsts.MAX_ACCEL)
+    private val constraints = arrayOf(10.0, DriveConsts.kMaxVel, DriveConsts.kMaxAccel)
     // Educated guesses...
     val pidvaVals = PIDVAVals(
             kP = 0.5,
@@ -16,6 +16,6 @@ object DriveForward : CommandGroup() {
     )
 
     init {
-        addSequential(DriveDistanceCmd(10.0, DriveConsts.MAX_ACCEL, DriveConsts.MAX_VEL, pidvaVals))
+        addSequential(DriveDistanceCmd(10.0, DriveConsts.kMaxAccel, DriveConsts.kMaxVel, pidvaVals))
     }
 }

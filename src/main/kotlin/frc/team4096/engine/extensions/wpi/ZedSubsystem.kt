@@ -7,7 +7,7 @@ import edu.wpi.first.wpilibj.command.Subsystem
  * Custom subsystem that introduces useful features.
  * Only logging and resets for now.
  */
-abstract class ZedSubsystem : Subsystem() {
+abstract class ZedSubsystem(freq: Double = 50.0) : Subsystem() {
     abstract fun reset()
 
     open fun autoReset() = reset()
@@ -19,4 +19,6 @@ abstract class ZedSubsystem : Subsystem() {
     open fun teleopLog() = log()
 
     abstract fun stop()
+
+    override fun initDefaultCommand() {}
 }

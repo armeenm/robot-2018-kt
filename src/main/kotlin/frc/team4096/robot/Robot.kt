@@ -20,7 +20,12 @@ import kotlinx.coroutines.experimental.launch
  */
 class Robot : TimedRobot() {
     companion object {
-        val subsystemList = listOf(DriveSubsystem, IntakeSubsystem, ElevatorSubsystem, ClimberSubsystem)
+        val subsystemList = listOf(
+                DriveSubsystem,
+                IntakeSubsystem,
+                ElevatorSubsystem,
+                ClimberSubsystem
+        )
     }
 
     override fun robotInit() {
@@ -34,7 +39,7 @@ class Robot : TimedRobot() {
         // Software
         cameraServer.startAutomaticCapture()
         // SmartDashboard
-        subsystemList.forEach { SmartDashboard.putData(it) }
+        subsystemList.forEach { subsystem -> SmartDashboard.putData(subsystem) }
         SmartDashboard.putData(Gyro)
         launch { log() }
     }
@@ -77,9 +82,7 @@ class Robot : TimedRobot() {
         subsystemList.forEach { it.reset() }
     }
 
-    override fun testPeriodic() {
-
-    }
+    override fun testPeriodic() {}
 
     // MISC //
     /**

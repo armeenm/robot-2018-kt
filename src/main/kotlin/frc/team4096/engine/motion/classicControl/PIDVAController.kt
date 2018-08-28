@@ -1,6 +1,9 @@
-package frc.team4096.engine.motion
+package frc.team4096.engine.motion.classicControl
 
 import frc.team4096.engine.async.AsyncLooper
+import frc.team4096.engine.motion.profiles.MotionProfile
+import frc.team4096.engine.motion.PIDVAVals
+import frc.team4096.engine.motion.PVAJData
 
 /**
  * Custom asynchronous PIDVA controller.
@@ -85,7 +88,7 @@ class PIDVAController2(
         val pidvaVals: PIDVAVals,
         val profile: MotionProfile,
         val freq: Double = 100.0
-) : PIDFController(
+) : AsyncPIDFController(
         pidvaVals,
         { pidvaVals.kV * profile. + pidvaVals * profile.source},
 

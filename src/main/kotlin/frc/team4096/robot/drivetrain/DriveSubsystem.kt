@@ -5,7 +5,11 @@ import edu.wpi.first.wpilibj.Encoder
 import edu.wpi.first.wpilibj.SpeedControllerGroup
 import edu.wpi.first.wpilibj.VictorSP
 import edu.wpi.first.wpilibj.drive.DifferentialDrive
+import frc.team4096.engine.async.AsyncLooper
 import frc.team4096.engine.extensions.wpi.ZedSubsystem
+import frc.team4096.engine.kinematics.Pose2D
+import frc.team4096.engine.math.boundRadians
+import frc.team4096.engine.math.toRadians
 import frc.team4096.engine.motion.*
 import frc.team4096.engine.util.applyDeadband
 import frc.team4096.robot.misc.MiscConsts
@@ -19,29 +23,29 @@ import kotlin.math.sin
  */
 object DriveSubsystem : ZedSubsystem() {
     // Hardware
-    private val leftMotor1 = VictorSP(DriveConsts.PWM_L1)
-    private val leftMotor2 = VictorSP(DriveConsts.PWM_L2)
+    private val leftMotor1 = VictorSP(DriveConsts.kPWMVictorL1)
+    private val leftMotor2 = VictorSP(DriveConsts.kPWMVictorL2)
     val leftMotorGroup = SpeedControllerGroup(leftMotor1, leftMotor2)
 
-    private val rightMotor1 = VictorSP(DriveConsts.PWM_R1)
-    private val rightMotor2 = VictorSP(DriveConsts.PWM_R2)
+    private val rightMotor1 = VictorSP(DriveConsts.kPWMVictorR1)
+    private val rightMotor2 = VictorSP(DriveConsts.kPWMVictorR2)
     val rightMotorGroup = SpeedControllerGroup(rightMotor1, rightMotor2)
 
     val diffDrive = DifferentialDrive(leftMotorGroup, rightMotorGroup)
 
     private val shifterSolenoid = DoubleSolenoid(
             MiscConsts.CAN_PCM,
-            DriveConsts.PCM_SHIFTER_1,
-            DriveConsts.PCM_SHIFTER_2
+            DriveConsts.kPCMShifter1,
+            DriveConsts.kPCMShifter2
     )
 
-    val leftEncoder = Encoder(DriveConsts.L_ENC_CHANNEL_A, DriveConsts.L_ENC_CHANNEL_B)
-    val rightEncoder = Encoder(DriveConsts.R_ENC_CHANNEL_A, DriveConsts.R_ENC_CHANNEL_B)
+    val leftEncoder = Encoder(DriveConsts.kLeftEncoderA, DriveConsts.kLeftEncoderB)
+    val rightEncoder = Encoder(DriveConsts.kRightEncoderA, DriveConsts.kRightEncoderB)
 
     var signal = DriveSignal(0.0, 0.0, isQuickTurn = false)
         set(sig) {
-            sig.xSpeed = applyDeadband(sig.xSpeed, DriveConsts.SPEED_DEADBAND)
-            sig.zRotation = applyDeadband(sig.xSpeed, DriveConsts.ROTATION_DEADBAND)
+            sig.xSpeed = applyDeadband(sig.xSpeed, DriveConsts.kSpeedDeadband)
+            sig.zRotation = applyDeadband(sig.xSpeed, DriveConsts.kRotDeadband)
             when (driveMode) {
                 DriveMode.ARCADE -> diffDrive.arcadeDrive(sig.xSpeed, sig.zRotation)
                 DriveMode.CURVATURE -> diffDrive.curvatureDrive(sig.xSpeed, sig.zRotation, sig.isQuickTurn)
@@ -51,7 +55,7 @@ object DriveSubsystem : ZedSubsystem() {
 
     // Assumes starting at the origin facing forward.
     // TODO: Change this based on robot starting position in auto.
-    private var pose = DrivePose(0.0, 0.0, 0.0)
+    var pose = Pose2D(0.0, 0.0, 0.0)
 
     var encDistances = EncDistances(leftEncoder.distance, rightEncoder.distance)
 
@@ -68,10 +72,12 @@ object DriveSubsystem : ZedSubsystem() {
 
     // Required Methods
     init {
-        leftEncoder.distancePerPulse = 1 / DriveConsts.ENC_TICKS_PER_FOOT
-        rightEncoder.distancePerPulse = 1 / DriveConsts.ENC_TICKS_PER_FOOT
+        leftEncoder.distancePerPulse = 1 / DriveConsts.kEncTicksPerFoot
+        rightEncoder.distancePerPulse = 1 / DriveConsts.kEncTicksPerFoot
 
         reset()
+
+        val poseLoop = AsyncLooper(250.0, false) { updatePose() }
     }
 
     override fun reset() {
@@ -88,13 +94,6 @@ object DriveSubsystem : ZedSubsystem() {
         TODO("not implemented")
     }
 
-    override fun periodic() {
-        updatePose()
-    }
-
-    // Set default command in OI
-    override fun initDefaultCommand() {}
-
     // Methods
     override fun stop() {
         signal = DriveSignal(0.0, 0.0, signal.isQuickTurn)
@@ -107,8 +106,10 @@ object DriveSubsystem : ZedSubsystem() {
         val avgEncDistance = deltaEncDistances.average()
 
         // Update pose using basic trigonometry
-        pose.xPos = avgEncDistance * cos(Gyro.angle)
-        pose.yPos = avgEncDistance * sin(Gyro.angle)
-        pose.yawAngle = Gyro.angle
+        pose = Pose2D(
+                avgEncDistance * cos(Gyro.angle.toRadians()),
+                avgEncDistance * sin(Gyro.angle.toRadians()),
+                Gyro.angle.toRadians().boundRadians()
+        )
     }
 }

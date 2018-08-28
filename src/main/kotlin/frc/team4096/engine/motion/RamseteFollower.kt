@@ -2,14 +2,10 @@ package frc.team4096.engine.motion
 
 import frc.team4096.engine.kinematics.Pose2D
 import frc.team4096.engine.kinematics.Twist2D
-import frc.team4096.engine.math.clamp
-import frc.team4096.engine.math.cos
-import frc.team4096.engine.math.epsilonEquals
-import frc.team4096.engine.math.sin
+import frc.team4096.engine.math.*
 import frc.team4096.robot.drivetrain.DriveSubsystem
 import jaci.pathfinder.Trajectory
 import org.apache.commons.math3.util.Precision.EPSILON
-import kotlin.math.PI
 import kotlin.math.pow
 import kotlin.math.sin
 import kotlin.math.sqrt
@@ -44,7 +40,7 @@ class RamseteFollower(private val trajectory: Trajectory, private val kBeta: Dou
         val yError = currentSegment.y - pose.translation.y
 
         // Calculate Theta Error
-        var thetaError = (currentSegment.heading - pose.rotation.radians).clamp(-PI, PI)
+        var thetaError = (currentSegment.heading - pose.rotation.radians).boundRadians()
         thetaError = thetaError.let { if (it epsilonEquals 0.0) EPSILON else it }
 
         // Linear Velocity of the Segment
@@ -54,7 +50,7 @@ class RamseteFollower(private val trajectory: Trajectory, private val kBeta: Dou
         val segAngVel = if (currentSegmentIndex == trajectory.segments.size - 1) {
             0.0
         } else {
-            (trajectory.segments[currentSegmentIndex + 1].heading - currentSegment.heading).clamp(-PI, PI) /
+            (trajectory.segments[currentSegmentIndex + 1].heading - currentSegment.heading).boundRadians() /
                     currentSegment.dt
         }
 
