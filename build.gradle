@@ -4,7 +4,7 @@ plugins {
     id "org.jetbrains.dokka" version "0.9.17"
     id "java"
     id "idea"
-    id "edu.wpi.first.GradleRIO" version "2018.06.21"
+    id "edu.wpi.first.GradleRIO" version "2019.0.0-alpha-3"
 }
 
 repositories {
@@ -21,6 +21,7 @@ dependencies {
 
     compile "org.jetbrains.kotlinx:kotlinx-coroutines-core:0.22.5"
     compile "org.jetbrains.kotlin:kotlin-stdlib-jdk8"
+    compile "org.jetbrains.kotlin:kotlin-reflect:1.2.0"
     compile "org.jetbrains.dokka:dokka-gradle-plugin:0.9.17"
     compile "com.github.salomonbrys.kotson:kotson:2.5.0"
     compile "org.knowm.xchart:xchart:3.5.2"
@@ -46,6 +47,13 @@ deploy {
         artifact('frcJava', edu.wpi.first.gradlerio.frc.FRCJavaArtifact) {
             targets << "roborio"
         }
+
+        // Paths //
+        fileTreeArtifact('paths') {
+            files = project.fileTree(dir: 'resources/paths')
+            directory = '/home/lvuser/paths'
+            targets << "roborio"
+        }
     }
 }
 
@@ -57,9 +65,6 @@ jar {
     manifest edu.wpi.first.gradlerio.GradleRIOPlugin.javaManifest(ROBOT_CLASS)
 }
 
-task wrapper(type: Wrapper) {
-    gradleVersion = '4.9'
-}
 
 // Testing //
 test {
@@ -104,4 +109,8 @@ task buildDocs {
     dependsOn 'cssCopy'
 
     tasks.findByName('cssCopy').mustRunAfter 'dokka'
+}
+
+task wrapper(type: Wrapper) {
+    gradleVersion = '4.9'
 }

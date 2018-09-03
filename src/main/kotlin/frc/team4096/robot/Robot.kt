@@ -13,7 +13,6 @@ import frc.team4096.robot.misc.scheduler
 import frc.team4096.robot.oi.OIMain
 import frc.team4096.robot.sensors.Gyro
 import frc.team4096.robot.sensors.PressureSensor
-import kotlinx.coroutines.experimental.launch
 
 /**
  * Main robot class, instantiated by WPILib.
@@ -45,7 +44,7 @@ class Robot : TimedRobot() {
         // Logging
         subsystemList.forEach { SmartDashboard.putData(it) }
         SmartDashboard.putData(Gyro)
-        val logLoop = AsyncLooper(10.0, false) { log() }
+        val logLoop = AsyncLooper(10.0, true) { log() }
         logLoop.start()
 
         println("Completed initialization!")
