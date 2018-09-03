@@ -11,10 +11,7 @@ import frc.team4096.engine.extensions.configPIDF
 import frc.team4096.engine.extensions.wpi.ZedSubsystem
 import frc.team4096.engine.motion.ControlState
 import frc.team4096.engine.motion.PIDVAVals
-import frc.team4096.engine.oi.XboxConsts
-import frc.team4096.robot.elevator.commands.ManualElevatorCmd
 import frc.team4096.robot.misc.MiscConsts
-import frc.team4096.robot.oi.OIMain
 
 /**
  * Elevator subsystem.

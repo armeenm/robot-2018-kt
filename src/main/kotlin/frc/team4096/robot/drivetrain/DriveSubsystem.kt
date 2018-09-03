@@ -10,7 +10,10 @@ import frc.team4096.engine.extensions.wpi.ZedSubsystem
 import frc.team4096.engine.kinematics.Pose2D
 import frc.team4096.engine.math.boundRadians
 import frc.team4096.engine.math.toRadians
-import frc.team4096.engine.motion.*
+import frc.team4096.engine.motion.ControlState
+import frc.team4096.engine.motion.DriveMode
+import frc.team4096.engine.motion.DriveSignal
+import frc.team4096.engine.motion.EncDistances
 import frc.team4096.engine.util.applyDeadband
 import frc.team4096.robot.misc.MiscConsts
 import frc.team4096.robot.sensors.Gyro
@@ -23,29 +26,29 @@ import kotlin.math.sin
  */
 object DriveSubsystem : ZedSubsystem() {
     // Hardware
-    private val leftMotor1 = VictorSP(DriveConsts.kPWMVictorL1)
-    private val leftMotor2 = VictorSP(DriveConsts.kPWMVictorL2)
+    private val leftMotor1 = VictorSP(DriveConsts.PWM_VICTOR_L1)
+    private val leftMotor2 = VictorSP(DriveConsts.PWM_VICTOR_L2)
     val leftMotorGroup = SpeedControllerGroup(leftMotor1, leftMotor2)
 
-    private val rightMotor1 = VictorSP(DriveConsts.kPWMVictorR1)
-    private val rightMotor2 = VictorSP(DriveConsts.kPWMVictorR2)
+    private val rightMotor1 = VictorSP(DriveConsts.PWM_VICTOR_R1)
+    private val rightMotor2 = VictorSP(DriveConsts.PWM_VICTOR_R2)
     val rightMotorGroup = SpeedControllerGroup(rightMotor1, rightMotor2)
 
     val diffDrive = DifferentialDrive(leftMotorGroup, rightMotorGroup)
 
     private val shifterSolenoid = DoubleSolenoid(
             MiscConsts.CAN_PCM,
-            DriveConsts.kPCMShifter1,
-            DriveConsts.kPCMShifter2
+            DriveConsts.PCM_SHIFTER_1,
+            DriveConsts.PCM_SHIFTER_2
     )
 
-    val leftEncoder = Encoder(DriveConsts.kLeftEncoderA, DriveConsts.kLeftEncoderB)
-    val rightEncoder = Encoder(DriveConsts.kRightEncoderA, DriveConsts.kRightEncoderB)
+    val leftEncoder = Encoder(DriveConsts.LEFT_ENCODER_A, DriveConsts.LEFT_ENCODER_B)
+    val rightEncoder = Encoder(DriveConsts.RIGHT_ENCODER_A, DriveConsts.RIGHT_ENCODER_B)
 
-    var signal = DriveSignal(0.0, 0.0, isQuickTurn = false)
+    var signal = DriveSignal(0.0, 0.0, false)
         set(sig) {
-            sig.xSpeed = applyDeadband(sig.xSpeed, DriveConsts.kSpeedDeadband)
-            sig.zRotation = applyDeadband(sig.xSpeed, DriveConsts.kRotDeadband)
+            sig.xSpeed = applyDeadband(sig.xSpeed, DriveConsts.SPEED_DEADBAND)
+            sig.zRotation = applyDeadband(sig.xSpeed, DriveConsts.ROT_DEADBAND)
             when (driveMode) {
                 DriveMode.ARCADE -> diffDrive.arcadeDrive(sig.xSpeed, sig.zRotation)
                 DriveMode.CURVATURE -> diffDrive.curvatureDrive(sig.xSpeed, sig.zRotation, sig.isQuickTurn)
@@ -56,6 +59,7 @@ object DriveSubsystem : ZedSubsystem() {
     // Assumes starting at the origin facing forward.
     // TODO: Change this based on robot starting position in auto.
     var pose = Pose2D(0.0, 0.0, 0.0)
+    val poseLoop = AsyncLooper(250.0, false) { updatePose() }
 
     var encDistances = EncDistances(leftEncoder.distance, rightEncoder.distance)
 
@@ -72,12 +76,12 @@ object DriveSubsystem : ZedSubsystem() {
 
     // Required Methods
     init {
-        leftEncoder.distancePerPulse = 1 / DriveConsts.kEncTicksPerFoot
-        rightEncoder.distancePerPulse = 1 / DriveConsts.kEncTicksPerFoot
+        leftEncoder.distancePerPulse = 1 / DriveConsts.ENCODER_TPF
+        rightEncoder.distancePerPulse = 1 / DriveConsts.ENCODER_TPF
 
         reset()
 
-        val poseLoop = AsyncLooper(250.0, false) { updatePose() }
+        poseLoop.start()
     }
 
     override fun reset() {
@@ -91,7 +95,7 @@ object DriveSubsystem : ZedSubsystem() {
     }
 
     override fun log() {
-        TODO("not implemented")
+        //TODO: Implement
     }
 
     // Methods
@@ -101,7 +105,6 @@ object DriveSubsystem : ZedSubsystem() {
 
     private fun updatePose() {
         // Get the delta by making a new EncDistances object with the latest distances
-        // Makes use of operator overloading in the data class
         val deltaEncDistances = EncDistances(leftEncoder.distance, rightEncoder.distance) - encDistances
         val avgEncDistance = deltaEncDistances.average()
 

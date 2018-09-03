@@ -1,8 +1,8 @@
 package frc.team4096.robot.autonomous
 
-import edu.wpi.first.wpilibj.command.CommandGroup
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard
+import frc.team4096.engine.motion.PFPath
 import frc.team4096.robot.misc.driverStation
 
 /**
@@ -11,13 +11,18 @@ import frc.team4096.robot.misc.driverStation
  */
 object AutoMain {
     var autoData: String? = null
-    var autoRun = false
-    private val autoChooser = SendableChooser<CommandGroup>()
+    var hasAutoRun = false
+    private val autoChooser = SendableChooser<AutoMode>()
+    private val paths = listOf<PFPath>()
 
     init {
-        autoChooser.addDefault(AutoMode.DO_NOTHING.modeStr, AutoMode.DO_NOTHING.cmdGroup)
-        AutoMode.values().forEach { autoChooser.addObject(it.modeStr, it.cmdGroup) }
+        autoChooser.addDefault(AutoModes.DO_NOTHING.modeStr, AutoModes.DO_NOTHING.autoMode)
+        AutoModes.values().forEach { autoChooser.addObject(it.modeStr, it.autoMode) }
         SmartDashboard.putData(autoChooser)
+    }
+
+    fun deserialize() {
+        AutoModes.values().forEach { it.autoMode.deserialize() }
     }
 
     fun fetchData() {
@@ -28,8 +33,11 @@ object AutoMain {
         if (autoData == null)
             fetchData()
         else {
-            autoChooser.selected.start()
-            autoRun = true
+            autoChooser.selected.apply {
+                setup(autoData!!)
+                start()
+            }
+            hasAutoRun = true
         }
     }
 }

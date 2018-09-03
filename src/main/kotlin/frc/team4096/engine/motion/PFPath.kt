@@ -1,6 +1,7 @@
 package frc.team4096.engine.motion
 
 import com.google.gson.Gson
+import frc.team4096.robot.drivetrain.DriveConsts
 import frc.team4096.robot.misc.MiscConsts
 import jaci.pathfinder.Pathfinder
 import jaci.pathfinder.Trajectory
@@ -18,9 +19,9 @@ import java.security.InvalidParameterException
  */
 class PFPath(
         val pathName: String,
+        private var wheelbaseWidth: Double = DriveConsts.DT_TRACK_WIDTH,
         private val baseFilePath: String = MiscConsts.PF_HOME
 ) {
-
     /**
      * Secondary constructor if not deserializing.
      */
@@ -28,7 +29,7 @@ class PFPath(
             pathData: Metadata,
             pathName: String,
             baseFilePath: String = MiscConsts.PF_HOME
-    ) : this(pathName, baseFilePath) {
+    ) : this(pathName, pathData.wheelbaseWidth, baseFilePath) {
         this.pathData = pathData
     }
 
@@ -57,16 +58,19 @@ class PFPath(
     /**
      * Deserialize trajectory and other data from CSV and JSON.
      */
-    fun deserialize() {
-        // JSON
-        val gson = Gson()
-        val bufferedReader = jsonFile.bufferedReader()
-        val jsonText = bufferedReader.use { it.readText() }
-        pathData = gson.fromJson(jsonText, Metadata::class.java)
+    fun deserialize(deserializeMetadata: Boolean = false) {
+        if (deserializeMetadata) {
+            // JSON
+            val gson = Gson()
+            val bufferedReader = jsonFile.bufferedReader()
+            val jsonText = bufferedReader.use { it.readText() }
+            pathData = gson.fromJson(jsonText, Metadata::class.java)
+            wheelbaseWidth = pathData!!.wheelbaseWidth
+        }
 
         // CSV
         trajectory = Pathfinder.readFromCSV(csvFile)
-        modifier = TankModifier(trajectory).modify(pathData!!.wheelbaseWidth)
+        modifier = TankModifier(trajectory).modify(wheelbaseWidth)
     }
 
     /**

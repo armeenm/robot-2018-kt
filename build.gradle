@@ -22,8 +22,8 @@ dependencies {
     compile "org.jetbrains.kotlinx:kotlinx-coroutines-core:0.22.5"
     compile "org.jetbrains.kotlin:kotlin-stdlib-jdk8"
     compile "org.jetbrains.dokka:dokka-gradle-plugin:0.9.17"
-	compile "com.github.salomonbrys.kotson:kotson:2.5.0"
-	compile "org.knowm.xchart:xchart:3.5.2"
+    compile "com.github.salomonbrys.kotson:kotson:2.5.0"
+    compile "org.knowm.xchart:xchart:3.5.2"
     compile "org.apache.commons:commons-math3:3.6"
     // Testing
     testCompile("org.junit.jupiter:junit-jupiter-api:5.2.0")
@@ -40,7 +40,8 @@ deploy {
     targets {
         target("roborio", edu.wpi.first.gradlerio.frc.RoboRIO) {
             team = TEAM
-        } }
+        }
+    }
     artifacts {
         artifact('frcJava', edu.wpi.first.gradlerio.frc.FRCJavaArtifact) {
             targets << "roborio"
@@ -93,14 +94,14 @@ dokka {
 
 // Copy custom CSS to right location for Dokka
 task cssCopy(type: Copy) {
-	from(file("gradle/style.css"))
-	into("$buildDir/javadoc")
+    from(file("gradle/style.css"))
+    into("$buildDir/javadoc")
 }
 
 // Build Dokka and copy CSS
 task buildDocs {
-	dependsOn 'dokka'
-	dependsOn 'cssCopy'
+    dependsOn 'dokka'
+    dependsOn 'cssCopy'
 
-	tasks.findByName('cssCopy').mustRunAfter 'dokka'
+    tasks.findByName('cssCopy').mustRunAfter 'dokka'
 }

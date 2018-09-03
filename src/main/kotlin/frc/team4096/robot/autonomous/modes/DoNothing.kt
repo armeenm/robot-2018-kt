@@ -1,10 +1,16 @@
 package frc.team4096.robot.autonomous.modes
 
-import edu.wpi.first.wpilibj.command.CommandGroup
+import frc.team4096.engine.util.commandify
+import frc.team4096.robot.autonomous.AutoMode
 import frc.team4096.robot.misc.MiscConsts.RAP_LYRICS
 
-object DoNothing : CommandGroup() {
+object DoNothing : AutoMode() {
+    override val pathDir = ""
+    override val numPaths = 0
+
+    override fun deserialize() {}
+
     init {
-        println(RAP_LYRICS)
+        addSequential(commandify { println(RAP_LYRICS) })
     }
 }

@@ -15,7 +15,7 @@ import jaci.pathfinder.followers.EncoderFollower
  * @param path Path object to follow
  * @param pidvaVals PIDVA gains to configure follower with. I is ignored and A is ADDITIONAL gain.
  */
-class FollowPathPFCmd(path: PFPath, pidvaVals: PIDVAVals = DriveConsts.kPIDVAGainsPF) : Command() {
+class FollowPathPFCmd(path: PFPath, pidvaVals: PIDVAVals = DriveConsts.PIDVA_GAINS_PF) : Command() {
     private val leftFollower = EncoderFollower(path.modifier!!.leftTrajectory)
     private val rightFollower = EncoderFollower(path.modifier!!.rightTrajectory)
 
@@ -36,13 +36,13 @@ class FollowPathPFCmd(path: PFPath, pidvaVals: PIDVAVals = DriveConsts.kPIDVAGai
 
         leftFollower.configureEncoder(
                 DriveSubsystem.leftEncoder.get(),
-                DriveConsts.kEncoderTicksPerRev,
-                DriveConsts.kWheelDiameter
+                DriveConsts.ENCODER_TPR,
+                DriveConsts.DT_WHEEL_DIAMETER
         )
         rightFollower.configureEncoder(
                 DriveSubsystem.rightEncoder.get(),
-                DriveConsts.kEncoderTicksPerRev,
-                DriveConsts.kWheelDiameter
+                DriveConsts.ENCODER_TPR,
+                DriveConsts.DT_WHEEL_DIAMETER
         )
     }
 

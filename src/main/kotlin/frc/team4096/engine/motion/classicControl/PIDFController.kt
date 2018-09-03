@@ -48,9 +48,9 @@ class PIDFController(val pidfVals: PIDVAVals) {
 
         val output =
                 pidfVals.kP * error +
-                pidfVals.kI * integral +
-                pidfVals.kD * derivative +
-                pidfVals.kF
+                        pidfVals.kI * integral +
+                        pidfVals.kD * derivative +
+                        pidfVals.kF
 
         lastError = error
 

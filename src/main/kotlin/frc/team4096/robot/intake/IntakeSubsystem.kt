@@ -5,11 +5,8 @@ import edu.wpi.first.wpilibj.SpeedControllerGroup
 import edu.wpi.first.wpilibj.VictorSP
 import frc.team4096.engine.extensions.wpi.ZedSubsystem
 import frc.team4096.engine.motion.ControlState
-import frc.team4096.engine.oi.XboxConsts
 import frc.team4096.engine.util.applyDeadband
-import frc.team4096.robot.intake.commands.ManualIntakeCmd
 import frc.team4096.robot.misc.MiscConsts
-import frc.team4096.robot.oi.OIMain
 
 /**
  * Intake subsystem.

@@ -2,6 +2,7 @@ package frc.team4096.robot
 
 import edu.wpi.first.wpilibj.TimedRobot
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard
+import frc.team4096.engine.async.AsyncLooper
 import frc.team4096.robot.autonomous.AutoMain
 import frc.team4096.robot.climber.ClimberSubsystem
 import frc.team4096.robot.drivetrain.DriveSubsystem
@@ -32,16 +33,22 @@ class Robot : TimedRobot() {
         Gyro
         PressureSensor
         OIMain
+        AutoMain
 
         // Hardware
         Gyro.reset()
 
         // Software
         cameraServer.startAutomaticCapture()
-        // SmartDashboard
-        subsystemList.forEach { subsystem -> SmartDashboard.putData(subsystem) }
+        AutoMain.deserialize()
+
+        // Logging
+        subsystemList.forEach { SmartDashboard.putData(it) }
         SmartDashboard.putData(Gyro)
-        launch { log() }
+        val logLoop = AsyncLooper(10.0, false) { log() }
+        logLoop.start()
+
+        println("Completed initialization!")
     }
 
     override fun robotPeriodic() {
@@ -64,7 +71,8 @@ class Robot : TimedRobot() {
     }
 
     override fun autonomousPeriodic() {
-        AutoMain.runAuto()
+        if (!AutoMain.hasAutoRun)
+            AutoMain.runAuto()
     }
 
     // TELE-OPERATED //

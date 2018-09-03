@@ -1,24 +1,24 @@
 package frc.team4096.robot.autonomous.modes
 
-import edu.wpi.first.wpilibj.command.CommandGroup
 import frc.team4096.engine.motion.PFPath
 import frc.team4096.engine.util.commandify
-import frc.team4096.robot.autonomous.AutoMain
+import frc.team4096.robot.autonomous.AutoMode
 import frc.team4096.robot.drivetrain.commands.FollowPathPFCmd
 import frc.team4096.robot.elevator.ElevatorConsts
 import frc.team4096.robot.elevator.commands.AutoElevatorCmd
 import frc.team4096.robot.intake.IntakeSubsystem
 
-object LeftSwitch : CommandGroup() {
-    var path: PFPath? = null
+object LeftSwitch : AutoMode() {
+    override val pathDir = "L_SW"
+    override val numPaths = 1
+    private var path: PFPath? = null
 
     init {
-        // Follow spline for specific side
-        when (AutoMain.autoData!![0]) {
-            'L' -> PFPath("LS_L")
-            'R' -> PFPath("LS_R")
-            else -> println("Bad data!")
-        }
+        pathMap
+    }
+
+    override fun setup(autoData: String) {
+        path = pathMap[autoData[0]]!![0]
 
         if (path != null) {
             // Raise elevator while moving
@@ -29,6 +29,8 @@ object LeftSwitch : CommandGroup() {
 
             // Spit cube
             addSequential(commandify { IntakeSubsystem.intakeSpeed = -0.75 }, 0.5)
+        } else {
+            addSequential(DriveForward)
         }
     }
 }

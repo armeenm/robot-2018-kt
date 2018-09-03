@@ -1,8 +1,8 @@
 package frc.team4096.robot.drivetrain.commands
 
 import edu.wpi.first.wpilibj.command.Command
-import frc.team4096.engine.motion.classicControl.PIDVAController
 import frc.team4096.engine.motion.PIDVAVals
+import frc.team4096.engine.motion.classicControl.PIDVAController
 import frc.team4096.engine.motion.profiles.TrapezoidalMP
 import frc.team4096.robot.drivetrain.DriveSubsystem
 

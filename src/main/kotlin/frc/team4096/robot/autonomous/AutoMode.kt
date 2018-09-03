@@ -1,14 +1,27 @@
 package frc.team4096.robot.autonomous
 
 import edu.wpi.first.wpilibj.command.CommandGroup
-import frc.team4096.robot.autonomous.modes.*
+import frc.team4096.engine.motion.PFPath
 
-enum class AutoMode(val modeStr: String, val cmdGroup: CommandGroup) {
-    CENTER_SWITCH("Center to Switch", CenterSwitch),
-    RIGHT_SWITCH("Right to Switch", RightSwitch),
-    LEFT_SWITCH("Left to Switch", LeftSwitch),
-    RIGHT_SCALE("Right to Scale", RightScale),
-    LEFT_SCALE("Left to Scale", LeftScale),
-    DRIVE_FORWARD("Drive Forward", DriveForward),
+abstract class AutoMode : CommandGroup() {
+    abstract val pathDir: String
+    abstract val numPaths: Int
+    open val pathMap: HashMap<Char, List<PFPath>> by lazy {
+        hashMapOf<Char, List<PFPath>>().also {
+            for (side in listOf('L', 'R')) {
+                it.put(
+                        side,
+                        mutableListOf<PFPath>().also {
+                            for (pathNum in 1..numPaths) {
+                                it.add(PFPath("$pathDir/$side/$pathNum"))
+                            }
+                        }
+                )
+            }
+        }
+    }
+
+    open fun deserialize() = pathMap.forEach { it.value.forEach { it.deserialize() } }
+
+    open fun setup(autoData: String) {}
 }
-    DO_NOTHING("Do Nothing", DoNothing)

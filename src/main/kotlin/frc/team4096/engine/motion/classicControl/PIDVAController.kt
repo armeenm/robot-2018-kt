@@ -1,9 +1,9 @@
 package frc.team4096.engine.motion.classicControl
 
 import frc.team4096.engine.async.AsyncLooper
-import frc.team4096.engine.motion.profiles.MotionProfile
 import frc.team4096.engine.motion.PIDVAVals
 import frc.team4096.engine.motion.PVAJData
+import frc.team4096.engine.motion.profiles.MotionProfile
 
 /**
  * Custom asynchronous PIDVA controller.
