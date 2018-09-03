@@ -6,6 +6,7 @@ import frc.team4096.engine.motion.PFPath
 abstract class AutoMode : CommandGroup() {
     abstract val pathDir: String
     abstract val numPaths: Int
+    /*
     open val pathMap: HashMap<Char, List<PFPath>> by lazy {
         hashMapOf<Char, List<PFPath>>().also {
             for (side in listOf('L', 'R')) {
@@ -20,8 +21,17 @@ abstract class AutoMode : CommandGroup() {
             }
         }
     }
+    */
+    open val pathMap: HashMap<Char, List<PFPath>> by lazy {
+        hashMapOf<Char, List<PFPath>> {
+            listOf('L', 'R').forEach { side ->
+                side to List(numPaths) { i ->
+                    PFPath("$pathDir/$side/$i")
+                }
+            }
+        }
+    }
 
     open fun deserialize() = pathMap.forEach { it.value.forEach { it.deserialize() } }
-
     open fun setup(autoData: String) {}
 }
