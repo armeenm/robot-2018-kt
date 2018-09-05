@@ -1,5 +1,6 @@
 package frc.team4096.engine.logging
 
+import frc.team4096.engine.dsp.DiskBuffer
 import java.util.UUID.randomUUID
 import java.io.File
 import java.time.LocalDateTime
@@ -12,25 +13,52 @@ object Logger {
     val errorLogPath = "$folderPath/errorLog-$uuid.log"
     val dataLogPath = "$folderPath/datalog-$uuid.log"
 
-    var flushFreq = 1.0
+    lateinit var errorBuffer :DiskBuffer
+    lateinit var dataBuffer :DiskBuffer
 
-    //TODO add buffer (array)
+    val bufferSize = 100
+    //val flushFreq = 1.0       //TODO add later so we dont have to actually write 100 files of logs
+
+    //TODO incorperate co-routines
 
     fun log(level: LogLevel, log: String) {
-        val file = File(filePathForLevel(level))
-        val isNewFileCreated: Boolean = file.createNewFile()
-
-        file.printWriter().use { out ->
-            val time = LocalDateTime.now()
-            val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.SSS")
-            val formatted = time.format(formatter)
-            out.println("$formatted, $level, $log")
+        initializeBuffer(level)
+        val buffer = when(level) {
+            LogLevel.INFO, LogLevel.WARNING, LogLevel.DEBUG -> dataBuffer
+            LogLevel.ERROR, LogLevel.FATAL -> errorBuffer
         }
+
+        val time = LocalDateTime.now()
+        val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.SSS")
+        val formatted = time.format(formatter)
+
+        buffer.add("$formatted, $level, $log")
     }
 
-    fun filePathForLevel(level: LogLevel) = when (level) {
-        LogLevel.INFO, LogLevel.WARNING, LogLevel.DEBUG -> dataLogPath
-        LogLevel.ERROR, LogLevel.FATAL -> errorLogPath
+    //create a buffer for data log file if one does not exist
+    private fun initializeDataBuffer() {
+        if(this::dataBuffer.isInitialized) return
+
+        val file = File(dataLogPath)
+        file.createNewFile()
+
+        dataBuffer = DiskBuffer(bufferSize, file)
+    }
+
+    //create a buffer for error log file if one does not exist
+    private fun initializeErrorBuffer() {
+        if(this::errorBuffer.isInitialized) return
+
+        val file = File(errorLogPath)
+        file.createNewFile()
+
+        errorBuffer = DiskBuffer(bufferSize, file)
+    }
+
+    //create a buffer for a log file if one does not exist
+    private fun initializeBuffer(level :LogLevel) = when(level) {
+        LogLevel.INFO, LogLevel.WARNING, LogLevel.DEBUG -> this.initializeDataBuffer()
+        LogLevel.ERROR, LogLevel.FATAL -> this.initializeErrorBuffer()
     }
 }
 
