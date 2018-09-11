@@ -40,9 +40,6 @@ object ElevatorSubsystem : ZedSubsystem() {
             field = inputSpeed
         }
 
-    // Software States
-    var controlState = ControlState.OPEN_LOOP
-
     // Required Methods
     init {
         reset()
