@@ -10,7 +10,7 @@ import frc.team4096.engine.extensions.wpi.ZedSubsystem
  */
 object ClimberSubsystem : ZedSubsystem() {
     // Hardware
-    private var motor = VictorSP(ClimberConsts.PWM_MOTOR)
+    private var motor = VictorSP(ClimberConsts.PWM_MOTOR).apply { inverted = ClimberConsts.MOTOR_INVERTED }
     private var servo = Servo(ClimberConsts.PWM_SERVO)
 
     // Hardware States
@@ -43,8 +43,10 @@ object ClimberSubsystem : ZedSubsystem() {
     }
 
     var speed = 0.0
-        set(speed: Double) {
-            motor.speed = speed
-            field = speed
+        set(speed) {
+            if (isReleased) {
+                motor.speed = speed
+                field = speed
+            }
         }
 }

@@ -11,6 +11,11 @@ import frc.team4096.robot.intake.IntakeSubsystem
  * @param inSpeedFun Lambda to retrieve speed
  */
 class ManualIntakeCmd(var speedFun: () -> Double) : Command() {
+    init {
+        requires(IntakeSubsystem)
+        isInterruptible = true
+    }
+
     override fun execute() {
         IntakeSubsystem.intakeSpeed = speedFun() * IntakeConsts.MAX_IN_SPEED
     }

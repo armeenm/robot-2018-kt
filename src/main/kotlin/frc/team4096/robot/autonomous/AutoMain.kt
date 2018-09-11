@@ -12,8 +12,7 @@ import frc.team4096.robot.misc.driverStation
 object AutoMain {
     var autoData: String? = null
     var hasAutoRun = false
-    private val autoChooser = SendableChooser<AutoMode>()
-    private val paths = listOf<PFPath>()
+    val autoChooser = SendableChooser<AutoMode>()
 
     init {
         autoChooser.addDefault(AutoModes.DO_NOTHING.modeStr, AutoModes.DO_NOTHING.autoMode)

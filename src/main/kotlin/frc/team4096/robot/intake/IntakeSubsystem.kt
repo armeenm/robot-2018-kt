@@ -15,10 +15,10 @@ import frc.team4096.robot.misc.MiscConsts
 object IntakeSubsystem : ZedSubsystem() {
     // Hardware
     // TODO: Add second motor controller for wheels
-    private var wheelMotor1 = VictorSP(IntakeConsts.PWM_WHEELS_MOTOR_1)
-    private var wheelMotor2 = VictorSP(IntakeConsts.PWM_WHEELS_MOTOR_2)
+    private var wheelMotor1 = VictorSP(IntakeConsts.PWM_WHEELS_MOTOR_1).apply { inverted = IntakeConsts.WHEELS_1_INVERTED }
+    private var wheelMotor2 = VictorSP(IntakeConsts.PWM_WHEELS_MOTOR_2).apply { inverted = IntakeConsts.WHEELS_2_INVERTED }
     private var wheelMotorGroup = SpeedControllerGroup(wheelMotor1, wheelMotor2)
-    private var rotationMotor = VictorSP(IntakeConsts.PWM_ROTATE_MOTOR)
+    private var rotationMotor = VictorSP(IntakeConsts.PWM_ROTATE_MOTOR).apply { inverted = IntakeConsts.ROTATION_INVERTED }
 
     private var squeezeSolenoid = DoubleSolenoid(
             MiscConsts.CAN_PCM,
@@ -40,10 +40,6 @@ object IntakeSubsystem : ZedSubsystem() {
             rotateSpeed = if (input) IntakeConsts.ROTATE_HOLD_SPEED else 0.0
             field = input
         }
-
-    // Software States
-    var wheelControlState = ControlState.OPEN_LOOP
-    var rotationControlState = ControlState.OPEN_LOOP
 
     // Motor Values
     var intakeSpeed: Double = 0.0

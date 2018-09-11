@@ -48,7 +48,7 @@ object DriveSubsystem : ZedSubsystem() {
 	var signal = DriveSignal(0.0, 0.0, false)
 		set(sig) {
 			sig.xSpeed = applyDeadband(sig.xSpeed, DriveConsts.SPEED_DEADBAND)
-			sig.zRotation = applyDeadband(sig.xSpeed, DriveConsts.ROT_DEADBAND)
+			sig.zRotation = applyDeadband(sig.zRotation, DriveConsts.ROT_DEADBAND)
 			when (driveMode) {
 				DriveMode.ARCADE -> diffDrive.arcadeDrive(sig.xSpeed, sig.zRotation)
 				DriveMode.CURVATURE -> diffDrive.curvatureDrive(sig.xSpeed, sig.zRotation, sig.isQuickTurn)
