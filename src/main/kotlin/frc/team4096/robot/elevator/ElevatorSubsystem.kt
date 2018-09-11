@@ -103,7 +103,7 @@ object ElevatorSubsystem : ZedSubsystem() {
             configVoltageMeasurementFilter(32, 10)
 
             // Current Limiting
-            TODO("Figure out current limits")
+            // TODO: Figure out current limit constants
         }
 
         // Configure Victor SPX (Slave)
