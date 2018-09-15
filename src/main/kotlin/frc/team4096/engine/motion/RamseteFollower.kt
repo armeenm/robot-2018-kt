@@ -32,7 +32,7 @@ class RamseteFollower(private val trajectory: Trajectory, private val kBeta: Dou
     /**
      * Returns desired linear and angular velocity of the robot.
      */
-    fun getRobotVel(pose: Pose2D): Twist2D {
+    fun update(pose: Pose2D): Twist2D {
         // Update the current segment
         if (currentSegmentIndex >= trajectory.segments.size) return Twist2D(0.0, 0.0, 0.0)
 
@@ -73,6 +73,11 @@ class RamseteFollower(private val trajectory: Trajectory, private val kBeta: Dou
         return Twist2D(v, 0.0, w)
     }
 
+    private fun sinc(theta: Double): Double {
+        return if (theta epsilonEquals 0.0) 1.0 - 1.0 / 6.0 * theta * theta
+        else sin(theta) / theta
+    }
+
     fun calculateLinearVel(
             xError: Double,
             yError: Double,
@@ -89,7 +94,7 @@ class RamseteFollower(private val trajectory: Trajectory, private val kBeta: Dou
             pathV: Double,
             pathW: Double,
             theta: Double
-    ) = pathW + kBeta * pathV * (sin(thetaError) / thetaError) * ((xError cos theta) - (yError sin theta)) +
+    ) = pathW + kBeta * pathV * sinc(thetaError) * ((yError cos theta) - (xError sin theta)) +
             gain(pathV, pathW) * thetaError
 
     private fun gain(v: Double, w: Double): Double {

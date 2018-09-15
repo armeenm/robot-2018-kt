@@ -47,7 +47,7 @@ class Robot : TimedRobot() {
         val logLoop = AsyncLooper(10.0, true) { log() }
         logLoop.start()
 
-        println("Completed initialization!")
+        println("---- ROBOT INITIALIZATION COMPLETE! ----")
     }
 
     override fun robotPeriodic() {

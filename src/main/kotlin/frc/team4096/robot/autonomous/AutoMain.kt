@@ -32,11 +32,11 @@ object AutoMain {
         if (autoData == null)
             fetchData()
         else {
+            hasAutoRun = true
             autoChooser.selected.apply {
                 setup(autoData!!)
                 start()
             }
-            hasAutoRun = true
         }
     }
 }

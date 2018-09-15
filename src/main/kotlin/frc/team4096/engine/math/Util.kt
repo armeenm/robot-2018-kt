@@ -4,6 +4,7 @@ import org.apache.commons.math3.util.Precision.EPSILON
 import java.math.BigDecimal
 import java.math.BigInteger
 import kotlin.math.PI
+import kotlin.math.abs
 
 /**
  * Function to achieve generics for abs function.
@@ -64,7 +65,7 @@ fun Double.boundRadians(): Double {
  * Fuzzy equals to determine if the difference between two numbers is less than EPSILON.
  * Used for floating point comparisons.
  */
-infix fun Double.epsilonEquals(other: Double) = (this - other) < EPSILON
+infix fun Double.epsilonEquals(other: Double) = abs(this - other) < EPSILON
 
 /**
  * Convert degrees to radians.
