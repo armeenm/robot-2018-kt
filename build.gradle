@@ -16,7 +16,7 @@ dependencies {
     compile wpilib()
     compile ctre()
     compile navx()
-    compile pathfinder()
+    //compile pathfinder()
     compile openrio.powerup.matchData()
 
     compile "org.jetbrains.kotlinx:kotlinx-coroutines-core:0.22.5"
@@ -27,6 +27,7 @@ dependencies {
     compile "org.knowm.xchart:xchart:3.5.2"
     compile "org.apache.commons:commons-math3:3.6"
     // Testing
+    compile fileTree(dir: 'libs', include: '*.jar')
     testCompile("org.junit.jupiter:junit-jupiter-api:5.2.0")
     testRuntime("org.junit.jupiter:junit-jupiter-engine:5.2.0")
 }

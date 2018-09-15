@@ -22,8 +22,7 @@ class TrapezoidalMPTest {
         val dt = 1 / freq
         var time = 0.0
         val tmp = TrapezoidalMP(targetPos, DriveConsts.DT_MAX_VEL, DriveConsts.DT_MAX_ACCEL, { Double.NaN }, {}, freq)
-        val pvajData1 = PVAJData()
-        var pvajData = pvajData1
+        var pvajData = PVAJData()
 
         do {
             velData.add(pvajData.vel)
