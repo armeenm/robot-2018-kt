@@ -4,7 +4,6 @@ import edu.wpi.first.wpilibj.DoubleSolenoid
 import edu.wpi.first.wpilibj.SpeedControllerGroup
 import edu.wpi.first.wpilibj.VictorSP
 import frc.team4096.engine.extensions.wpi.ZedSubsystem
-import frc.team4096.engine.motion.ControlState
 import frc.team4096.engine.util.applyDeadband
 import frc.team4096.robot.misc.MiscConsts
 

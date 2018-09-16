@@ -6,7 +6,6 @@ import frc.team4096.engine.math.boundRadians
 import frc.team4096.engine.math.cos
 import frc.team4096.engine.math.epsilonEquals
 import frc.team4096.engine.math.sin
-import frc.team4096.robot.drivetrain.DriveSubsystem
 import jaci.pathfinder.Trajectory
 import org.apache.commons.math3.util.Precision.EPSILON
 import java.security.InvalidParameterException

@@ -9,7 +9,6 @@ import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX
 import edu.wpi.first.wpilibj.DoubleSolenoid
 import frc.team4096.engine.extensions.configPIDF
 import frc.team4096.engine.extensions.wpi.ZedSubsystem
-import frc.team4096.engine.motion.ControlState
 import frc.team4096.engine.motion.PIDVAVals
 import frc.team4096.robot.misc.MiscConsts
 

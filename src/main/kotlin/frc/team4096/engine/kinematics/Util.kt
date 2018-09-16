@@ -2,11 +2,11 @@ package frc.team4096.engine.kinematics
 
 import frc.team4096.engine.math.epsilonEquals
 
-fun inverseKinematics(velocity: Twist2D, wheelbaseWidth: Double): Pair<Double, Double> {
-    if (velocity.dtheta epsilonEquals 0.0) {
-        return velocity.dx to velocity.dx
+fun Twist2D.tankInverseKinematics(trackWidth: Double): Pair<Double, Double> {
+    if (this.dtheta epsilonEquals 0.0) {
+        return this.dx to this.dx
     }
 
-    val deltaV = wheelbaseWidth * velocity.dtheta / 2
-    return velocity.dx - deltaV to velocity.dx + deltaV
+    val deltaV = trackWidth * this.dtheta / 2
+    return this.dx - deltaV to this.dx + deltaV
 }

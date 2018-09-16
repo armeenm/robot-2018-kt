@@ -2,7 +2,6 @@ package frc.team4096.robot.autonomous
 
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard
-import frc.team4096.engine.motion.PFPath
 import frc.team4096.robot.misc.driverStation
 
 /**

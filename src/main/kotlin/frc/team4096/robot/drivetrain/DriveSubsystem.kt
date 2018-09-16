@@ -25,94 +25,95 @@ import kotlin.math.sin
  * Handles driving and shifting.
  */
 object DriveSubsystem : ZedSubsystem() {
-	// Hardware
-	private val leftMotor1 = VictorSP(DriveConsts.PWM_VICTOR_L1).apply { inverted = DriveConsts.INVERT_L1 }
-	private val leftMotor2 = VictorSP(DriveConsts.PWM_VICTOR_L2).apply { inverted = DriveConsts.INVERT_L2 }
-	val leftMotorGroup = SpeedControllerGroup(leftMotor1, leftMotor2)
+    // Hardware
+    private val leftMotor1 = VictorSP(DriveConsts.PWM_VICTOR_L1).apply { inverted = DriveConsts.INVERT_L1 }
+    private val leftMotor2 = VictorSP(DriveConsts.PWM_VICTOR_L2).apply { inverted = DriveConsts.INVERT_L2 }
+    val leftMotorGroup = SpeedControllerGroup(leftMotor1, leftMotor2)
 
-	private val rightMotor1 = VictorSP(DriveConsts.PWM_VICTOR_R1).apply { inverted = DriveConsts.INVERT_R1 }
-	private val rightMotor2 = VictorSP(DriveConsts.PWM_VICTOR_R2).apply { inverted = DriveConsts.INVERT_R2 }
-	val rightMotorGroup = SpeedControllerGroup(rightMotor1, rightMotor2)
+    private val rightMotor1 = VictorSP(DriveConsts.PWM_VICTOR_R1).apply { inverted = DriveConsts.INVERT_R1 }
+    private val rightMotor2 = VictorSP(DriveConsts.PWM_VICTOR_R2).apply { inverted = DriveConsts.INVERT_R2 }
+    val rightMotorGroup = SpeedControllerGroup(rightMotor1, rightMotor2)
 
-	val diffDrive = DifferentialDrive(leftMotorGroup, rightMotorGroup)
+    val diffDrive = DifferentialDrive(leftMotorGroup, rightMotorGroup)
 
-	private val shifterSolenoid = DoubleSolenoid(
-		MiscConsts.CAN_PCM,
-		DriveConsts.PCM_SHIFTER_1,
-		DriveConsts.PCM_SHIFTER_2
-	)
+    private val shifterSolenoid = DoubleSolenoid(
+            MiscConsts.CAN_PCM,
+            DriveConsts.PCM_SHIFTER_1,
+            DriveConsts.PCM_SHIFTER_2
+    )
 
-	val leftEncoder = Encoder(DriveConsts.LEFT_ENCODER_A, DriveConsts.LEFT_ENCODER_B)
-	val rightEncoder = Encoder(DriveConsts.RIGHT_ENCODER_A, DriveConsts.RIGHT_ENCODER_B)
+    val leftEncoder = Encoder(DriveConsts.LEFT_ENCODER_A, DriveConsts.LEFT_ENCODER_B)
+    val rightEncoder = Encoder(DriveConsts.RIGHT_ENCODER_A, DriveConsts.RIGHT_ENCODER_B)
 
-	var signal = DriveSignal(0.0, 0.0, false)
-		set(sig) {
-			sig.xSpeed = applyDeadband(sig.xSpeed, DriveConsts.SPEED_DEADBAND)
-			sig.zRotation = applyDeadband(sig.zRotation, DriveConsts.ROT_DEADBAND)
-			when (driveMode) {
-				DriveMode.ARCADE -> diffDrive.arcadeDrive(sig.xSpeed, sig.zRotation)
-				DriveMode.CURVATURE -> diffDrive.curvatureDrive(sig.xSpeed, sig.zRotation, sig.isQuickTurn)
-			}
-			field = sig
-		}
+    var signal = DriveSignal(0.0, 0.0, false)
+        set(sig) {
+            sig.xSpeed = applyDeadband(sig.xSpeed, DriveConsts.SPEED_DEADBAND)
+            sig.zRotation = applyDeadband(sig.zRotation, DriveConsts.ROT_DEADBAND)
+            when (driveMode) {
+                DriveMode.ARCADE -> diffDrive.arcadeDrive(sig.xSpeed, sig.zRotation)
+                DriveMode.CURVATURE -> diffDrive.curvatureDrive(sig.xSpeed, sig.zRotation, sig.isQuickTurn)
+            }
+            field = sig
+        }
 
-	// Assumes starting at the origin facing forward.
-	// TODO: Change this based on robot starting position in auto.
-	var pose = Pose2D(0.0, 0.0, 0.0)
-	val poseLoop = AsyncLooper(250.0, false) { updatePose() }
+    // Assumes starting at the origin facing forward.
+    // TODO: Change this based on robot starting position in auto.
+    var pose = Pose2D(0.0, 0.0, 0.0)
+    val poseLoop = AsyncLooper(250.0, false) { updatePose() }
 
-	var encDistances = EncDistances(leftEncoder.distance, rightEncoder.distance)
+    var encDistances = EncDistances(leftEncoder.distance, rightEncoder.distance)
 
-	// Hardware states
-	var gear = GearState.NEUTRAL
-		set(inputState) {
-			shifterSolenoid.set(inputState.solenoidState)
-			field = inputState
-		}
+    // Hardware states
+    var gear = GearState.NEUTRAL
+        set(inputState) {
+            shifterSolenoid.set(inputState.solenoidState)
+            field = inputState
+        }
 
-	// Software States
-	var controlState = ControlState.OPEN_LOOP
-	var driveMode = DriveMode.CURVATURE
+    // Software States
+    var controlState = ControlState.OPEN_LOOP
+    var driveMode = DriveMode.CURVATURE
 
-	// Required Methods
-	init {
-		leftEncoder.distancePerPulse = 1 / DriveConsts.ENCODER_TPF
-		rightEncoder.distancePerPulse = 1 / DriveConsts.ENCODER_TPF
+    // Required Methods
+    init {
+        leftEncoder.distancePerPulse = 1 / DriveConsts.ENCODER_TPF
+        rightEncoder.distancePerPulse = 1 / DriveConsts.ENCODER_TPF
 
-		reset()
+        reset()
 
-		poseLoop.start()
-	}
+        poseLoop.start()
+    }
 
-	override fun reset() {
-		gear = GearState.HIGH
+    override fun reset() {
+        gear = GearState.HIGH
 
-		leftEncoder.reset()
-		rightEncoder.reset()
-		encDistances.leftDistance = 0.0
-		encDistances.rightDistance = 0.0
+        leftEncoder.reset()
+        rightEncoder.reset()
+        encDistances.leftDistance = 0.0
+        encDistances.rightDistance = 0.0
 
-	}
+    }
 
-	override fun log() {
-		//TODO: Implement
-	}
+    override fun log() {
+        //TODO: Implement
+    }
 
-	// Methods
-	override fun stop() {
-		signal = DriveSignal(0.0, 0.0, signal.isQuickTurn)
-	}
+    // Methods
+    override fun stop() {
+        signal = DriveSignal(0.0, 0.0, signal.isQuickTurn)
+    }
 
-	private fun updatePose() {
-		// Get the delta by making a new EncDistances object with the latest distances
-		val deltaEncDistances = EncDistances(leftEncoder.distance, rightEncoder.distance) - encDistances
-		val avgEncDistance = deltaEncDistances.average()
+    private fun updatePose() {
+        // Get the delta by making a new EncDistances object with the latest distances
+        val deltaEncDistances = EncDistances(leftEncoder.distance, rightEncoder.distance) - encDistances
+        val avgEncDistance = deltaEncDistances.average()
 
-		// Update pose using basic trigonometry
-		pose = Pose2D(
-			avgEncDistance * cos(Gyro.angle.toRadians()),
-			avgEncDistance * sin(Gyro.angle.toRadians()),
-			Gyro.angle.toRadians().boundRadians()
-		)
-	}
+        // Update pose using basic trigonometry
+        val angle = Gyro.angle.toRadians()
+        pose = Pose2D(
+                (pose.translation.x + avgEncDistance * cos(angle)),
+                (pose.translation.y + avgEncDistance * sin(angle)),
+                angle.boundRadians()
+        )
+    }
 }

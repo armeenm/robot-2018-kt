@@ -9,10 +9,10 @@ object DriveConsts {
     const val PWM_VICTOR_L2 = 3
     const val PWM_VICTOR_R1 = 0
     const val PWM_VICTOR_R2 = 1
-	const val INVERT_L1 = true
-	const val INVERT_L2 = true
-	const val INVERT_R1 = true
-	const val INVERT_R2 = true
+    const val INVERT_L1 = true
+    const val INVERT_L2 = true
+    const val INVERT_R1 = true
+    const val INVERT_R2 = true
 
     // Sensors
     const val LEFT_ENCODER_A = 0
