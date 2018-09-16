@@ -5,6 +5,7 @@ import frc.team4096.robot.drivetrain.DriveConsts
 import jaci.pathfinder.Trajectory
 import jaci.pathfinder.Waypoint
 import org.junit.jupiter.api.Test
+import org.knowm.xchart.SwingWrapper
 import org.knowm.xchart.XYChartBuilder
 import kotlin.math.cos
 import kotlin.math.sin
@@ -12,6 +13,7 @@ import kotlin.math.sin
 class RamseteTest {
     @Test
     fun test() {
+        System.setProperty("java.library.path", "/usr/local")
         val xDataFollower = arrayListOf(0.0)
         val yDataFollower = arrayListOf(0.0)
         val xDataPath = arrayListOf(0.0)
@@ -36,6 +38,8 @@ class RamseteTest {
         val freq = 50.0
         val dt = 1 / freq
         var time = 0.0
+
+        println(ramseteFollower.trajectory.segments.size)
 
         while (!ramseteFollower.isFinished) {
             val twist = ramseteFollower.update(pose)
@@ -64,5 +68,8 @@ class RamseteTest {
 
         chart.addSeries("Path", xDataPath, yDataPath)
         chart.addSeries("Follower", xDataFollower, yDataFollower)
+
+        SwingWrapper(chart).displayChart()
+        Thread.sleep(1000000)
     }
 }

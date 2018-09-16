@@ -21,7 +21,7 @@ import kotlin.math.sqrt
  * @param kBeta Beta constant
  * @param kZeta Zeta constant
  */
-class RamseteFollower(private val trajectory: Trajectory, private val kBeta: Double, private val kZeta: Double) {
+class RamseteFollower(val trajectory: Trajectory, private val kBeta: Double, private val kZeta: Double) {
     private var currentSegmentIndex = 0
     var currentSegment: Trajectory.Segment = trajectory.segments[0]
         private set
@@ -65,10 +65,12 @@ class RamseteFollower(private val trajectory: Trajectory, private val kBeta: Dou
         currentSegmentIndex++
 
         // Debug
+        /*
         System.out.printf(
                 "[Path Follower] V: %2.3f, A: %2.3f, X Error: %2.3f, Y Error: %2.3f, Theta Error: %2.3f, Actual Speed: %2.3f %n",
                 v, w, xError, yError, thetaError, (DriveSubsystem.leftEncoder.rate + DriveSubsystem.rightEncoder.rate) / 2
         )
+        */
 
         return Twist2D(v, 0.0, w)
     }

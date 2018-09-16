@@ -28,12 +28,12 @@ fun <T : Number> genericAbs(x: T): T {
 /**
  * Inline cosine.
  */
-infix fun Double.cos(x: Double): Double = this * cos(x)
+infix fun Double.cos(x: Double): Double = this * Math.cos(x)
 
 /**
  * Infix sine.
  */
-infix fun Double.sin(x: Double): Double = this * sin(x)
+infix fun Double.sin(x: Double): Double = this * Math.sin(x)
 
 fun avg(vararg nums: Double) = nums.sum() / nums.size
 

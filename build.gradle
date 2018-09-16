@@ -16,7 +16,7 @@ dependencies {
     compile wpilib()
     compile ctre()
     compile navx()
-    //compile pathfinder()
+    compile pathfinder()
     compile openrio.powerup.matchData()
 
     compile "org.jetbrains.kotlinx:kotlinx-coroutines-core:0.22.5"
@@ -66,9 +66,13 @@ jar {
     manifest edu.wpi.first.gradlerio.GradleRIOPlugin.javaManifest(ROBOT_CLASS)
 }
 
+tasks.withType(Test) {
+    systemProperty "java.library.path", "/usr/local"
+}
 
 // Testing //
 test {
+    systemProperty "java.library.path", "/usr/local"
     useJUnitPlatform()
 }
 
