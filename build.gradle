@@ -66,13 +66,8 @@ jar {
     manifest edu.wpi.first.gradlerio.GradleRIOPlugin.javaManifest(ROBOT_CLASS)
 }
 
-tasks.withType(Test) {
-    systemProperty "java.library.path", "/usr/local"
-}
-
 // Testing //
 test {
-    systemProperty "java.library.path", "/usr/local"
     useJUnitPlatform()
 }
 

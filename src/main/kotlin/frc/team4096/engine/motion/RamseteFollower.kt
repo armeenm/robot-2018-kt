@@ -9,6 +9,7 @@ import frc.team4096.engine.math.sin
 import frc.team4096.robot.drivetrain.DriveSubsystem
 import jaci.pathfinder.Trajectory
 import org.apache.commons.math3.util.Precision.EPSILON
+import java.security.InvalidParameterException
 import kotlin.math.pow
 import kotlin.math.sin
 import kotlin.math.sqrt
@@ -22,6 +23,17 @@ import kotlin.math.sqrt
  * @param kZeta Zeta constant
  */
 class RamseteFollower(val trajectory: Trajectory, private val kBeta: Double, private val kZeta: Double) {
+
+    init {
+        if (kZeta >= 1.0 || kZeta <= 0.0) {
+            throw InvalidParameterException("kZeta must be between 0 and 1!")
+        }
+
+        if (kBeta < 0.0) {
+            throw InvalidParameterException("kBeta must be greater than 0!")
+        }
+    }
+
     private var currentSegmentIndex = 0
     var currentSegment: Trajectory.Segment = trajectory.segments[0]
         private set
