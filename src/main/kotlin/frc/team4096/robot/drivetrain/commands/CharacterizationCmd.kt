@@ -24,6 +24,7 @@ class CharacterizationCmd : Command() {
         }
     }
 
+    val timer = Timer()
     val leftSide = dtSide("Left") { DriveSubsystem.leftEncoder.rate }
     val rightSide = dtSide("Right") { DriveSubsystem.rightEncoder.rate }
     val sides = listOf(leftSide, rightSide)
@@ -40,32 +41,34 @@ class CharacterizationCmd : Command() {
     override fun initialize() {
         applySpeeds()
         sides.forEach { it.addPoint() }
+        timer.start()
     }
 
     override fun execute() {
-        sides.forEach {
-            val speed = it.speed
-            if (speed > 0.01) {
-                if (it.vIntercept == 0.0) it.vIntercept = it.percentOut
-                it.addPoint()
-                println("Added data point: ${it.percentOut}% to $speed ft/s")
+        // 1Hz execution
+        if (timer.hasPeriodPassed(1.0)) {
+            sides.forEach {
+                val speed = it.speed
+                if (speed > 0.01) {
+                    if (it.vIntercept == 0.0) it.vIntercept = it.percentOut
+                    it.addPoint()
+                    println("Added data point: ${it.percentOut}% to $speed ft/s")
+                }
+                it.percentOut += 0.25 / 12.0
+                applySpeeds()
             }
-            it.percentOut += 0.25 / 12.0
-            applySpeeds()
+            timer.reset()
         }
     }
 
-    override fun isFinished(): Boolean {
-        if (sides.all { it.percentOut >= 12.0 }) {
-            return true
-        }
-        return false
-    }
+    override fun isFinished() = sides.all { it.percentOut >= 1.0 }
 
     override fun end() {
         DriveSubsystem.stop()
         sides.forEach {side ->
-            side.dataPoints.forEach { point -> side.regression.addData(point.first, point.second) }
+            side.dataPoints.forEach { point ->
+                side.regression.addData(point.first, point.second)
+            }
             println("${side.sideStr} side: kV: ${1 / side.regression.slope}, vIntercept: ${side.vIntercept}, Linearity: ${side.regression.rSquare}")
         }
     }
