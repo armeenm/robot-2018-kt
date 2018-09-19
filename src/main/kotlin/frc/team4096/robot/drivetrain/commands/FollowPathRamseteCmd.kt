@@ -7,6 +7,7 @@ import frc.team4096.engine.motion.PIDVAVals
 import frc.team4096.engine.motion.RamseteFollower
 import frc.team4096.engine.motion.classicControl.PIDFController
 import frc.team4096.robot.drivetrain.DriveConsts
+import frc.team4096.robot.sensors.Gyro
 import frc.team4096.robot.drivetrain.DriveSubsystem
 
 class FollowPathRamseteCmd(
@@ -24,7 +25,11 @@ class FollowPathRamseteCmd(
     private var rightOut = 0.0
 
     override fun initialize() {
-        DriveSubsystem.apply { leftEncoder.reset(); rightEncoder.reset() }
+        DriveSubsystem.apply {
+            leftEncoder.reset()
+            rightEncoder.reset()
+        }
+        Gyro.reset()
     }
 
     override fun execute() {

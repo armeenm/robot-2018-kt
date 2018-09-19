@@ -48,6 +48,7 @@ class FollowPathPFCmd(path: PFPath, pidvaVals: PIDVAVals = DriveConsts.PIDVA_GAI
 
     override fun initialize() {
         DriveSubsystem.apply { leftEncoder.reset(); rightEncoder.reset() }
+        Gyro.reset()
         leftFollower.reset()
         rightFollower.reset()
     }

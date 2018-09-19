@@ -54,7 +54,7 @@ object OIMain {
         val metadata = PFPath.Metadata(waypoints, trajConf, DriveConsts.DT_TRACK_WIDTH)
         val path = PFPath(metadata, "")
         path.generate()
-        XboxController1.xButton.whenPressed(FollowPathRamseteCmd(path))
+        XboxController1.xButton.whenPressed(FollowPathPFCmd(path))
 
         // Drivetrain
         // Movement

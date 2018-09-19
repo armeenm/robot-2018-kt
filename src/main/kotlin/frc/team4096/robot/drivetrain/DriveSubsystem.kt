@@ -43,7 +43,7 @@ object DriveSubsystem : ZedSubsystem() {
             DriveConsts.PCM_SHIFTER_2
     )
 
-    val leftEncoder = Encoder(DriveConsts.LEFT_ENCODER_A, DriveConsts.LEFT_ENCODER_B)
+    val leftEncoder = Encoder(DriveConsts.LEFT_ENCODER_A, DriveConsts.LEFT_ENCODER_B).apply { setReverseDirection(true) }
     val rightEncoder = Encoder(DriveConsts.RIGHT_ENCODER_A, DriveConsts.RIGHT_ENCODER_B)
 
     var signal = DriveSignal(0.0, 0.0, false)
@@ -96,6 +96,8 @@ object DriveSubsystem : ZedSubsystem() {
 
     override fun log() {
         //println("X: ${pose.translation.x}, Y: ${pose.translation.y}, Theta: ${pose.rotation.degrees}")
+        println("Left Distance: ${leftEncoder.distance}")
+        println("Right Distance: ${rightEncoder.distance}")
     }
 
     // Methods
