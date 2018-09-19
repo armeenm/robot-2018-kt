@@ -96,8 +96,8 @@ object DriveSubsystem : ZedSubsystem() {
 
     override fun log() {
         //println("X: ${pose.translation.x}, Y: ${pose.translation.y}, Theta: ${pose.rotation.degrees}")
-        println("Left Distance: ${leftEncoder.distance}")
-        println("Right Distance: ${rightEncoder.distance}")
+        //println("Left Distance: ${leftEncoder.distance}")
+        //println("Right Distance: ${rightEncoder.distance}")
     }
 
     // Methods

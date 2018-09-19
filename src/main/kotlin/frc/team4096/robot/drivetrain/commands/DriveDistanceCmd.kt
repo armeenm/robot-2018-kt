@@ -28,7 +28,7 @@ class DriveDistanceCmd(
     private val rightProfile = TrapezoidalMP(
             distance, maxVel, maxAccel,
             { DriveSubsystem.rightEncoder.distance },
-            { DriveSubsystem.rightMotorGroup.set(it) }
+            { DriveSubsystem.rightMotorGroup.set(-it) }
     )
 
     private var leftController = PIDVAController(pidvaVals, leftProfile)
