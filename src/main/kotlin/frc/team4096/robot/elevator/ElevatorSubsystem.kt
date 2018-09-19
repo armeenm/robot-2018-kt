@@ -107,7 +107,7 @@ object ElevatorSubsystem : ZedSubsystem() {
     }
 
     override fun log() {
-        TODO("not implemented")
+        // TODO not implemented
     }
 
     // Set default command in OI

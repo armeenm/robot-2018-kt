@@ -8,6 +8,7 @@ import edu.wpi.first.wpilibj.drive.DifferentialDrive
 import frc.team4096.engine.async.AsyncLooper
 import frc.team4096.engine.extensions.wpi.ZedSubsystem
 import frc.team4096.engine.kinematics.Pose2D
+import frc.team4096.engine.math.avg
 import frc.team4096.engine.math.boundRadians
 import frc.team4096.engine.math.toRadians
 import frc.team4096.engine.motion.ControlState
@@ -80,7 +81,6 @@ object DriveSubsystem : ZedSubsystem() {
         rightEncoder.distancePerPulse = 1 / DriveConsts.ENCODER_TPF
 
         reset()
-
         poseLoop.start()
     }
 
@@ -95,7 +95,7 @@ object DriveSubsystem : ZedSubsystem() {
     }
 
     override fun log() {
-        //TODO: Implement
+        //println("X: ${pose.translation.x}, Y: ${pose.translation.y}, Theta: ${pose.rotation.degrees}")
     }
 
     // Methods
@@ -105,8 +105,10 @@ object DriveSubsystem : ZedSubsystem() {
 
     private fun updatePose() {
         // Get the delta by making a new EncDistances object with the latest distances
-        val deltaEncDistances = EncDistances(leftEncoder.distance, rightEncoder.distance) - encDistances
+        val newDistances = EncDistances(leftEncoder.distance, rightEncoder.distance)
+        val deltaEncDistances = newDistances - encDistances
         val avgEncDistance = deltaEncDistances.average()
+        encDistances = newDistances
 
         // Update pose using basic trigonometry
         val angle = Gyro.angle.toRadians()

@@ -3,15 +3,21 @@
 package frc.team4096.robot.oi
 
 import frc.team4096.engine.motion.DriveSignal
+import frc.team4096.engine.motion.PFPath
 import frc.team4096.engine.oi.XboxConsts
 import frc.team4096.engine.oi.ZedXboxController
 import frc.team4096.engine.util.commandify
+import frc.team4096.robot.autonomous.modes.DriveForward
 import frc.team4096.robot.climber.ClimberConsts
 import frc.team4096.robot.climber.ClimberSubsystem
 import frc.team4096.robot.climber.ManualClimberCmd
+import frc.team4096.robot.drivetrain.DriveConsts
 import frc.team4096.robot.drivetrain.DriveSubsystem
 import frc.team4096.robot.drivetrain.GearState
 import frc.team4096.robot.drivetrain.commands.DriveCmd
+import frc.team4096.robot.drivetrain.commands.DriveDistanceCmd
+import frc.team4096.robot.drivetrain.commands.FollowPathPFCmd
+import frc.team4096.robot.drivetrain.commands.FollowPathRamseteCmd
 import frc.team4096.robot.elevator.ElevatorConsts
 import frc.team4096.robot.elevator.ElevatorSubsystem
 import frc.team4096.robot.elevator.commands.AutoElevatorCmd
@@ -19,6 +25,8 @@ import frc.team4096.robot.elevator.commands.ManualElevatorCmd
 import frc.team4096.robot.intake.IntakeConsts
 import frc.team4096.robot.intake.IntakeSubsystem
 import frc.team4096.robot.intake.commands.ManualIntakeCmd
+import jaci.pathfinder.Trajectory
+import jaci.pathfinder.Waypoint
 
 /**
  * Operator input object.
@@ -31,13 +39,29 @@ object OIMain {
 
     init {
         // Controller 1 (Main Driver)
+        val waypoints = arrayOf(
+                Waypoint(0.0, 0.0, 0.0),
+                Waypoint(10.0, 0.0, 0.0)
+        )
+        val trajConf = Trajectory.Config(
+                Trajectory.FitMethod.HERMITE_CUBIC,
+                Trajectory.Config.SAMPLES_HIGH,
+                0.02,
+                9.0,
+                4.0,
+                60.0
+        )
+        val metadata = PFPath.Metadata(waypoints, trajConf, DriveConsts.DT_TRACK_WIDTH)
+        val path = PFPath(metadata, "")
+        path.generate()
+        XboxController1.xButton.whenPressed(FollowPathRamseteCmd(path))
 
         // Drivetrain
         // Movement
         DriveSubsystem.defaultCommand = DriveCmd {
             DriveSignal(
                     XboxController1.getAxis(XboxConsts.Axis.LEFT_Y),
-                    XboxController1.getAxis(XboxConsts.Axis.RIGHT_X),
+                    -XboxController1.getAxis(XboxConsts.Axis.RIGHT_X),
                     XboxController1.lbButton.get()
             )
         }

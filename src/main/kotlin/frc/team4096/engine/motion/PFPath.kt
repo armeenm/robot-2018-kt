@@ -39,7 +39,7 @@ class PFPath(
     var pathData: Metadata? = null
 
     // Pathfinder trajectory CSV
-    private val csvFile = File("$baseFilePath/$pathName/trajectory.csv")
+    private val csvFile = File("$baseFilePath/$pathName.csv")
     // Associated Pathfinder metadata JSON
     private val jsonFile = File("$baseFilePath/$pathName/metadata.json")
 
@@ -69,6 +69,7 @@ class PFPath(
         }
 
         // CSV
+        println("CSV File: $csvFile")
         trajectory = Pathfinder.readFromCSV(csvFile)
         modifier = TankModifier(trajectory).modify(wheelbaseWidth)
     }

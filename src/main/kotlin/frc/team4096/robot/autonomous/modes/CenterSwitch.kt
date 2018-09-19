@@ -22,7 +22,13 @@ object CenterSwitch : AutoMode() {
 
     override fun setup(autoData: String) {
         // Get 0th element of data (our switch) and 0th element of path list (first path)
+
+        println("${pathMap.entries}")
         path = pathMap[autoData[0]]!![0]
+
+        if (path == null) {
+            println("Path NULL!!!")
+        }
 
         if (path != null) {
             // Raise elevator while moving

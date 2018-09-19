@@ -5,6 +5,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard
 import frc.team4096.engine.async.AsyncLooper
 import frc.team4096.robot.autonomous.AutoMain
 import frc.team4096.robot.climber.ClimberSubsystem
+import frc.team4096.robot.drivetrain.DriveConsts
 import frc.team4096.robot.drivetrain.DriveSubsystem
 import frc.team4096.robot.elevator.ElevatorSubsystem
 import frc.team4096.robot.intake.IntakeSubsystem
@@ -47,6 +48,7 @@ class Robot : TimedRobot() {
         val logLoop = AsyncLooper(10.0, true) { log() }
         logLoop.start()
 
+        println("Encoder TPF: ${DriveConsts.ENCODER_TPF}")
         println("---- ROBOT INITIALIZATION COMPLETE! ----")
     }
 

@@ -11,7 +11,7 @@ abstract class AutoMode : CommandGroup() {
         HashMap<Char, List<PFPath>>().apply {
             listOf('L', 'R').forEach { side ->
                 side to List(numPaths) { i ->
-                    PFPath("$pathDir/$side/$i")
+                    PFPath("$pathDir/$side/${i}_source_Jaci")
                 }
             }
         }
