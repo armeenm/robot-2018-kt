@@ -25,7 +25,7 @@ object IntakeConsts {
     // Speeds
     const val MAX_IN_SPEED = 1.0
     const val MAX_OUT_SPEED = -1.0
-    const val DEFAULT_ROTATE_SPEED = 0.75
+    const val DEFAULT_ROTATE_SPEED = -0.75
 
-    const val ROTATE_HOLD_SPEED = 0.3
+    const val ROTATE_HOLD_SPEED = -0.1
 }

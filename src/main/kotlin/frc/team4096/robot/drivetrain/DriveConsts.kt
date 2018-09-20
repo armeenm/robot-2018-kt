@@ -19,6 +19,8 @@ object DriveConsts {
     const val LEFT_ENCODER_B = 1
     const val RIGHT_ENCODER_A = 2
     const val RIGHT_ENCODER_B = 3
+    const val INVERT_LEFT_ENC = true
+    const val INVERT_RIGHT_ENC = false
 
     // Pneumatics
     const val PCM_SHIFTER_1 = 0

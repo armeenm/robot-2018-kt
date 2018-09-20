@@ -45,7 +45,6 @@ enum class ControlState {
 
 data class DriveSignal(var xSpeed: Double, var zRotation: Double, var isQuickTurn: Boolean)
 
-data class DrivePose(var xPos: Double, var yPos: Double, var yawAngle: Double)
 data class EncDistances(var leftDistance: Double, var rightDistance: Double) {
     operator fun minus(incEncDistances: EncDistances) =
             EncDistances(

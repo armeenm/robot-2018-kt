@@ -10,6 +10,7 @@ import frc.team4096.engine.extensions.wpi.ZedSubsystem
 import frc.team4096.engine.kinematics.Pose2D
 import frc.team4096.engine.math.avg
 import frc.team4096.engine.math.boundRadians
+import frc.team4096.engine.math.toDegrees
 import frc.team4096.engine.math.toRadians
 import frc.team4096.engine.motion.ControlState
 import frc.team4096.engine.motion.DriveMode
@@ -43,8 +44,12 @@ object DriveSubsystem : ZedSubsystem() {
             DriveConsts.PCM_SHIFTER_2
     )
 
-    val leftEncoder = Encoder(DriveConsts.LEFT_ENCODER_A, DriveConsts.LEFT_ENCODER_B).apply { setReverseDirection(true) }
-    val rightEncoder = Encoder(DriveConsts.RIGHT_ENCODER_A, DriveConsts.RIGHT_ENCODER_B)
+    val leftEncoder = Encoder(DriveConsts.LEFT_ENCODER_A, DriveConsts.LEFT_ENCODER_B).apply {
+        setReverseDirection(DriveConsts.INVERT_LEFT_ENC)
+    }
+    val rightEncoder = Encoder(DriveConsts.RIGHT_ENCODER_A, DriveConsts.RIGHT_ENCODER_B).apply {
+        setReverseDirection(DriveConsts.INVERT_RIGHT_ENC)
+    }
 
     var signal = DriveSignal(0.0, 0.0, false)
         set(sig) {
@@ -60,7 +65,7 @@ object DriveSubsystem : ZedSubsystem() {
     // Assumes starting at the origin facing forward.
     // TODO: Change this based on robot starting position in auto.
     var pose = Pose2D(0.0, 0.0, 0.0)
-    val poseLoop = AsyncLooper(250.0, false) { updatePose() }
+    val poseLoop = AsyncLooper(100.0, false) { updatePose() }
 
     var encDistances = EncDistances(leftEncoder.distance, rightEncoder.distance)
 
@@ -91,13 +96,15 @@ object DriveSubsystem : ZedSubsystem() {
         rightEncoder.reset()
         encDistances.leftDistance = 0.0
         encDistances.rightDistance = 0.0
-
+        pose = Pose2D()
+        Gyro.reset()
     }
 
     override fun log() {
-        //println("X: ${pose.translation.x}, Y: ${pose.translation.y}, Theta: ${pose.rotation.degrees}")
-        //println("Left Distance: ${leftEncoder.distance}")
-        //println("Right Distance: ${rightEncoder.distance}")
+        /*
+        println("X: ${pose.translation.x}, Y: ${pose.translation.y}, Theta: ${pose.rotation.degrees}" +
+                ", Left: ${leftEncoder.distance}, Right: ${rightEncoder.distance}, Gyro: ${Gyro.angle} ")
+                */
     }
 
     // Methods
@@ -113,11 +120,11 @@ object DriveSubsystem : ZedSubsystem() {
         encDistances = newDistances
 
         // Update pose using basic trigonometry
-        val angle = Gyro.angle.toRadians()
+        val angle = Gyro.angle.toRadians().boundRadians()
         pose = Pose2D(
-                (pose.translation.x + avgEncDistance * cos(angle)),
-                (pose.translation.y + avgEncDistance * sin(angle)),
-                angle.boundRadians()
+                pose.translation.x + avgEncDistance * cos(angle),
+                pose.translation.y + avgEncDistance * sin(angle),
+                angle
         )
     }
 }

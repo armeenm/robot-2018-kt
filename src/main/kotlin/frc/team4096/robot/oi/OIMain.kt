@@ -2,6 +2,7 @@
 
 package frc.team4096.robot.oi
 
+import frc.team4096.engine.kinematics.Pose2D
 import frc.team4096.engine.motion.DriveSignal
 import frc.team4096.engine.motion.PFPath
 import frc.team4096.engine.oi.XboxConsts
@@ -55,7 +56,7 @@ object OIMain {
         val path = PFPath(metadata, "")
         path.generate()
         //XboxController1.xButton.whenPressed(FollowPathRamseteCmd(path))
-        XboxController1.xButton.whenPressed(DriveDistanceCmd(10.0, DriveConsts.DT_MAX_VEL, DriveConsts.DT_MAX_ACCEL, DriveConsts.PIDVA_GAINS_PF))
+        XboxController1.xButton.whenPressed(DriveDistanceCmd(-3.0, DriveConsts.DT_MAX_VEL, DriveConsts.DT_MAX_ACCEL, DriveConsts.PIDVA_GAINS_PF))
 
         // Drivetrain
         // Movement
@@ -74,6 +75,11 @@ object OIMain {
 
         // Climber
         XboxController1.upDPad.whileHeld(ManualClimberCmd(ClimberConsts.MAX_FORWARD_SPEED))
+
+        // Reset Encoders
+        XboxController1.startButton.whenPressed(commandify {
+            DriveSubsystem.reset()
+        })
 
         // Controller 2 (Secondary Driver)
         // Manual Elevator

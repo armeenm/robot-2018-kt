@@ -50,10 +50,8 @@ object IntakeSubsystem : ZedSubsystem() {
     var rotateSpeed: Double = 0.0
         set(inputSpeed) {
             applyDeadband(inputSpeed, IntakeConsts.ROTATE_DEAD_BAND)
-            if (!rotateHolding) {
-                rotationMotor.speed = inputSpeed
-                field = inputSpeed
-            }
+            rotationMotor.speed = inputSpeed
+            field = inputSpeed
         }
 
     // Required Methods
