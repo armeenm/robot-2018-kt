@@ -120,7 +120,7 @@ object DriveSubsystem : ZedSubsystem() {
         encDistances = newDistances
 
         // Update pose using basic trigonometry
-        val angle = Gyro.angle.toRadians().boundRadians()
+        val angle = (-Gyro.angle).toRadians().boundRadians()
         pose = Pose2D(
                 pose.translation.x + avgEncDistance * cos(angle),
                 pose.translation.y + avgEncDistance * sin(angle),

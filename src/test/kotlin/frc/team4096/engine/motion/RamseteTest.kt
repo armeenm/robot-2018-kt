@@ -21,13 +21,14 @@ class RamseteTest {
 
         val waypointArray = arrayOf(
                 Waypoint(-1.0, -1.0, 0.0),
-                Waypoint(10.0, 5.0, 0.0)
+                Waypoint(10.0, -1.0, 0.0)
         )
 
         val kBeta = 0.6
         val kZeta = 0.5
 
-        var pose = Pose2D(waypointArray[0].x, waypointArray[0].y, waypointArray[0].angle)
+        //var pose = Pose2D(waypointArray[0].x, waypointArray[0].y, waypointArray[0].angle)
+        var pose = Pose2D()
         val freq = 50.0
         val dt = 1 / freq
         var time = 0.0

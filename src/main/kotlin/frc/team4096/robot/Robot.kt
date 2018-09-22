@@ -3,6 +3,7 @@ package frc.team4096.robot
 import edu.wpi.first.wpilibj.TimedRobot
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard
 import frc.team4096.engine.async.AsyncLooper
+import frc.team4096.engine.extensions.wpi.ZedSubsystem
 import frc.team4096.robot.autonomous.AutoMain
 import frc.team4096.robot.climber.ClimberSubsystem
 import frc.team4096.robot.drivetrain.DriveConsts
@@ -66,7 +67,7 @@ class Robot : TimedRobot() {
     // AUTONOMOUS //
     override fun autonomousInit() {
         // Reset all subsystems for autonomous
-        subsystemList.forEach { it.autoReset() }
+        subsystemList.forEach(ZedSubsystem::autoReset)
 
         AutoMain.fetchData()
     }
@@ -81,14 +82,14 @@ class Robot : TimedRobot() {
         // Clear out scheduler, potentially from autonomous
         scheduler.removeAll()
         // Reset all subsystems for teleop
-        subsystemList.forEach { it.teleopReset() }
+        subsystemList.forEach(ZedSubsystem::autoReset)
     }
 
     override fun teleopPeriodic() {}
 
     // TEST //
     override fun testInit() {
-        subsystemList.forEach { it.reset() }
+        subsystemList.forEach(ZedSubsystem::autoReset)
     }
 
     override fun testPeriodic() {}

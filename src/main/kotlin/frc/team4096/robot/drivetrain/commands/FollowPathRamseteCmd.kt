@@ -44,8 +44,8 @@ class FollowPathRamseteCmd(
             rightOut = calculate(DriveSubsystem.rightEncoder.rate)
         }
         DriveSubsystem.diffDrive.tankDrive(
-                leftOut / DriveConsts.DT_MAX_VEL,
-                rightOut / DriveConsts.DT_MAX_VEL
+                -leftOut / DriveConsts.DT_MAX_VEL,
+                -rightOut / DriveConsts.DT_MAX_VEL
         )
     }
 

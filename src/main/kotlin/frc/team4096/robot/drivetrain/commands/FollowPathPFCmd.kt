@@ -18,6 +18,7 @@ import jaci.pathfinder.followers.EncoderFollower
 class FollowPathPFCmd(path: PFPath, pidvaVals: PIDVAVals = DriveConsts.PIDVA_GAINS_PF) : Command() {
     private val leftFollower = EncoderFollower(path.modifier!!.leftTrajectory)
     private val rightFollower = EncoderFollower(path.modifier!!.rightTrajectory)
+    private val followers = listOf(leftFollower, rightFollower)
 
     private var l = 0.0
     private var r = 0.0
@@ -30,7 +31,7 @@ class FollowPathPFCmd(path: PFPath, pidvaVals: PIDVAVals = DriveConsts.PIDVA_GAI
         isInterruptible = false
         requires(DriveSubsystem)
 
-        listOf(leftFollower, rightFollower).forEach {
+        followers.forEach {
             it.configurePIDVA(pidvaVals.kP, pidvaVals.kI, pidvaVals.kD, pidvaVals.kV, pidvaVals.kA)
         }
 
@@ -39,6 +40,7 @@ class FollowPathPFCmd(path: PFPath, pidvaVals: PIDVAVals = DriveConsts.PIDVA_GAI
                 DriveConsts.ENCODER_TPR,
                 DriveConsts.DT_WHEEL_DIAMETER
         )
+
         rightFollower.configureEncoder(
                 DriveSubsystem.rightEncoder.get(),
                 DriveConsts.ENCODER_TPR,
@@ -49,8 +51,7 @@ class FollowPathPFCmd(path: PFPath, pidvaVals: PIDVAVals = DriveConsts.PIDVA_GAI
     override fun initialize() {
         DriveSubsystem.apply { leftEncoder.reset(); rightEncoder.reset() }
         Gyro.reset()
-        leftFollower.reset()
-        rightFollower.reset()
+        followers.forEach(EncoderFollower::reset)
     }
 
     override fun execute() {
@@ -58,12 +59,15 @@ class FollowPathPFCmd(path: PFPath, pidvaVals: PIDVAVals = DriveConsts.PIDVA_GAI
         l = leftFollower.calculate(DriveSubsystem.leftEncoder.get())
         r = rightFollower.calculate(DriveSubsystem.rightEncoder.get())
         // Heading
-        gyroHeading = Gyro.angle
+        gyroHeading = -Gyro.angle
         desiredHeading = Pathfinder.r2d(leftFollower.heading)
         angleDifference = Pathfinder.boundHalfDegrees(desiredHeading - gyroHeading)
-        turn = 0.8 * (-1.0 / 80.0) * angleDifference
+        turn = 5 * (-1.0 / 80.0) * angleDifference
 
-        DriveSubsystem.diffDrive.tankDrive(l + turn, r - turn)
+        l += turn
+        r -= turn
+
+        DriveSubsystem.diffDrive.tankDrive(-l, -r)
     }
 
     override fun isFinished() = leftFollower.isFinished && rightFollower.isFinished
