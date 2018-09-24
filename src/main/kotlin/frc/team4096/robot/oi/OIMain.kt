@@ -3,6 +3,7 @@
 package frc.team4096.robot.oi
 
 import frc.team4096.engine.kinematics.Pose2D
+import frc.team4096.engine.math.toRadians
 import frc.team4096.engine.motion.DriveSignal
 import frc.team4096.engine.motion.PFPath
 import frc.team4096.engine.oi.XboxConsts
@@ -41,8 +42,8 @@ object OIMain {
     init {
         // Controller 1 (Main Driver)
         val waypoints = arrayOf(
-                Waypoint(0.0, 0.0, 0.0),
-                Waypoint(10.0, 0.0, 0.0)
+                Waypoint(0.0, 22.0, 0.0),
+                Waypoint(10.0, 21.0, (-45.0).toRadians())
         )
         val trajConf = Trajectory.Config(
                 Trajectory.FitMethod.HERMITE_CUBIC,
@@ -55,8 +56,15 @@ object OIMain {
         val metadata = PFPath.Metadata(waypoints, trajConf, DriveConsts.DT_TRACK_WIDTH)
         val path = PFPath(metadata, "")
         path.generate()
-        //XboxController1.xButton.whenPressed(FollowPathRamseteCmd(path))
-        XboxController1.xButton.whenPressed(DriveDistanceCmd(-3.0, DriveConsts.DT_MAX_VEL, DriveConsts.DT_MAX_ACCEL, DriveConsts.PIDVA_GAINS_PF))
+        XboxController1.xButton.whenPressed(FollowPathRamseteCmd(path, setPoseToPath = true))
+        /*
+        XboxController1.xButton.whenPressed(DriveDistanceCmd(
+                3.0,
+                DriveConsts.DT_MAX_VEL,
+                DriveConsts.DT_MAX_ACCEL,
+                DriveConsts.PIDVA_GAINS_PF
+        ))
+        */
 
         // Drivetrain
         // Movement

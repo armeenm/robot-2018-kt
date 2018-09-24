@@ -114,7 +114,7 @@ object DriveSubsystem : ZedSubsystem() {
 
     private fun updatePose() {
         // Get the delta by making a new EncDistances object with the latest distances
-        val newDistances = EncDistances(leftEncoder.distance, rightEncoder.distance)
+        val newDistances = EncDistances(-leftEncoder.distance, -rightEncoder.distance)
         val deltaEncDistances = newDistances - encDistances
         val avgEncDistance = deltaEncDistances.average()
         encDistances = newDistances
@@ -123,7 +123,7 @@ object DriveSubsystem : ZedSubsystem() {
         val angle = (-Gyro.angle).toRadians().boundRadians()
         pose = Pose2D(
                 pose.translation.x + avgEncDistance * cos(angle),
-                pose.translation.y + avgEncDistance * sin(angle),
+                pose.translation.y - avgEncDistance * sin(angle),
                 angle
         )
     }

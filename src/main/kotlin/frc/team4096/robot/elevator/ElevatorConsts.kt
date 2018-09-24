@@ -1,6 +1,9 @@
 package frc.team4096.robot.elevator
 
 object ElevatorConsts {
+    // Deadband
+    const val DEADBAND = 0.05
+
     // Motors
     const val CAN_MASTER_MOTOR = 1
     const val CAN_SLAVE_MOTOR = 3

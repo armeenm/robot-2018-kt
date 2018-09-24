@@ -40,6 +40,10 @@ class RamseteFollower(val trajectory: Trajectory, private val kBeta: Double, pri
     val isFinished
         get() = currentSegmentIndex == trajectory.segments.size - 1
 
+    fun reset() {
+        currentSegmentIndex = 0
+    }
+
     /**
      * Returns desired linear and angular velocity of the robot.
      */

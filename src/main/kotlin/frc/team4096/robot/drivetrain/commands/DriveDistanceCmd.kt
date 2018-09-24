@@ -31,8 +31,9 @@ class DriveDistanceCmd(
             { DriveSubsystem.rightMotorGroup.set(-it) }
     )
 
-    private var leftController = PIDVAController(pidvaVals, leftProfile)
-    private var rightController = PIDVAController(pidvaVals, rightProfile)
+    private val leftController = PIDVAController(pidvaVals, leftProfile)
+    private val rightController = PIDVAController(pidvaVals, rightProfile)
+    private val controllers = listOf(leftController, rightController)
 
     init {
         this.requires(DriveSubsystem)
@@ -40,10 +41,16 @@ class DriveDistanceCmd(
     }
 
     override fun initialize() {
-        leftController.enable()
-        rightController.enable()
+        DriveSubsystem.rightEncoder.reset()
+        DriveSubsystem.leftEncoder.reset()
+        controllers.forEach(PIDVAController::enable)
     }
 
-    override fun isFinished() =
-            leftController.profile.isFinished && rightController.profile.isFinished
+    override fun isFinished() = leftController.profile.isFinished && rightController.profile.isFinished
+
+    override fun end() {
+        println("DriveDistance complete!")
+        DriveSubsystem.stop()
+        controllers.forEach(PIDVAController::disable)
+    }
 }

@@ -39,6 +39,7 @@ class PIDVAController(
      * Enables controller and launches coroutine.
      */
     fun enable() {
+        profile.reset()
         isEnabled = true
     }
 

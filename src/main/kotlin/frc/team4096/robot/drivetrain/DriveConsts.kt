@@ -41,8 +41,7 @@ object DriveConsts {
     /**
      * Encoder ticks per foot
      */
-    const val ENCODER_TPF =
-            ENCODER_TPR / (PI * DT_WHEEL_DIAMETER)
+    const val ENCODER_TPF = ENCODER_TPR / (PI * DT_WHEEL_DIAMETER)
 
     // Software
     const val ROT_DEADBAND = 0.05

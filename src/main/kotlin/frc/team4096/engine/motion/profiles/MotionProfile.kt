@@ -9,4 +9,5 @@ abstract class MotionProfile {
     open val freq = 50.0
 
     abstract fun follow(curPos: Double): PVAJData
+    abstract fun reset()
 }

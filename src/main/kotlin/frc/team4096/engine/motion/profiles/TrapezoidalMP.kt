@@ -57,7 +57,7 @@ class TrapezoidalMP(
 
     override var isFinished = false
 
-    fun reset() {
+    override fun reset() {
         state = ProfileState.REST
 
         error = 0.0
