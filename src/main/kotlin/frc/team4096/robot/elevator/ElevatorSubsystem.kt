@@ -36,6 +36,7 @@ object ElevatorSubsystem : ZedSubsystem() {
     var speed = 0.0
         set(inputSpeed) {
             masterMotor.set(inputSpeed)
+            slaveMotor.follow(masterMotor)
             field = inputSpeed
         }
 
@@ -47,6 +48,9 @@ object ElevatorSubsystem : ZedSubsystem() {
     override fun reset() {
         // Configure Talon SRX (Master)
         masterMotor.apply {
+            setSensorPhase(ElevatorConsts.SENSOR_PHASE)
+            inverted = ElevatorConsts.MASTER_INVERTED
+
             selectProfileSlot(ElevatorConsts.K_SLOT_ID, 0)
 
             configPIDF(
@@ -103,11 +107,11 @@ object ElevatorSubsystem : ZedSubsystem() {
         }
 
         // Configure Victor SPX (Slave)
-        slaveMotor.follow(masterMotor)
+        slaveMotor.inverted = ElevatorConsts.SLAVE_INVERTED
     }
 
     override fun log() {
-        // TODO not implemented
+        println("Elevator Encoder: ${masterMotor.getSelectedSensorPosition(0)}")
     }
 
     // Set default command in OI

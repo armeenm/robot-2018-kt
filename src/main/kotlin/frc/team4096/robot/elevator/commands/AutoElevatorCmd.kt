@@ -3,6 +3,7 @@ package frc.team4096.robot.elevator.commands
 import com.ctre.phoenix.motorcontrol.ControlMode
 import edu.wpi.first.wpilibj.command.Command
 import frc.team4096.engine.util.onTarget
+import frc.team4096.robot.elevator.ElevatorConsts
 import frc.team4096.robot.elevator.ElevatorSubsystem
 
 /**
@@ -11,7 +12,8 @@ import frc.team4096.robot.elevator.ElevatorSubsystem
  *
  * @param distance Distance to travel
  */
-class AutoElevatorCmd(private val distance: Double) : Command() {
+class AutoElevatorCmd(distance: Double) : Command() {
+    private val talonDistance = -distance * ElevatorConsts.ENC_TICKS_PER_FOOT
     init {
         this.requires(ElevatorSubsystem)
         // TODO: Maybe this can be interruptible??
@@ -20,20 +22,25 @@ class AutoElevatorCmd(private val distance: Double) : Command() {
     }
 
     override fun initialize() {
+        println(talonDistance)
         ElevatorSubsystem.hwState = ElevatorSubsystem.ElevatorState.FREE
     }
 
-    override fun execute() =
-            ElevatorSubsystem.masterMotor.set(ControlMode.MotionMagic, distance)
+    override fun execute() {
+        ElevatorSubsystem.masterMotor.set(ControlMode.MotionMagic, talonDistance)
+        ElevatorSubsystem.slaveMotor.follow(ElevatorSubsystem.masterMotor)
+    }
 
     override fun isFinished() =
             onTarget(
-                    ElevatorSubsystem.masterMotor.sensorCollection.quadraturePosition.toDouble(),
-                    distance,
+                    ElevatorSubsystem.masterMotor.getSelectedSensorPosition(0).toDouble(),
+                    talonDistance,
                     5000.0
             )
 
     override fun end() {
+        println("MM Done!")
+        ElevatorSubsystem.stop()
         ElevatorSubsystem.hwState = ElevatorSubsystem.ElevatorState.HOLDING
     }
 }

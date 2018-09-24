@@ -8,6 +8,10 @@ object ElevatorConsts {
     const val CAN_MASTER_MOTOR = 1
     const val CAN_SLAVE_MOTOR = 3
 
+    // Inversion
+    const val MASTER_INVERTED = false
+    const val SLAVE_INVERTED = false
+
     // Pneumatics
     const val PCM_BRAKE_1 = 1
     const val PCM_BRAKE_2 = 6
@@ -41,6 +45,7 @@ object ElevatorConsts {
     const val DISTANCE_kI = 0.0
     const val DISTANCE_kD = 0.0
     const val MAX_CLOSED_LOOP_ERROR = 5000
-    const val MAX_ACCEL = 200000
+    const val MAX_ACCEL = 125000
     const val MAX_CRUISE_VEL = 200000
+    const val SENSOR_PHASE = true
 }

@@ -27,6 +27,7 @@ import frc.team4096.robot.elevator.commands.ManualElevatorCmd
 import frc.team4096.robot.intake.IntakeConsts
 import frc.team4096.robot.intake.IntakeSubsystem
 import frc.team4096.robot.intake.commands.ManualIntakeCmd
+import frc.team4096.robot.misc.MiscConsts
 import jaci.pathfinder.Trajectory
 import jaci.pathfinder.Waypoint
 
@@ -106,6 +107,10 @@ object OIMain {
         XboxController2.upDPad.whenPressed(
                 AutoElevatorCmd(ElevatorConsts.Positions.SCALE.pos)
         )
+
+        XboxController2.selectButton.whenPressed(commandify {
+            ElevatorSubsystem.masterMotor.setSelectedSensorPosition(0, 0, MiscConsts.K_TIMEOUT_MS)
+        })
 
         // Intake
         // Wheels

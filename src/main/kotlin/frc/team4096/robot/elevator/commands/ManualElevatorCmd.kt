@@ -36,7 +36,7 @@ class ManualElevatorCmd(private var speedFun: () -> Double) : Command() {
     override fun isFinished() = false
 
     override fun end() {
-        ElevatorSubsystem.speed = 0.0
+        ElevatorSubsystem.stop()
         ElevatorSubsystem.hwState = ElevatorSubsystem.ElevatorState.HOLDING
     }
 }
